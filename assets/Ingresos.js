@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-import {Container, Content, Left, Body, Icon, Card, CardItem, List, ListItem} from 'native-base';
+import {
+  Container,
+  Content,
+  Input,
+  Left,
+  Body,
+  Icon,
+  Card,
+  CardItem,
+  List,
+  ListItem
+} from 'native-base';
 import Cabecera2 from './Cabecera2';
 import imgLogo from '../imgs/Ingresos.png';
 import Valores from '../components/Modal';
@@ -21,21 +32,27 @@ export default class Ingresos extends Component {
             <List>
               <ListItem icon>
                 <Left>
-                  <Icon name="calculator" style={{color: '#ff5722'}}/>
+                  <Icon name="calculator" style={{
+                    color: '#ff5722'
+                  }}/>
                 </Left>
                 <Body>
-                  <Valores />
+                  <Valores/>
                 </Body>
               </ListItem>
 
               <ListItem icon>
                 <Left>
-                  <Icon name="calendar" style={{color: '#2196f3'}}/>
+                  <Icon name="paper"/>
                 </Left>
-                <Body>
-                  <Fecha />
+                <Body >
+                  <Input style={{
+                    marginLeft: 10,
+                    color: '#757575'
+                  }} placeholder='Descripción'/>
                 </Body>
               </ListItem>
+
             </List>
           </Card>
         </Content>
