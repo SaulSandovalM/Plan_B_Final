@@ -10,10 +10,10 @@ export default class HeaderExample extends Component {
       <Container>
         <Cabecera hasTabs/>
         <Tabs>
-          <Tab heading="YO" activeTabStyle={{backgroundColor: 'white'}}>
+          <Tab heading="YO" tabStyle={{backgroundColor: 'white'}} activeTabStyle={{backgroundColor: 'white'}}>
             <Tab1/>
           </Tab>
-          <Tab heading="NOTICIAS">
+          <Tab heading="NOTICIAS" tabStyle={{backgroundColor: 'white'}} activeTabStyle={{backgroundColor: 'white'}}>
             <Tab2/>
           </Tab>
         </Tabs>
