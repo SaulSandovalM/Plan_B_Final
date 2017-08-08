@@ -1,22 +1,7 @@
 import React, {Component} from 'react';
-import {
-  Container,
-  Button,
-  Badge,
-  Header,
-  Content,
-  List,
-  ListItem,
-  Text,
-  Icon,
-  Left,
-  Body,
-  Right,
-  Switch
-} from 'native-base';
+import {Button, List, ListItem, Text, Icon, Left, Body, Right} from 'native-base';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
-
 import styles from '../estilos/modcat.style';
 
 export default class Example extends Component {
@@ -94,9 +79,7 @@ export default class Example extends Component {
           </Body>
         </ListItem>
       </List>
-
     </View>
-
   );
 
   render() {
@@ -107,7 +90,6 @@ export default class Example extends Component {
             {this.state.icono == ''
               ? <Icon style={styles.icono} name='add'/>
               : <Icon style={styles.icono} name={this.state.icono}/>}
-
           </Left>
           <Button transparent dark onPress={() => this.setState({visibleModal: 1})}>
             {this.state.icono == ''

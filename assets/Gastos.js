@@ -1,22 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import {
-  Container,
-  Content,
-  Card,
-  CardItem,
-  List,
-  Left,
-  ListItem,
-  Body,
-  Header,
-  Icon,
-  Title,
-  Picker,
-  Item,
-  Fab,
-  Input
-} from 'native-base';
+import {Container, Content, CardItem, List, Left, ListItem, Body, Icon, Title, Picker, Item, Fab, Input} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Cabecera2 from './Cabecera2';
 import Valores from '../components/Modal';
@@ -27,13 +11,9 @@ export default class Gastos extends Component {
 
   render() {
     return (
-      <Container style={{
-        backgroundColor: "white"
-      }}>
+      <Container style={styles.back}>
         <Cabecera2/>
         <Content>
-
-          <Card>
             <CardItem header>
               <Text>Gasto</Text>
             </CardItem>
@@ -41,9 +21,7 @@ export default class Gastos extends Component {
             <List>
               <ListItem icon>
                 <Left>
-                  <Icon name="calculator" style={{
-                    color: '#ff5722'
-                  }}/>
+                  <Icon name="calculator" style={styles.icon}/>
                 </Left>
                 <Body>
                   <Valores/>
@@ -62,25 +40,21 @@ export default class Gastos extends Component {
                   <Icon name="paper"/>
                 </Left>
                 <Body >
-                  <Input style={{
-                    marginLeft: 10,
-                    color: '#757575'
-                  }} placeholder='Descripción'/>
+                  <Input style={styles.input} placeholder='Descripción'/>
                 </Body>
               </ListItem>
               <Modalcat/>
-
             </List>
-          </Card>
-
         </Content>
-
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  back: {
+    backgroundColor: "white",
+  },
   color: {
     color: "green"
   },
@@ -94,5 +68,12 @@ const styles = StyleSheet.create({
   img: {
     height: 200,
     width: '100%'
+  },
+  icon: {
+    color: '#ff5722'
+  },
+  input: {
+    marginLeft: 10,
+    color: '#757575',
   }
 });
