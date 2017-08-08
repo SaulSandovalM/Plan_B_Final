@@ -37,7 +37,7 @@ export default class tabOne extends Component {
 
           <View style={styles.align}>
             <Card style={styles.borde}>
-              <Button iconLeft transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
+              <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
                 <Image source={require('../imgs/Ingresos.png')} style={styles.img}/>
               </Button>
               <Text>Ingresos</Text>
@@ -51,7 +51,7 @@ export default class tabOne extends Component {
             </Card>
 
             <Card style={styles.borde}>
-              <Button iconLeft transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
+              <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
                 <Image source={require('../imgs/Ahorros.png')} style={styles.img}/>
               </Button>
               <Text>Ahorros</Text>

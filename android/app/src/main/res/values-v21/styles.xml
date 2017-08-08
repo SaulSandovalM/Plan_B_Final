@@ -2,6 +2,6 @@
 <resources>
 
     <style name="white" parent="android:Theme.Material.Light.NoActionBar" >
-        <item name="android:statusBarColor">@android:color/white</item>
+
     </style>
 </resources>
