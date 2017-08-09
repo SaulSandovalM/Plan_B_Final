@@ -21,9 +21,7 @@ export default class Ingresos extends Component {
             <List>
               <ListItem icon>
                 <Left>
-                  <Icon name="calculator" style={{
-                    color: '#ff5722'
-                  }}/>
+                  <Icon name="calculator" style={styles.icon}/>
                 </Left>
                 <Body>
                   <Valores/>
@@ -35,10 +33,7 @@ export default class Ingresos extends Component {
                   <Icon name="paper"/>
                 </Left>
                 <Body >
-                  <Input style={{
-                    marginLeft: 10,
-                    color: '#757575'
-                  }} placeholder='Descripción'/>
+                  <Input style={styles.input} placeholder='Descripción'/>
                 </Body>
               </ListItem>
 
@@ -67,6 +62,13 @@ const styles = StyleSheet.create({
   img: {
     height: 200,
     width: '100%'
+  },
+  icon: {
+    color: '#ff5722'
+  },
+  input: {
+    marginLeft: 10,
+    color: '#757575'
   }
 });
 

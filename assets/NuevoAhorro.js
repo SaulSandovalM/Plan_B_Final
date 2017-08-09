@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, Image} from 'react-native';
-import {View, Container, Content, Body, Button, Icon, Title, Item, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
+import {Container, Content, Body, Icon, Item, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
 import Cabecera2 from './Cabecera2';
 import imgLogo from '../imgs/Ahorros.png';
 import {Actions} from 'react-native-router-flux';

@@ -1,14 +1,5 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  TouchableHighlight,
-  KeyboardAvoidingView
-} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {firebaseRef} from './Firebase';
 import FBSDK, {LoginButton, AccessToken} from 'react-native-fbsdk';
 import {Button, Icon, Item, Input} from 'native-base';

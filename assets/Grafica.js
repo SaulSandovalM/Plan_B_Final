@@ -3,7 +3,6 @@ import {StyleSheet, View, Text} from 'react-native'
 import Pie from 'react-native-pie'
 
 export default class Grafica extends Component {
-
   render() {
     return (
       <View style={styles.container}>

@@ -8,7 +8,6 @@ import Fecha from '../components/Fecha';
 import Modalcat from '../components/Modalcat';
 
 export default class Gastos extends Component {
-
   render() {
     return (
       <Container style={styles.back}>
