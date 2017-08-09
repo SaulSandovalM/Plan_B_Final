@@ -28,16 +28,6 @@ class Perfil extends Component {
     this.setState({selected: i})
   }
 
-  componentWillMount() {
-    fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles/')
-      .then((response) => {
-        return response.json()
-      })
-      .then((username) => {
-        this.setState({ username: username })
-      })
-  }
-
   render() {
     return (
       <Container>
