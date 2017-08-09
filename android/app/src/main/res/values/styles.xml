@@ -5,4 +5,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="j" parent="android:Theme" >
+        <item name="android:textColorPrimary">@android:color/background_dark</item>
+        <item name="android:textColorSecondary">@android:color/background_dark</item>
+        <item name="android:colorForeground">@android:color/background_dark</item>
+    </style>
+
 </resources>

@@ -6,6 +6,7 @@ import Cabecera2 from './Cabecera2';
 import Valores from '../components/Modal';
 import Fecha from '../components/Fecha';
 import Modalcat from '../components/Modalcat';
+import imgLogo from '../imgs/Gastos.png';
 
 export default class Gastos extends Component {
   render() {
@@ -13,6 +14,7 @@ export default class Gastos extends Component {
       <Container style={styles.back}>
         <Cabecera2/>
         <Content>
+          <Image source={imgLogo} style={styles.img}/>
             <CardItem header>
               <Text>Gasto</Text>
             </CardItem>

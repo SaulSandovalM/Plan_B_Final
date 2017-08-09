@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-import { Container, Content, Input, Left, Body, Icon, Card, CardItem, List, ListItem} from 'native-base';
+import { Container, Content, Input, Left, Body, Icon, CardItem, List, ListItem} from 'native-base';
 import Cabecera2 from './Cabecera2';
 import imgLogo from '../imgs/Ingresos.png';
 import Valores from '../components/Modal';
@@ -13,7 +13,6 @@ export default class Ingresos extends Component {
         <Cabecera2/>
         <Content>
           <Image source={imgLogo} style={styles.img}/>
-          <Card>
             <CardItem header>
               <Text>Nuevo Ingreso</Text>
             </CardItem>
@@ -38,7 +37,6 @@ export default class Ingresos extends Component {
               </ListItem>
 
             </List>
-          </Card>
         </Content>
       </Container>
     );
