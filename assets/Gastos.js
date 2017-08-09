@@ -1,80 +1,67 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
-import {Container, Content, CardItem, List, Left, ListItem, Body, Icon, Title, Picker, Item, Fab, Input} from 'native-base';
+import {AppRegistry, StyleSheet, View, Dimensions, Image} from 'react-native';
+import {Container, Content, List, ListItem, Text, Right, Title, Fab, Icon} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Cabecera2 from './Cabecera2';
-import Valores from '../components/Modal';
-import Fecha from '../components/Fecha';
-import Modalcat from '../components/Modalcat';
-import imgLogo from '../imgs/Gastos.png';
 
 export default class Gastos extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected1: "key1",
+      text: '$'
+    };
+  }
+
+  onValueChange(value : string) {
+    this.setState({selected1: value});
+  }
+
   render() {
     return (
       <Container style={styles.back}>
         <Cabecera2/>
         <Content>
-          <Image source={imgLogo} style={styles.img}/>
-            <CardItem header>
-              <Text>Gasto</Text>
-            </CardItem>
-
-            <List>
-              <ListItem icon>
-                <Left>
-                  <Icon name="calculator" style={styles.icon}/>
-                </Left>
-                <Body>
-                  <Valores/>
-                </Body>
-              </ListItem>
-              <ListItem icon>
-                <Left>
-                  <Icon name="calendar"/>
-                </Left>
-                <Body>
-                  <Fecha/>
-                </Body>
-              </ListItem>
-              <ListItem icon>
-                <Left>
-                  <Icon name="paper"/>
-                </Left>
-                <Body >
-                  <Input style={styles.input} placeholder='Descripción'/>
-                </Body>
-              </ListItem>
-              <Modalcat/>
-            </List>
+          <Title style={styles.titulo}>Gastos</Title>
+        <List style={styles.list}>
+            <ListItem>
+              <Text>Entretenimiento</Text>
+                <Right>
+                  <Text>$1200.00</Text>
+                </Right>
+            </ListItem>
+            <ListItem>
+              <Text>Trasporte</Text>
+                <Right>
+                  <Text>$50.00</Text>
+                </Right>
+            </ListItem>
+            <ListItem>
+              <Text>Casa</Text>
+                <Right>
+                  <Text>$1245.00</Text>
+                </Right>
+            </ListItem>
+          </List>
         </Content>
+
+        <Fab active={this.state.active} direction="up" containerStyle={{}}
+          style={styles.fab} position="bottomRight" onPress={() => Actions.NuevoGasto()}>
+          <Icon name="add"/>
+        </Fab>
+
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  back: {
-    backgroundColor: "white",
+  titulo: {
+    top: 15
   },
-  color: {
-    color: "green"
-  },
-  align: {
-    flexDirection: 'row'
-  },
-  texto: {
-    fontSize: 20,
-    top: 32
-  },
-  img: {
-    height: 200,
-    width: '100%'
-  },
-  icon: {
-    color: '#ff5722'
-  },
-  input: {
-    marginLeft: 10,
-    color: '#757575',
+  list: {
+    top: 15
   }
 });
+
+module.export = Gastos;
