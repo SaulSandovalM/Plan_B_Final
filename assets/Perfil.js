@@ -13,7 +13,8 @@ class Perfil extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: ''
+      selected: '',
+      username: []
     }
     this.handlePress = this.handlePress.bind(this)
     this.showActionSheet = this.showActionSheet.bind(this)
@@ -25,6 +26,16 @@ class Perfil extends Component {
 
   handlePress(i) {
     this.setState({selected: i})
+  }
+
+  componentWillMount() {
+    fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles/')
+      .then((response) => {
+        return response.json()
+      })
+      .then((username) => {
+        this.setState({ username: username })
+      })
   }
 
   render() {

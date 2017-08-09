@@ -9,7 +9,6 @@ class Fecha extends Component {
   }
     render(){
       return (
-        <View style={styles.view}>
         <DatePicker
           style={{width: 200}}
           date={this.state.date}
@@ -40,19 +39,8 @@ class Fecha extends Component {
           }}
           onDateChange={(date) => {this.setState({date: date})}}
         />
-      <Text style={styles.text}>hola</Text>
-      </View>
       );
     }
 }
-
-const styles = StyleSheet.create({
-  view: {
-    flexDirection: 'row'
-  },
-  text: {
-    top: 12,
-  },
-});
 
 export default Fecha;
