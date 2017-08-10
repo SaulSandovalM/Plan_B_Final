@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-let polizasUrl = 'https://ronchon-choucroute-16574.herokuapp.com/api/polizas/';
+let perfilUrl = 'https://ronchon-choucroute-16574.herokuapp.com/api/profiles/';
 
 axios.get('/user?ID=12345')
   .then(function (response) {
@@ -22,16 +22,14 @@ const api = {
         //timeout: 2000,
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Token' + userToken
         }
       });
+      
       instance.get().then(function(response) {
-
         resolve(response.data);
       }).catch(function(error) {
         console.log(error.response);
         reject(error);
       });
-
     });
   },

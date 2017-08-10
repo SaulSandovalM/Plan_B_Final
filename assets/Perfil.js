@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Image, TouchableOpacity, ListView, ActivityIndicator} from 'react-native';
 import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon} from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 import Imagen from './Imagen';
@@ -14,7 +14,7 @@ class Perfil extends Component {
     super(props)
     this.state = {
       selected: '',
-      username: []
+      isLoading: true
     }
     this.handlePress = this.handlePress.bind(this)
     this.showActionSheet = this.showActionSheet.bind(this)
@@ -28,7 +28,32 @@ class Perfil extends Component {
     this.setState({selected: i})
   }
 
+  componentDidMount() {
+    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson),
+        }, function() {
+          // do something with new state
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+
+        </View>
+      );
+    }
+
     return (
       <Container>
         <Cabecera2/>
@@ -45,7 +70,7 @@ class Perfil extends Component {
             </ListItem>
 
             <ListItem >
-              <Input disabled placeholder='Saul Sandoval M'/>
+              <Input placeholder='Saul'/>
               <Icon name='information-circle'/>
             </ListItem>
 
@@ -71,6 +96,12 @@ class Perfil extends Component {
 
             <ListItem itemDivider>
               <Text>Cuentas</Text>
+                <View style={{flex: 1, paddingTop: 20}}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={(rowData) => <Text>{rowData.username}, {rowData.email}</Text>}
+          />
+        </View>
             </ListItem>
           </List>
 
