@@ -29,28 +29,26 @@ class Perfil extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.setState({
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
-        }, function() {
-          // do something with new state
-        });
-      })
-      .catch((error) => {
-        console.error(error);
+    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json').then((response) => response.json())
+    .then((responseJson) => {
+      let ds = new ListView.DataSource({
+        rowHasChanged: (r1, r2) => r1 !== r2
       });
+      this.setState({
+        isLoading: false,
+        dataSource: ds.cloneWithRows(responseJson)
+      }, function() {
+        // do something with new state
+      });
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={{flex: 1, paddingTop: 20}}>
-
-        </View>
+        <View style={styles.view2}></View>
       );
     }
 
@@ -58,10 +56,10 @@ class Perfil extends Component {
       <Container>
         <Cabecera2/>
         <Content>
-          <View style={styles.view}>
-            <Image style={styles.img}
-            source={{uri: 'https://ae01.alicdn.com/kf/HTB1YU0LRVXXXXbUXXXXq6xXFXXXz/1PC-Personalise-Square-piggy-bank-Logbook-Series-font-b-Tin-b-font-Plate-box-font-b.jpg'}}/>
-          </View>
+        <View style={styles.view}>
+          <Image style={styles.img}
+          source={{uri: 'https://ae01.alicdn.com/kf/HTB1YU0LRVXXXXbUXXXXq6xXFXXXz/1PC-Personalise-Square-piggy-bank-Logbook-Series-font-b-Tin-b-font-Plate-box-font-b.jpg'}}/>
+        </View>
           <Imagen/>
 
           <List>
@@ -96,12 +94,10 @@ class Perfil extends Component {
 
             <ListItem itemDivider>
               <Text>Cuentas</Text>
-                <View style={{flex: 1, paddingTop: 20}}>
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={(rowData) => <Text>{rowData.username}, {rowData.email}</Text>}
-          />
-        </View>
+              <View style={styles.view2}>
+                <ListView dataSource={this.state.dataSource}
+                  renderRow={(rowData) => <Text>{rowData.username}, {rowData.email}</Text>}/>
+              </View>
             </ListItem>
           </List>
 
@@ -117,6 +113,10 @@ const styles = StyleSheet.create({
   view: {
     backgroundColor: 'rgb(0,0,0)',
     opacity: 0.6
+  },
+  view2: {
+    flex: 1,
+    paddingTop: 20
   },
   img: {
     justifyContent: 'center',

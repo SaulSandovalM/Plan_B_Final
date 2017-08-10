@@ -9,14 +9,13 @@ export default class Gastos extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected1: "key1",
-      text: '$'
+      Nombre:'',
+      Cantidad:'',
+
     };
   }
 
-  onValueChange(value : string) {
-    this.setState({selected1: value});
-  }
+
 
   render() {
     return (
