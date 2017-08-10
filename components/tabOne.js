@@ -37,7 +37,7 @@ export default class tabOne extends Component {
            </CardItem>
         </Card>
 
-        <Card style={styles.card}>
+        <Card style={styles.card2}>
           <CardItem header>
             <Text style={styles.texto}>Historia</Text>
           </CardItem>
@@ -83,14 +83,12 @@ const styles = StyleSheet.create({
   },
   card: {
     alignItems: 'center',
-    height: 250
   },
   card2: {
     alignItems: 'center',
-    height: 200
   },
   cardi: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   boton: {
     alignSelf: 'center'

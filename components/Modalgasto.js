@@ -51,7 +51,7 @@ export default class Example extends Component {
       <View style={{
         flexDirection: 'row',
         justifyContent: 'center',
-        top: 40
+        top: 10
       }}>
         <Button transparent onPress={() => this.setState({visibleModal: null})}>
           <Text style={styles.texto}>Aceptar</Text>
