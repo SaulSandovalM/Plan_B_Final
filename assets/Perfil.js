@@ -29,7 +29,8 @@ class Perfil extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json').then((response) => response.json()).then((responseJson) => {
+    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json').then((response) => response.json())
+    .then((responseJson) => {
       let ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       });
@@ -57,7 +58,7 @@ class Perfil extends Component {
         <Content>
           <View style={styles.view}>
             <Image style={styles.img} source={{
-              uri: 'https://ae01.alicdn.com/kf/HTB1YU0LRVXXXXbUXXXXq6xXFXXXz/1PC-Personalise-Square-piggy-bank-Logbook-Series-font-b-Tin-b-font-Plate-box-font-b.jpg'
+              {rowData.}
             }}/>
           </View>
           <Imagen/>
