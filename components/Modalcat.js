@@ -11,9 +11,9 @@ export default class Example extends Component {
     categoria: ''
   };
 
-  _renderModalContent = () => (
+  _renderModalContentcat = () => (
 
-    <View style={styles.rootContainer}>
+    <View style={styles.rootContainercat}>
       <List >
         <ListItem itemDivider>
           <Text>Categoria</Text>
@@ -22,7 +22,7 @@ export default class Example extends Component {
         <ListItem icon onPress={() => this.setState({icono: 'restaurant', categoria: 'Alimentos', visibleModal: null})}>
           <Left>
             <View>
-              <Icon style={styles.icono} name="restaurant"/>
+              <Icon style={styles.iconocat} name="restaurant"/>
             </View>
           </Left>
           <Body>
@@ -31,7 +31,7 @@ export default class Example extends Component {
         </ListItem>
         <ListItem icon onPress={() => this.setState({icono: 'book', categoria: 'Educación', visibleModal: null})}>
           <Left>
-            <Icon style={styles.icono} name="book"/>
+            <Icon style={styles.iconocat} name="book"/>
           </Left>
           <Body>
             <Text>Educación</Text>
@@ -40,7 +40,7 @@ export default class Example extends Component {
         </ListItem>
         <ListItem icon onPress={() => this.setState({icono: 'umbrella', categoria: 'Estrategia', visibleModal: null})}>
           <Left >
-            <Icon style={styles.icono} name="umbrella"/>
+            <Icon style={styles.iconocat} name="umbrella"/>
           </Left>
           <Body>
             <Text>Entretenimiento</Text>
@@ -48,7 +48,7 @@ export default class Example extends Component {
         </ListItem>
         <ListItem icon onPress={() => this.setState({icono: 'home', categoria: 'Hogar', visibleModal: null})}>
           <Left>
-            <Icon style={styles.icono} name="home"/>
+            <Icon style={styles.iconocat} name="home"/>
           </Left>
           <Body>
             <Text>Hogar</Text>
@@ -56,7 +56,7 @@ export default class Example extends Component {
         </ListItem>
         <ListItem icon onPress={() => this.setState({icono: 'barcode', categoria: 'Factura', visibleModal: null})}>
           <Left>
-            <Icon style={styles.icono} name="barcode"/>
+            <Icon style={styles.iconocat} name="barcode"/>
           </Left>
           <Body>
             <Text>Factura</Text>
@@ -64,7 +64,7 @@ export default class Example extends Component {
         </ListItem>
         <ListItem icon onPress={() => this.setState({icono: 'heart', categoria: 'Salud', visibleModal: null})}>
           <Left>
-            <Icon style={styles.icono} name="heart"/>
+            <Icon style={styles.iconocat} name="heart"/>
           </Left>
           <Body>
             <Text>Salud</Text>
@@ -72,7 +72,7 @@ export default class Example extends Component {
         </ListItem>
         <ListItem icon onPress={() => this.setState({icono: 'car', categoria: 'Transporte', visibleModal: null})}>
           <Left>
-            <Icon style={styles.icono} name="car"/>
+            <Icon style={styles.iconocat} name="car"/>
           </Left>
           <Body>
             <Text>Transporte</Text>
@@ -84,12 +84,12 @@ export default class Example extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.containercat}>
         <ListItem icon>
           <Left>
             {this.state.icono == ''
-              ? <Icon style={styles.icono} name='add'/>
-              : <Icon style={styles.icono} name={this.state.icono}/>}
+              ? <Icon style={styles.iconocat} name='add'/>
+              : <Icon style={styles.iconocat} name={this.state.icono}/>}
           </Left>
           <Button transparent dark onPress={() => this.setState({visibleModal: 1})}>
             {this.state.icono == ''
@@ -103,7 +103,7 @@ export default class Example extends Component {
         </ListItem>
 
         <Modal isVisible={this.state.visibleModal === 1}>
-          {this._renderModalContent()}
+          {this._renderModalContentcat()}
         </Modal>
 
       </View>

@@ -1,39 +1,41 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  rootContainercat: {
+  rootContainer: {
     backgroundColor: 'white',
     borderRadius: 5,
-    justifyContent: 'center'
   },
-  containercat: {
+  container: {
+    flex: 1,
 
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
   },
-  iconocat: {
+  icono: {
     color: '#4DA49B'
   },
 
-  colorcat: {
+  color: {
     color: "green"
   },
-  aligncat: {
+  align: {
     flexDirection: 'row'
   },
-  textocat: {
+  texto: {
     fontSize: 20,
     top: 32
   },
-  imgcat: {
+  img: {
     height: 200,
     width: '100%'
   },
-  iconcat: {
+  icon: {
     color: '#ff5722'
   },
-  inputcat: {
+  input: {
     marginLeft: 10,
     color: '#757575',
+  },
+  texto:{
+      color: '#4DA49B'
   }
+
 });
