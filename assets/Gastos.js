@@ -3,6 +3,7 @@ import {AppRegistry, StyleSheet, View, Dimensions, Image} from 'react-native';
 import {Container, Content, List, ListItem, Text, Right, Title, Fab, Icon} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Cabecera2 from './Cabecera2';
+import Modalgasto from '../components/Modalgasto';
 
 export default class Gastos extends Component {
   constructor(props) {
@@ -44,11 +45,7 @@ export default class Gastos extends Component {
             </ListItem>
           </List>
         </Content>
-
-        <Fab active={this.state.active} direction="up" containerStyle={{}}
-          style={styles.fab} position="bottomRight" onPress={() => Actions.NuevoGasto()}>
-          <Icon name="add"/>
-        </Fab>
+        <Modalgasto/>
 
       </Container>
     );
@@ -57,7 +54,8 @@ export default class Gastos extends Component {
 
 const styles = StyleSheet.create({
   titulo: {
-    top: 15
+    top: 15,
+    color: 'black'
   },
   list: {
     top: 15
