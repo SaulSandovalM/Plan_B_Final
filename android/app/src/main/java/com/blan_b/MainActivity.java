@@ -1,5 +1,6 @@
 package com.blan_b;
 
+import com.github.godness84.RNRecyclerViewList.RNRecyclerviewListPackage;
 import android.content.Intent;     // <--- import
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;

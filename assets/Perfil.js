@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Image, TouchableOpacity, ListView, ActivityIndicator} from 'react-native';
+import {StyleSheet, View, Image, ListView, ActivityIndicator} from 'react-native';
 import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon} from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 import Imagen from './Imagen';
 import Cabecera2 from './Cabecera2';
+import api from './api/Api';
 const CANCEL_INDEX = 0
 const DESTRUCTIVE_INDEX = 4
 const options = ['Cancel', 'Femenino', 'Masculino']
@@ -14,7 +15,8 @@ class Perfil extends Component {
     super(props)
     this.state = {
       selected: '',
-      isLoading: true
+      isLoading: true,
+      profiles:[],
     }
     this.handlePress = this.handlePress.bind(this)
     this.showActionSheet = this.showActionSheet.bind(this)
@@ -29,7 +31,8 @@ class Perfil extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json').then((response) => response.json())
+    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json')
+    .then((response) => response.json())
     .then((responseJson) => {
       let ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
@@ -45,6 +48,13 @@ class Perfil extends Component {
     });
   }
 
+  componentWillMount(){
+    api.getProfile().then(r=>{
+      this.setState({profiles:r})
+      console.log(this.state.profiles)
+    })
+  }
+
   render() {
     if (this.state.isLoading) {
       return (
@@ -57,9 +67,8 @@ class Perfil extends Component {
         <Cabecera2/>
         <Content>
           <View style={styles.view}>
-            <Image style={styles.img} source={{
-              {rowData.}
-            }}/>
+            <Image style={styles.img}
+            source={{uri: 'https://ae01.alicdn.com/kf/HTB1YU0LRVXXXXbUXXXXq6xXFXXXz/1PC-Personalise-Square-piggy-bank-Logbook-Series-font-b-Tin-b-font-Plate-box-font-b.jpg'}}/>
           </View>
           <Imagen/>
 
@@ -101,6 +110,7 @@ class Perfil extends Component {
               </View>
             </ListItem>
           </List>
+
 
           <ActionSheet ref={o => this.ActionSheet = o} title={title} options={options}
             cancelButtonIndex={CANCEL_INDEX} destructiveButtonIndex={DESTRUCTIVE_INDEX} onPress={this.handlePress}/>

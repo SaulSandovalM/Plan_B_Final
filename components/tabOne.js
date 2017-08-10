@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Dimensions, Image} from 'react-native';
-import {Container, Content, Card, CardItem, Body, Icon, Button} from 'native-base';
+import {Container, Content, Card, CardItem, Body, Icon, Right, Button} from 'native-base';
 import Footers from '../assets/Footers';
 import {Actions} from 'react-native-router-flux';
 import Grafica from '../assets/Grafica';
@@ -10,30 +10,44 @@ export default class tabOne extends Component {
     return (
       <Container style={styles.back}>
         <Content>
-          <Card style={styles.card}>
-            <CardItem header>
-              <Text>Ser mas ahorrativo</Text>
-            </CardItem>
+        <Card style={styles.card}>
+        <CardItem header>
+            <Text>Tus Gastos</Text>
+          </CardItem>
+        <CardItem>
+          <Icon style={{color:'green'}} active name="md-arrow-round-down" />
+          <Text>Ingresos</Text>
+          <Right>
+            <Text style={{color:'green'}}>$0.00</Text>
+          </Right>
+         </CardItem>
+         <CardItem>
+           <Icon style={{color:'red'}} active name="md-arrow-round-up" />
+           <Text>Gastos</Text>
+           <Right>
+             <Text style={{color:'red'}}>$0.00</Text>
+           </Right>
+          </CardItem>
+          <CardItem>
+            <Icon style={{color:'blue'}} active name="ios-cash" />
+            <Text>Ahorros</Text>
+            <Right>
+              <Text style={{color:'blue'}}>$0.00</Text>
+            </Right>
+           </CardItem>
+        </Card>
 
-            <CardItem footer>
-              <Text style={styles.color}>0%</Text>
-            </CardItem>
-          </Card>
+        <Card style={styles.card}>
+          <CardItem header>
+            <Text style={styles.texto}>Historia</Text>
+          </CardItem>
+          <CardItem style={styles.cardi}>
+          <Icon style={{color:'blue'}} active name="ios-pie-outline"/>
+          <Text>Registra tu primer Ingresos</Text>
 
-          <Card style={styles.card2}>
-            <CardItem header>
-              <Icon active name="chatbubbles"/>
-              <Text style={styles.texto}>Dinero</Text>
-            </CardItem>
-            <CardItem style={styles.cardi}>
-              <Text>
-                Es hora de ahorrar
-              </Text>
-            </CardItem>
-            <CardItem footer>
-              <Text>0 ----- 6 ----- 12 ----- 16 ----- 18 ----- 24</Text>
-            </CardItem>
-          </Card>
+          </CardItem>
+
+        </Card>
 
           <View style={styles.align}>
             <Card style={styles.borde}>
