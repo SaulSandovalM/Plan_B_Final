@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet} from 'react-native';
-import {Container, Content, Card, CardItem, Text, Button, Left, Body} from 'native-base';
+import {Container, Content, Text, Button, Left, Body, List, ListItem, Thumbnail, Right} from 'native-base';
 import Cabecera2 from './Cabecera2';
-import imgLogo from '../imgs/ingreso.jpg';
+import imgLogo from '../imgs/planb.png';
 
 export default class Tips extends Component {
   render() {
@@ -10,29 +10,76 @@ export default class Tips extends Component {
       <Container style={styles.back}>
         <Cabecera2/>
         <Content>
-          <CardItem>
-            <Left>
+          <List>
+            <ListItem avatar>
+              <Left>
+                <Thumbnail source={imgLogo}/>
+              </Left>
               <Body>
-                <Text>Nombre de la noticia</Text>
-                <Text note>Abril 15, 2016</Text>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy . .</Text>
               </Body>
-            </Left>
-          </CardItem>
-          <CardItem>
-            <Body>
-              <Image source={imgLogo} style={styles.img}/>
-              <Text>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.
-              </Text>
-            </Body>
-          </CardItem>
-          <CardItem footer>
-            <Text>Plan B</Text>
-          </CardItem>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem avatar>
+              <Left>
+                <Thumbnail source={imgLogo}/>
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy . .</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem avatar>
+              <Left>
+                <Thumbnail source={imgLogo}/>
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy . .</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem avatar>
+              <Left>
+                <Thumbnail source={imgLogo}/>
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy . .</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+          </List>
+          <List>
+            <ListItem avatar>
+              <Left>
+                <Thumbnail source={imgLogo}/>
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy . .</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+          </List>
         </Content>
       </Container>
     );

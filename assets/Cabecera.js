@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-import {Container, Header, Right, Button, Icon} from 'native-base';
+import {Container, Header, Right, Button, Icon, Badge} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import imgLogo from '../imgs/planb.png';
 import {firebaseRef} from './Firebase';
