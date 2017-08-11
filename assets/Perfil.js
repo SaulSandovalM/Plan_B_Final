@@ -47,14 +47,7 @@ class Perfil extends Component {
       console.error(error);
     });
   }
-
-  componentWillMount(){
-    api.getProfile().then(r=>{
-      this.setState({profiles:r})
-      console.log(this.state.profiles)
-    })
-  }
-
+  
   render() {
     if (this.state.isLoading) {
       return (
