@@ -1,12 +1,47 @@
 import React, { Component } from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { Container, Content, Card, CardItem, Thumbnail, Text, Left, Body } from 'native-base';
+import { Image, StyleSheet, View, ListView, ActionSheet } from 'react-native';
+import { Container, Content, Card, CardItem, Thumbnail, Text, Left, Body, Title } from 'native-base';
 
 export default class tabTwo extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selected: '',
+      isLoading: true,
+      profiles:[],
+    }
+  }
+
+    componentDidMount() {
+      return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let ds = new ListView.DataSource({
+          rowHasChanged: (r1, r2) => r1 !== r2
+        });
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson)
+        }, function() {
+          // do something with new state
+        });
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+
   render() {
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.view2}></View>
+      );
+    }
+
     return (
       <Container style={styles.back}>
         <Content>
+          <ListView dataSource={this.state.dataSource}
+            renderRow={(rowData) => <Text>{rowData.posts.title}, {rowData.posts.content}</Text>}/>
           <Card style={styles.card}>
             <CardItem>
               <Left>
@@ -74,7 +109,11 @@ export default class tabTwo extends Component {
               </Body>
             </CardItem>
           </Card>
+          <ActionSheet ref={o => this.ActionSheet = o} title={title} options={options}
+            cancelButtonIndex={CANCEL_INDEX} destructiveButtonIndex={DESTRUCTIVE_INDEX} onPress={this.handlePress}/>  
         </Content>
+
+
       </Container>
     );
   }
