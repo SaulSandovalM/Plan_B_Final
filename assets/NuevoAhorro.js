@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, Image} from 'react-native';
-import {Container, Content, Body, Icon, Item, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
+import {Container, Content, Body, Icon, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
 import Cabecera2 from './Cabecera2';
 import imgLogo from '../imgs/Ahorros.png';
 import {Actions} from 'react-native-router-flux';
@@ -23,29 +23,23 @@ export default class NuevoAhorro extends Component {
         <Cabecera2/>
         <Content>
           <Image source={imgLogo} style={styles.img}/>
-          <CardItem header>
-            <Text>¿Cuanto quieres ahorrar?</Text>
+          <CardItem header style={styles.titulo}>
+            <Text style={styles.texto}>¿Cuanto quieres ahorrar?</Text>
           </CardItem>
 
           <List>
             <ListItem icon>
               <Left>
-                <Icon name="cash" style={{
-                  color: '#ff5722'
-                }}/>
+                <Icon name="cash" style={styles.icon1}/>
               </Left>
               <Body>
-                <Input placeholder="Nombre de tu ahorro" style={{
-                  marginLeft: 12
-                }}></Input>
+                <Input placeholder="Nombre de tu ahorro" style={styles.input}></Input>
               </Body>
             </ListItem>
 
             <ListItem icon>
               <Left>
-                <Icon name="calculator" style={{
-                  color: '#ff5722'
-                }}/>
+                <Icon name="calculator" style={styles.icon2}/>
               </Left>
               <Body>
                 <Valores/>
@@ -54,9 +48,7 @@ export default class NuevoAhorro extends Component {
 
             <ListItem icon>
               <Left>
-                <Icon name="calendar" style={{
-                  color: '#2196f3'
-                }}/>
+                <Icon name="calendar" style={styles.icon3}/>
               </Left>
               <Body>
                 <Fecha/>
@@ -68,17 +60,13 @@ export default class NuevoAhorro extends Component {
                 <Icon name="paper"/>
               </Left>
               <Body>
-                <Text style={{
-                  marginLeft: 15
-                }}>Descripción</Text>
+                <Text style={styles.mergin}>Descripción</Text>
               </Body>
             </ListItem>
           </List>
         </Content>
 
-        <Fab active={this.state.active} direction="up" containerStyle={{}} style={{
-          backgroundColor: '#5067FF'
-        }} position="bottomRight">
+        <Fab active={this.state.active} direction="up" containerStyle={{}} style={styles.fab} position="bottomRight">
           <Icon name="add"/>
         </Fab>
       </Container>
@@ -87,30 +75,10 @@ export default class NuevoAhorro extends Component {
 }
 
 const styles = StyleSheet.create({
-  color: {
-    color: "green"
-  },
   img: {
     height: 200,
     width: '100%',
     flex: 1
-  },
-  inputStyle: {
-    marginRight: 40,
-    marginLeft: 40,
-    marginBottom: 15,
-    marginTop: 10,
-    borderColor: '#f08080',
-    alignItems: 'center'
-  },
-  input: {
-    width: '80%',
-    marginRight: 40,
-    marginLeft: 40,
-    marginBottom: 15,
-    marginTop: 10,
-    borderColor: '#f08080',
-    marginTop: 10
   },
   texto: {
     fontSize: 15,
@@ -119,6 +87,27 @@ const styles = StyleSheet.create({
   },
   back: {
     backgroundColor: "white"
+  },
+  titulo: {
+    justifyContent: 'center'
+  },
+  icon1: {
+    color: '#ff5722'
+  },
+  icon2: {
+    color: '#ff5722'
+  },
+  icon3: {
+    color: '#2196f3'
+  },
+  margin: {
+    marginLeft: 15
+  },
+  fab: {
+    backgroundColor: '#5067FF'
+  },
+  input: {
+    marginLeft: 12
   }
 });
 
