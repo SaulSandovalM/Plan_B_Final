@@ -47,7 +47,7 @@ class Perfil extends Component {
       console.error(error);
     });
   }
-  
+
   render() {
     if (this.state.isLoading) {
       return (
