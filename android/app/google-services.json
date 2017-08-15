@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "115638589185",
+    "firebase_url": "https://planb-2917d.firebaseio.com",
+    "project_id": "planb-2917d",
+    "storage_bucket": "planb-2917d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115638589185:android:30612873865148fc",
+        "android_client_info": {
+          "package_name": "com.blan_b"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "115638589185-1te2ulbtf81c7gc1j4p8c6784rcpac6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blan_b",
+            "certificate_hash": "dc3fe54f3921b2331368c41ffeafe057934303be"
+          }
+        },
+        {
+          "client_id": "115638589185-q0aevj2np1t5qo9gba9vgaljjtraa3sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzyTizFPRMLaXPTlEa4SzJMOxRrvOI6Ic"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "115638589185-q0aevj2np1t5qo9gba9vgaljjtraa3sb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "115638589185-gfr8m8qam14cg3n0bsgp4iop1ci3f3lr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Blan-B"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

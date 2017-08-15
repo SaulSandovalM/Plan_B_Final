@@ -60,7 +60,7 @@ export default class NuevoAhorro extends Component {
                 <Icon name="paper"/>
               </Left>
               <Body>
-                <Text style={styles.mergin}>Descripción</Text>
+                <Text style={styles.margin}>Descripción</Text>
               </Body>
             </ListItem>
           </List>
