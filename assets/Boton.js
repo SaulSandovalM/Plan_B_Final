@@ -23,10 +23,7 @@ class Boton extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.view} onPress={this.spring.bind(this)}></Text>
-        <Animated.Image
-          style={{ width: 227, height: 200, transform: [{scale: this.springValue}]}}
-          source={{uri: 'https://s3.amazonaws.com/media-p.slid.es/uploads/alexanderfarennikov/images/1198519/reactjs.png'}}/>
+        <Button onPress={() => Actions.IngresosIntro()}><Text>Empezar</Text></Button>
       </View>
     );
   }
@@ -34,9 +31,10 @@ class Boton extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: 'rgba(192,192,192,0.4)',
+    zIndex: 1000,
+    height: 1500,
+    width: 550,
     position: 'absolute'
   },
   view: {
