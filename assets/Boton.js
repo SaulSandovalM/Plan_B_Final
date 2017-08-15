@@ -15,7 +15,7 @@ class Boton extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(192,192,192,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     zIndex: 1000,
     height: '100%',
     width: '100%',
