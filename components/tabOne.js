@@ -4,7 +4,6 @@ import {Container, Content, Card, CardItem, Body, Icon, Right, Button} from 'nat
 import Footers from '../assets/Footers';
 import {Actions} from 'react-native-router-flux';
 import Grafica from '../assets/Grafica';
-import Boton from '../assets/Boton';
 
 export default class tabOne extends Component {
   render() {
@@ -72,8 +71,6 @@ export default class tabOne extends Component {
               <Text>Ahorros</Text>
             </Card>
           </View>
-
-          <Boton/>
         </Content>
       </Container>
     );

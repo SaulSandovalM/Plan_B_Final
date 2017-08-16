@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-import { Container, Content, Input, Left, Body, Icon, CardItem, List, ListItem} from 'native-base';
+import { Container, Content, Input, Left, Body, Icon, CardItem, List, ListItem, Title, Button} from 'native-base';
 import Cabecera2 from './Cabecera2';
 import imgLogo from '../imgs/Ingresos.png';
 import Valores from '../components/Modal';
@@ -13,9 +13,8 @@ export default class Ingresos extends Component {
         <Cabecera2/>
         <Content>
           <Image source={imgLogo} style={styles.img}/>
-            <CardItem header>
-              <Text>Nuevo Ingreso</Text>
-            </CardItem>
+
+            <Title style={styles.titulo}>Ingresos</Title>
 
             <List>
               <ListItem icon>
@@ -36,6 +35,11 @@ export default class Ingresos extends Component {
                 </Body>
               </ListItem>
 
+              <Button rounded block style={styles.buttonIngreso}>
+                <Text style={styles.boton}>$</Text>
+                <Input placeholder="Ingresos Extras" placeholderTextColor="white" style={styles.boton}/>
+              </Button>
+
             </List>
         </Content>
       </Container>
@@ -53,9 +57,9 @@ const styles = StyleSheet.create({
   align: {
     flexDirection: 'row'
   },
-  texto: {
-    fontSize: 20,
-    top: 32
+  titulo: {
+    top: 10,
+    color: 'black'
   },
   img: {
     height: 200,
@@ -67,7 +71,18 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 10,
     color: '#757575'
-  }
+  },
+  buttonIngreso: {
+    marginTop: 15,
+    marginRight: 40,
+    marginLeft: 40,
+    marginBottom: 10,
+    backgroundColor: '#4DA49B'
+  },
+  boton: {
+    color: 'white',
+    fontWeight: 'bold'
+  },
 });
 
 module.export = Ingresos;

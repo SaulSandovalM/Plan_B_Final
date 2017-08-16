@@ -24,7 +24,7 @@ export default class Gastos extends Component {
     return (
       <Container style={styles.back}>
         <Cabecera2/>
-        <View style={{alignItems: 'center', backgroundColor: 'white', margin: 10}}>
+        <View style={styles.view}>
           <DatePicker
             style={{width: 150, alignItems: 'center'}}
             date={this.state.date}
@@ -97,6 +97,11 @@ const styles = StyleSheet.create({
   },
   list: {
     top: 15
+  },
+  view: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    margin: 10
   }
 });
 
