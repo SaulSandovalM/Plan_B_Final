@@ -24,8 +24,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new FBSDKPackage(),
-            new MPAndroidChartPackage()
+          new MPAndroidChartPackage()
       );
     }
   };
@@ -39,7 +38,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     // If you want to use AppEventsLogger to log events.
-    
+
 
   }
 }
