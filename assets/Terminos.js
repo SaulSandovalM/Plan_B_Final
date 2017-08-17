@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, BackHandler } from 'react-native';
-import {CheckBox, Button, Body, List, CardItem, ListItem, Container, Content, Text, Item, Input, Icon} from 'native-base';
+import {StyleSheet, View, BackHandler} from 'react-native';
+import {CheckBox, Button, Body, List, CardItem, ListItem, Container, Content, Text, Item} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Cabecera3 from './Cabecera3';
 
@@ -37,32 +37,26 @@ class Terminos extends Component {
   }
 
   toggle() {
-    if(this.state.selected == false  || this.state.check1 == false || this.state.check2 == false || this.state.check3 == false ){
+    if (this.state.selected == false || this.state.check1 == false || this.state.check2 == false || this.state.check3 == false) {
 
-
-    this.setState({
-      selected: true,
-      check1: true,
-      check2: true,
-      check3: true
-    });
-}else {
-  this.setState({
-    selected: !this.state.selected,
-    check1: !this.state.check1,
-    check2: !this.state.check2,
-    check3: !this.state.check3
-  });
-}
+      this.setState({selected: true, check1: true, check2: true, check3: true});
+    } else {
+      this.setState({
+        selected: !this.state.selected,
+        check1: !this.state.check1,
+        check2: !this.state.check2,
+        check3: !this.state.check3
+      });
+    }
   }
-  close(){
+  close() {
     BackHandler.exitApp()
   }
 
-  entry(){
-    if(this.state.selected == true  && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true){
+  entry() {
+    if (this.state.selected == true && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true) {
       Actions.Log()
-    }else {
+    } else {
       alert('Acepta terminos y condiciones')
     }
   }
@@ -71,7 +65,7 @@ class Terminos extends Component {
     return (
       <Container style={styles.back}>
         <Cabecera3/>
-          <Content>
+        <Content>
 
           <CardItem header>
             <Text style={styles.font}>Términos y condiciones</Text>
@@ -81,8 +75,7 @@ class Terminos extends Component {
             <Body>
 
               <List style={styles.list}>
-                <Text>Pulse los vínculos a continuación y léalos atentamente. Al marcar las casillas,
-                  usted reconoce que ha leído y que acepta los siguientes términos:</Text>
+                <Text>Pulse los vínculos a continuación y léalos atentamente. Al marcar las casillas, usted reconoce que ha leído y que acepta los siguientes términos:</Text>
 
                 <ListItem style={styles.ListItem}>
                   <CheckBox checked={this.state.selected} onPress={this.toggle.bind(this)}/>
@@ -117,7 +110,7 @@ class Terminos extends Component {
                 <Text>Acepto</Text>
               </Button>
 
-              <Button block style={styles.boton}onPress={this.close.bind(this)}>
+              <Button onPress={this.close.bind(this)} block style={styles.boton}>
                 <Text>No acepto</Text>
               </Button>
 

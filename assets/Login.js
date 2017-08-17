@@ -90,20 +90,15 @@ class Login extends Component {
             onChangeText={contraseña => this.setState({contraseña})}/>
         </Item>
 
+        <View style={styles.botones}>
         <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
           <Text style={styles.boton}>INGRESA</Text>
         </Button>
 
-        <View style={styles.view1}>
-            <Text style={styles.font}>Ó</Text>
-        </View>
-
-        <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPressReg.bind(this)}>
+        <Button rounded block style={styles.buttonRegistro} onPress={this.onButtonPressReg.bind(this)}>
           <Text style={styles.boton}>REGISTRATE</Text>
         </Button>
-
-
-
+      </View>
       </Image>
     );
   }
@@ -151,7 +146,7 @@ const styles = StyleSheet.create({
   inputRounded: {
     marginRight: 40,
     marginLeft: 40,
-    borderColor: '#f08080',
+    borderColor: '#ccc',
     borderWidth: 3,
     backgroundColor: 'white'
   },
@@ -159,8 +154,15 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   buttonIngreso: {
-    marginRight: 40,
+    width: '38%',
     marginLeft: 40,
+    marginBottom: 5,
+    marginTop: 5,
+    backgroundColor: '#4DA49B'
+  },
+  buttonRegistro: {
+    width: '38%',
+    marginRight: 40,
     marginBottom: 5,
     marginTop: 5,
     backgroundColor: '#4DA49B'
@@ -169,15 +171,16 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold'
   },
-
   font: {
     alignSelf: 'center',
     fontWeight: 'bold',
     fontSize: 18,
     color: 'white',
-
-  }
-
+  },
+  botones: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
 });
 
 export default Login;
