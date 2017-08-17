@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, BackHandler } from 'react-native';
 import {CheckBox, Button, Body, List, CardItem, ListItem, Container, Content, Text, Item, Input, Icon} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Cabecera3 from './Cabecera3';
@@ -19,39 +19,52 @@ class Terminos extends Component {
     this.setState({
       check1: !this.state.check1
     });
-    const newestado = this.state.check1 = false;
-    this.setState({selected: newestado});
+
   }
 
   chec2() {
     this.setState({
       check2: !this.state.check2
     });
-    const newestado = this.state.selected = false;
-    this.setState({selected: newestado});
+
   }
 
   chec3() {
     this.setState({
       check3: !this.state.check3
     });
-    const newestado = this.state.selected = false;
-    this.setState({selected: newestado});
+
   }
 
   toggle() {
+    if(this.state.selected == false  || this.state.check1 == false || this.state.check2 == false || this.state.check3 == false ){
+
+
     this.setState({
-      selected: !this.state.selected
+      selected: true,
+      check1: true,
+      check2: true,
+      check3: true
     });
-    this.setState({
-      check1: !this.state.check1
-    });
-    this.setState({
-      check2: !this.state.check2
-    });
-    this.setState({
-      check3: !this.state.check3
-    });
+}else {
+  this.setState({
+    selected: !this.state.selected,
+    check1: !this.state.check1,
+    check2: !this.state.check2,
+    check3: !this.state.check3
+  });
+}
+  }
+  close(){
+    BackHandler.exitApp()
+  }
+
+  entry(){
+    if(this.state.selected == true  && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true){
+      Actions.Log()
+    }else {
+      alert('Acepta terminos y condiciones')
+    }
   }
 
   render() {
@@ -100,11 +113,11 @@ class Terminos extends Component {
                 </View>
               </ListItem>
 
-              <Button block onPress={() => Actions.Log()}>
+              <Button block onPress={this.entry.bind(this)}>
                 <Text>Acepto</Text>
               </Button>
 
-              <Button block style={styles.boton}>
+              <Button block style={styles.boton}onPress={this.close.bind(this)}>
                 <Text>No acepto</Text>
               </Button>
 
