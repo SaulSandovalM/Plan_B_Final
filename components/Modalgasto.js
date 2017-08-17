@@ -11,7 +11,8 @@ export default class Example extends Component {
   state = {
     visibleModal: null,
     objeto:{},
-    fecha:''
+    fecha:'',
+    icono:'add'
   };
   conFun=(iconito)=>{
     objeto=this.state.objeto
@@ -20,6 +21,12 @@ export default class Example extends Component {
     this.setState({
       //icono:newIcon,
       objeto
+    })
+  }
+  iFun=(i)=>{
+        newIcon=i;
+    this.setState({
+      icono:newIcon,
     })
   }
 
@@ -89,13 +96,22 @@ aceptar=()=>{
         </ListItem>
         <ListItem icon>
           <Left>
+            <Icon name={this.state.icono}/>
+          </Left>
+          <Body>
+            <Modalcat  cateFun={this.cateFun} conFun={this.conFun} iFun={this.iFun}/>
+          </Body>
+        </ListItem>
+
+        <ListItem icon>
+          <Left>
             <Icon name="paper"/>
           </Left>
           <Body >
             <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}  />
           </Body>
         </ListItem>
-        <Modalcat  cateFun={this.cateFun} conFun={this.conFun}/>
+
 
       </List>
       <View style={{

@@ -6,13 +6,12 @@ class Fecha extends Component {
   constructor(props){
     super(props)
     this.state = {
-      date: new Date()
-    }
+      date: new Date()}
 
   }
-
     render(){
       return (
+
         <DatePicker
           style={{width: 200}}
           date={this.state.date}
@@ -41,16 +40,9 @@ class Fecha extends Component {
             },
 
           }}
-          onDateChange={(date) => {this.setState({date:date})},
-          setTimeout(()=>{
-                this.props.fechafun(this.state.date)
-            }, 100)
+          onDateChange={() => {this.setState({date:date})}
 
         }
-
-
-
-
         />
       );
     }

@@ -4,12 +4,11 @@ export default StyleSheet.create({
   rootContainer: {
     backgroundColor: 'white',
     borderRadius: 5,
-    
+
 
   },
   container: {
     flex: 1,
-    height: 285
   },
 
   icono: {

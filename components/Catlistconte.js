@@ -17,10 +17,10 @@ class ListComponent extends Component {
                     {this.props.lista.map(
                         item => <Contenidocatlis
                                   icateFun={this.props.icateFun}
-                                  iconFun={this.props.iconFun}
                                   conFun={this.props.conFun}
                                   cateFun={this.props.cateFun}
                                   modFun={this.props.modFun}
+                                  iFun={this.props.iFun}
                                     key={item.id}
                                     item={item}
                                     />

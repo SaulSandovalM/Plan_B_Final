@@ -9,7 +9,6 @@ import styles from '../estilos/modcat.style';
       super();
       this.state={
         visibleModal: 0,
-        icono:'add',
         categoria: 'CATEGORIA',
         lista:[
           {id:1,
@@ -34,7 +33,7 @@ import styles from '../estilos/modcat.style';
           },
           {id:6,
           iname:'heart',
-          categoria:'salud'
+          categoria:'Salud'
           },
           {id:7,
           iname:'car',
@@ -55,12 +54,7 @@ const newVis=moda
     visibleModal:newVis
   });
 }
-iconFun=(iconito)=>{
-  const newIcon=iconito;
-  this.setState({
-    icono:newIcon,
-  })
-}
+
 setCatego=()=>{
         this.props.conFun(this.state.icono),
         this.props.cateFun(this.state.categoria);
@@ -68,7 +62,7 @@ setCatego=()=>{
 
   _renderModalContentcat = () => (
 
-      <Catlistconte lista={this.state.lista} conFun={this.props.conFun} cateFun={this.props.cateFun}  icateFun={this.icateFun} modFun={this.modFun} iconFun={this.iconFun} />
+      <Catlistconte lista={this.state.lista} iFun={this.props.iFun} conFun={this.props.conFun} cateFun={this.props.cateFun}  icateFun={this.icateFun} modFun={this.modFun}/>
 
       );
 
@@ -77,17 +71,13 @@ setCatego=()=>{
       return (
 
           <View style={styles.containercat}>
-            <ListItem icon>
-              <Left>
-                <Icon style={styles.iconocat} name={this.state.icono}/>
-              </Left>
-              <Button transparent dark onPress={() => this.setState({visibleModal: 1})}>
 
+
+              <Button  transparent dark onPress={() => this.setState({visibleModal: 1})}>
                 <Text style={{
                     color: '#757575'
                   }}>{this.state.categoria}</Text>
               </Button>
-            </ListItem>
 
 
             <Modal isVisible={this.state.visibleModal === 1}>

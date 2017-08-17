@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right, Switch } from 'native-base';
+import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right } from 'native-base';
 export default class Contenidolis extends Component {
   render() {
     return (

@@ -35,5 +35,9 @@ export default StyleSheet.create({
   inputcat: {
     marginLeft: 10,
     color: '#757575',
+  },
+  boton:{
+    borderBottomWidth: 2,
+    borderBottomColor: 'black'
   }
 });

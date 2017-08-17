@@ -5,23 +5,14 @@
   import Listconte from './Listconte';
   import Cabecera2 from './Cabecera2';
   import Modalgasto from '../components/Modalgasto';
+  import * as firebase from 'firebase';
+
   export default class Gasto extends Component {
     constructor(){
       super();
       this.state={
         nuevo:'',
-        lista:[
-          {id:1,
-          iname:'car',
-          categoria:'Trasporte',
-          descri:'para que funcione',
-          cantidad:'$1,500.00',},
-          {id:2,
-          iname:'add',
-          categoria:'Funcina',
-          descri:'hola',
-          cantidad:'$1,500.00',},
-        ]
+        lista:[ ]
       }
     }
 
@@ -29,7 +20,37 @@
       this.state.lista.push(datos)
       this.setState({lista:this.state.lista})
       console.log(this.state.lista)
+      firebase.database().ref('gastos').push(datos);
     }
+
+    listenForItems = (itemsRef) => {
+      itemsRef.on('value', (snap) => {
+
+        // get children as an array
+        var lista = [];
+        snap.forEach((child) => {
+          lista.push({
+            iname: child.val().iname,
+            categoria: child.val().categoria,
+            descri:child.val().descri,
+            cantidad:child.val().cantidad,
+            id: child.key
+          });
+        });
+
+        this.setState({
+          lista: lista
+        });
+
+      });
+    }
+
+    componentDidMount() {
+    const itemsRef = firebase.database().ref('gastos');
+    this.listenForItems(itemsRef);
+  }
+
+
 
 
 
@@ -37,6 +58,7 @@
       return (
         <Container>
         <Cabecera2/>
+
           <Content>
           <Title style={styles.titulo}>Gastos</Title>
           <Listconte lista={this.state.lista}  />
@@ -49,7 +71,8 @@
 
   const styles = StyleSheet.create({
   titulo: {
-    top: 15
+    top: 15,
+    color:'red'
   },
   list: {
     top: 15

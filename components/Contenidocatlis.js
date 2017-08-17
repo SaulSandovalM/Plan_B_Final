@@ -9,10 +9,10 @@ export default class ListIconExample extends Component {
   setIcon=()=>{
     this.setState({icono:this.props.item.iname,categoria:this.props.item.categoria}),
     setTimeout(()=>{
-          this.props.iconFun(this.state.icono),
           this.props.icateFun(this.state.categoria),
           this.props.conFun(this.state.icono),
           this.props.cateFun(this.state.categoria),
+          this.props.iFun(this.state.icono),
           this.props.modFun(0);
       }, 100);
   }
