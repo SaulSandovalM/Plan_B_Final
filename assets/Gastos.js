@@ -1,28 +1,65 @@
-import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Dimensions, Image} from 'react-native';
-import {Container, Content, List, ListItem, Text, Right, Title, Fab, Icon} from 'native-base';
-import {Actions} from 'react-native-router-flux';
-import Cabecera2 from './Cabecera2';
-import Modalgasto from '../components/Modalgasto';
-import DatePicker from 'react-native-datepicker';
+import React, { Component } from 'react';
+  import {StyleSheet, View} from 'react-native';
+  import { Container, Header, Content, List, Title, ListItem, Text} from 'native-base';
+  import Listconte from './Listconte';
+  import Cabecera2 from './Cabecera2';
+  import Modalgasto from '../components/Modalgasto';
+  import * as firebase from 'firebase';
+  import DatePicker from 'react-native-datepicker';
 
-export default class Gastos extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected1: "key1",
-      text: '$',
-      date: new Date()
-    };
-  }
+  export default class Gasto extends Component {
+    constructor(){
+      super();
+      this.state={
+        nuevo:'',
+        lista:[ ],
+        selected1: "key1",
+        text: '$',
+        date: new Date()
+      }
+    }
 
-  onValueChange(value : string) {
+    onValueChange(value : string) {
     this.setState({selected1: value});
   }
 
-  render() {
-    return (
-      <Container style={styles.back}>
+    addItem=(datos)=>{
+      this.state.lista.push(datos)
+      this.setState({lista:this.state.lista})
+      console.log(this.state.lista)
+      firebase.database().ref('gastos').push(datos);
+    }
+
+    listenForItems = (itemsRef) => {
+      itemsRef.on('value', (snap) => {
+
+        // get children as an array
+        var lista = [];
+        snap.forEach((child) => {
+          lista.push({
+            iname: child.val().iname,
+            categoria: child.val().categoria,
+            descri:child.val().descri,
+            cantidad:child.val().cantidad,
+            id: child.key
+          });
+        });
+
+        this.setState({
+          lista: lista
+        });
+
+      });
+    }
+
+    componentDidMount() {
+    const itemsRef = firebase.database().ref('gastos');
+    this.listenForItems(itemsRef);
+  }
+
+    render() {
+      return (
+        <Container style={styles.back}>
         <Cabecera2/>
         <View style={styles.view}>
           <DatePicker
@@ -56,47 +93,28 @@ export default class Gastos extends Component {
             }}
             onDateChange={(date) => {this.setState({date: date})}}
           />
-      </View>
-        <Content style={styles.back}>
+        </View>
+
+          <Content>
           <Title style={styles.titulo}>Gastos</Title>
-        <List style={styles.list}>
-            <ListItem>
-              <Text>Entretenimiento</Text>
-                <Right>
-                  <Text>$1200.00</Text>
-                </Right>
-            </ListItem>
-            <ListItem>
-              <Text>Trasporte</Text>
-                <Right>
-                  <Text>$50.00</Text>
-                </Right>
-            </ListItem>
-            <ListItem>
-              <Text>Casa</Text>
-                <Right>
-                  <Text>$1245.00</Text>
-                </Right>
-            </ListItem>
-          </List>
-        </Content>
-        <Modalgasto/>
-
-      </Container>
-    );
+          <Listconte lista={this.state.lista}  />
+          </Content>
+          <Modalgasto agregar={this.addItem}/>
+        </Container>
+      );
+    }
   }
-}
 
-const styles = StyleSheet.create({
-  back: {
-    backgroundColor: 'white'
-  },
+  const styles = StyleSheet.create({
   titulo: {
-    top: 15,
-    color: 'black'
+    top: 10,
+    color:'black'
   },
   list: {
     top: 15
+  },
+  back: {
+    backgroundColor: 'white'
   },
   view: {
     alignItems: 'center',
@@ -104,5 +122,3 @@ const styles = StyleSheet.create({
     margin: 10
   }
 });
-
-module.export = Gastos;

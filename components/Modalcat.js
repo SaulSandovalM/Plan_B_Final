@@ -2,111 +2,90 @@ import React, {Component} from 'react';
 import {Button, List, ListItem, Text, Icon, Left, Body, Right} from 'native-base';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
+import Catlistconte from './Catlistconte';
 import styles from '../estilos/modcat.style';
-
-export default class Example extends Component {
-  state = {
-    visibleModal: null,
-    icono: '',
-    categoria: ''
-  };
-
-  _renderModalContent = () => (
-
-    <View style={styles.rootContainer}>
-      <List >
-        <ListItem itemDivider>
-          <Text>Categoria</Text>
-          <Text>Alimentos</Text>
-        </ListItem>
-        <ListItem icon onPress={() => this.setState({icono: 'restaurant', categoria: 'Alimentos', visibleModal: null})}>
-          <Left>
-            <View>
-              <Icon style={styles.icono} name="restaurant"/>
-            </View>
-          </Left>
-          <Body>
-            <Text>Alimentos</Text>
-          </Body>
-        </ListItem>
-        <ListItem icon onPress={() => this.setState({icono: 'book', categoria: 'Educación', visibleModal: null})}>
-          <Left>
-            <Icon style={styles.icono} name="book"/>
-          </Left>
-          <Body>
-            <Text>Educación</Text>
-          </Body>
-
-        </ListItem>
-        <ListItem icon onPress={() => this.setState({icono: 'umbrella', categoria: 'Estrategia', visibleModal: null})}>
-          <Left >
-            <Icon style={styles.icono} name="umbrella"/>
-          </Left>
-          <Body>
-            <Text>Entretenimiento</Text>
-          </Body>
-        </ListItem>
-        <ListItem icon onPress={() => this.setState({icono: 'home', categoria: 'Hogar', visibleModal: null})}>
-          <Left>
-            <Icon style={styles.icono} name="home"/>
-          </Left>
-          <Body>
-            <Text>Hogar</Text>
-          </Body>
-        </ListItem>
-        <ListItem icon onPress={() => this.setState({icono: 'barcode', categoria: 'Factura', visibleModal: null})}>
-          <Left>
-            <Icon style={styles.icono} name="barcode"/>
-          </Left>
-          <Body>
-            <Text>Factura</Text>
-          </Body>
-        </ListItem>
-        <ListItem icon onPress={() => this.setState({icono: 'heart', categoria: 'Salud', visibleModal: null})}>
-          <Left>
-            <Icon style={styles.icono} name="heart"/>
-          </Left>
-          <Body>
-            <Text>Salud</Text>
-          </Body>
-        </ListItem>
-        <ListItem icon onPress={() => this.setState({icono: 'car', categoria: 'Transporte', visibleModal: null})}>
-          <Left>
-            <Icon style={styles.icono} name="car"/>
-          </Left>
-          <Body>
-            <Text>Transporte</Text>
-          </Body>
-        </ListItem>
-      </List>
-    </View>
-  );
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <ListItem icon>
-          <Left>
-            {this.state.icono == ''
-              ? <Icon style={styles.icono} name='add'/>
-              : <Icon style={styles.icono} name={this.state.icono}/>}
-          </Left>
-          <Button transparent dark onPress={() => this.setState({visibleModal: 1})}>
-            {this.state.icono == ''
-              ? <Text style={{
-                  color: '#757575'
-                }}>Categoria</Text>
-              : <Text style={{
-                color: '#757575'
-              }}>{this.state.categoria}</Text>}
-          </Button>
-        </ListItem>
-
-        <Modal isVisible={this.state.visibleModal === 1}>
-          {this._renderModalContent()}
-        </Modal>
-
-      </View>
-    );
-  }
+  export default class Gasto extends Component {
+    constructor(){
+      super();
+      this.state={
+        visibleModal: 0,
+        categoria: 'CATEGORIA',
+        lista:[
+          {id:1,
+          iname:'restaurant',
+          categoria:'Alimentos',
+          },
+          {id:2,
+          iname:'book',
+          categoria:'Educacion'
+          },
+          {id:3,
+          iname:'umbrella',
+          categoria:'Entretenimiento'
+          },
+          {id:4,
+          iname:'home',
+          categoria:'Hogar'
+          },
+          {id:5,
+          iname:'barcode',
+          categoria:'Factura'
+          },
+          {id:6,
+          iname:'heart',
+          categoria:'Salud'
+          },
+          {id:7,
+          iname:'car',
+          categoria:'Transporte'
+        },
+      ]
+      }
+    }
+icateFun=(categorita)=>{
+      const newCat= categorita;
+      this.setState({
+        categoria:newCat,
+      });
+    }
+modFun=(moda)=>{
+const newVis=moda
+  this.setState({
+    visibleModal:newVis
+  });
 }
+
+setCatego=()=>{
+        this.props.conFun(this.state.icono),
+        this.props.cateFun(this.state.categoria);
+}
+
+  _renderModalContentcat = () => (
+
+      <Catlistconte lista={this.state.lista} iFun={this.props.iFun} conFun={this.props.conFun} cateFun={this.props.cateFun}  icateFun={this.icateFun} modFun={this.modFun}/>
+
+      );
+
+
+    render() {
+      return (
+
+          <View style={styles.containercat}>
+
+
+              <Button  transparent dark onPress={() => this.setState({visibleModal: 1})}>
+                <Text style={{
+                    color: '#757575'
+                  }}>{this.state.categoria}</Text>
+              </Button>
+
+
+            <Modal isVisible={this.state.visibleModal === 1}>
+              {this._renderModalContentcat()}
+            </Modal>
+
+          </View>
+
+      );
+    }
+  }
