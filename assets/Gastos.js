@@ -1,59 +1,53 @@
-import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Dimensions, Image} from 'react-native';
-import {Container, Content, List, ListItem, Text, Right, Title, Fab, Icon} from 'native-base';
-import {Actions} from 'react-native-router-flux';
-import Cabecera2 from './Cabecera2';
-import Modalgasto from '../components/Modalgasto';
 
-export default class Gastos extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Nombre:'',
-      Cantidad:'',
+  import React, { Component } from 'react';
+  import {StyleSheet} from 'react-native';
+  import { Container, Header, Content, List, Title, ListItem, Text } from 'native-base';
+  import Listconte from './Listconte';
+  import Cabecera2 from './Cabecera2';
+  import Modalgasto from '../components/Modalgasto';
+  export default class Gasto extends Component {
+    constructor(){
+      super();
+      this.state={
+        nuevo:'',
+        lista:[
+          {id:1,
+          iname:'car',
+          categoria:'Trasporte',
+          descri:'para que funcione',
+          cantidad:'$1,500.00',},
+          {id:2,
+          iname:'add',
+          categoria:'Funcina',
+          descri:'hola',
+          cantidad:'$1,500.00',},
+        ]
+      }
+    }
 
-    };
-  }
+    addItem=(datos)=>{
+      this.state.lista.push(datos)
+      this.setState({lista:this.state.lista})
+      console.log(this.state.lista)
+    }
 
 
 
-  render() {
-    return (
-      <Container style={styles.back}>
+    render() {
+      return (
+        <Container>
         <Cabecera2/>
-        <Content>
+          <Content>
           <Title style={styles.titulo}>Gastos</Title>
-        <List style={styles.list}>
-            <ListItem>
-              <Text>Entretenimiento</Text>
-                <Right>
-                  <Text>$1200.00</Text>
-                </Right>
-            </ListItem>
-            <ListItem>
-              <Text>Trasporte</Text>
-                <Right>
-                  <Text>$50.00</Text>
-                </Right>
-            </ListItem>
-            <ListItem>
-              <Text>Casa</Text>
-                <Right>
-                  <Text>$1245.00</Text>
-                </Right>
-            </ListItem>
-          </List>
-        </Content>
-        <Modalgasto/>
-
-
-
-      </Container>
-    );
+          <Listconte lista={this.state.lista}  />
+          </Content>
+          <Modalgasto agregar={this.addItem}/>
+        </Container>
+      );
+    }
   }
-}
 
-const styles = StyleSheet.create({
+  const styles = StyleSheet.create({
   titulo: {
     top: 15
   },
@@ -61,5 +55,3 @@ const styles = StyleSheet.create({
     top: 15
   }
 });
-
-module.export = Gastos;

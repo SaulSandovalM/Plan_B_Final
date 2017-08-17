@@ -35,7 +35,7 @@ export default class Example extends Component {
           <Left>
             <Text style={Style.displayText}>$</Text>
           </Left>
-          <Text style={Style.displayText}>{this.state.inputValue}</Text>
+          <Text style={Style.displayText} onChange>{this.state.inputValue}</Text>
           <Right>
             <TouchableOpacity onPress={() => this.setState({inputValue: 0})}>
               <Icon style={{
@@ -127,14 +127,19 @@ export default class Example extends Component {
         symbol = this.state.selectedSymbol,
         inputValue = this.state.inputValue,
         previousInputValue = this.state.previousInputValue;
-
         this.setState({
           previousInputValue: 0,
           inputValue: 0,
           total: eval(previousInputValue + symbol + inputValue),
           selectedSymbol: null,
-          visibleModal: null
+          visibleModal: null,
+
         });
+        setTimeout(()=>{
+            this.props.valorfun(this.state.total);
+        }, 200);
+
+
         break;
     }
   }

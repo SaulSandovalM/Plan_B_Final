@@ -5,8 +5,12 @@ import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
 class Fecha extends Component {
   constructor(props){
     super(props)
-    this.state = {date: new Date()}
+    this.state = {
+      date: new Date()
+    }
+
   }
+
     render(){
       return (
         <DatePicker
@@ -37,7 +41,16 @@ class Fecha extends Component {
             },
 
           }}
-          onDateChange={(date) => {this.setState({date: date})}}
+          onDateChange={(date) => {this.setState({date:date})},
+          setTimeout(()=>{
+                this.props.fechafun(this.state.date)
+            }, 100)
+
+        }
+
+
+
+
         />
       );
     }
