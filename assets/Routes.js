@@ -20,13 +20,13 @@ const Routes = () => {
   return (
     <Router>
       <Scene key="root">
-        <Scene key="Bienvenido" header={null} component={Bienvenido} initial/>
+        <Scene key="Bienvenido" header={null} component={Bienvenido} />
         <Scene key="Ter" header={null} component={Terminos}/>
         <Scene key="Login" header={null} component={Login} />
         <Scene key="IngresosIntro" header={null} component={IngresosIntro} />
         <Scene key="GastosIntro" header={null} component={GastosIntro}/>
         <Scene key="Log" header={null} component={Log}/>
-        <Scene key="Inicio" header={null} component={Inicio} />
+        <Scene key="Inicio" header={null} component={Inicio} initial/>
         <Scene key="Perfil" header={null} component={Perfil}/>
         <Scene key="Ingresos" header={null} component={Ingresos} />
         <Scene key="Gastos" header={null} component={Gastos}/>

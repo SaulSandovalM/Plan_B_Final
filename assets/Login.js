@@ -79,7 +79,7 @@ class Login extends Component {
         </View>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input}
+          <Input style={styles.input} autoCapitalize='none'
             placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='black'
             returnKeyType='next' value={this.state.text} onChangeText={email => this.setState({email})}/>
         </Item>
