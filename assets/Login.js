@@ -17,6 +17,7 @@ class Login extends Component {
     super(props);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailed = this.onLoginFailed.bind(this);
+    this.onLoginFailedReg = this.onLoginFailedReg.bind(this);
   }
 
   componentWillMount() {
@@ -40,15 +41,26 @@ class Login extends Component {
   onButtonPress() {
     const {email, contraseña} = this.state;
     this.setState({error: ''});
-    firebaseRef.auth().signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess).catch(() => {
-      firebaseRef.auth().createUserWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
-      .catch(this.onLoginFailed);
-    });
+    firebaseRef.auth().signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
+    .catch(this.onLoginFailed);
+
+  }
+  onButtonPressReg() {
+    const {email, contraseña} = this.state;
+    this.setState({error: ''});
+    firebaseRef.auth().createUserWithEmailAndPassword(this.state.email, this.state.contraseña).then(this.onLoginSuccess)
+    .catch(this.onLoginFailedReg);
+
   }
 
   onLoginFailed() {
     this.setState({error: 'Autenticación Fallida'});
-    alert('Verifica los campos')
+    alert('Registrate!')
+  }
+
+  onLoginFailedReg() {
+    this.setState({error: 'Autenticación Fallida'});
+    alert('Verifica los campos!')
   }
 
   onLoginSuccess() {
@@ -79,15 +91,18 @@ class Login extends Component {
         </Item>
 
         <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
-          <Text style={styles.boton}>INGRESAR</Text>
+          <Text style={styles.boton}>INGRESA</Text>
         </Button>
 
-        <View style={styles.view2}>
-          <View style={styles.view3}>
-            <Text>¿Aún no tienes cuenta?,</Text>
-            <Text style={styles.font} onPress={() => Actions.Registro()}>REGISTRATE</Text>
-          </View>
+        <View style={styles.view1}>
+            <Text style={styles.font}>Ó</Text>
         </View>
+
+        <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPressReg.bind(this)}>
+          <Text style={styles.boton}>REGISTRATE</Text>
+        </Button>
+
+
 
       </Image>
     );
@@ -127,10 +142,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
+  view1: {
+    height: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
   inputRounded: {
     marginRight: 40,
     marginLeft: 40,
-    marginBottom: 10,
     borderColor: '#f08080',
     borderWidth: 3,
     backgroundColor: 'white'
@@ -141,26 +161,23 @@ const styles = StyleSheet.create({
   buttonIngreso: {
     marginRight: 40,
     marginLeft: 40,
-    marginBottom: 10,
+    marginBottom: 5,
+    marginTop: 5,
     backgroundColor: '#4DA49B'
   },
   boton: {
     color: 'white',
     fontWeight: 'bold'
   },
-  view2: {
-    justifyContent: 'flex-end',
-    backgroundColor: 'transparent'
-  },
-  view3: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginBottom: 10,
-    marginTop: 10
-  },
+
   font: {
-    fontWeight: 'bold'
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'white',
+
   }
+
 });
 
 export default Login;
