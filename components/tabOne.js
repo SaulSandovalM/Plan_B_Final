@@ -4,16 +4,11 @@ import {Container, Content, Card, CardItem, Body, Icon, Right, Button} from 'nat
 import Footers from '../assets/Footers';
 import {Actions} from 'react-native-router-flux';
 import Grafica from '../assets/Grafica';
-import MyComponent from './example';
 
 export default class tabOne extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <View style={styles.container}>
-            <MyComponent style={{flex: 1}}/>
-        </View>
-
         <Content>
 
         <Card style={styles.card}>
