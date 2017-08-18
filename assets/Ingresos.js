@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
 import { Container, Content, Input, Left, Body, Icon, CardItem, List, ListItem, Title, Button} from 'native-base';
-import Cabecera2 from './Cabecera2';
+import CabeceraIngresos from './CabeceraIngresos';
 import imgLogo from '../imgs/Ingresos.png';
 import Valores from '../components/Modal';
 import Fecha from '../components/Fecha';
@@ -10,7 +10,7 @@ export default class Ingresos extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <Cabecera2/>
+        <CabeceraIngresos/>
         <Content>
           <Image source={imgLogo} style={styles.img}/>
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
   import {StyleSheet, View} from 'react-native';
   import { Container, Header, Content, List, Title, ListItem, Text} from 'native-base';
   import Listconte from './Listconte';
-  import Cabecera2 from './Cabecera2';
+  import CabeceraGastos from './CabeceraGastos';
   import Modalgasto from '../components/Modalgasto';
   import * as firebase from 'firebase';
   import DatePicker from 'react-native-datepicker';
@@ -60,7 +60,7 @@ import React, { Component } from 'react';
     render() {
       return (
         <Container style={styles.back}>
-        <Cabecera2/>
+        <CabeceraGastos/>
         <View style={styles.view}>
           <DatePicker
             style={{width: 150, alignItems: 'center'}}
