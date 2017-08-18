@@ -17,6 +17,7 @@ class Login extends Component {
     super(props);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailed = this.onLoginFailed.bind(this);
+    this.onLoginFailedReg = this.onLoginFailedReg.bind(this);
   }
 
   componentWillMount() {
@@ -40,15 +41,26 @@ class Login extends Component {
   onButtonPress() {
     const {email, contraseña} = this.state;
     this.setState({error: ''});
-    firebaseRef.auth().signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess).catch(() => {
-      firebaseRef.auth().createUserWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
-      .catch(this.onLoginFailed);
-    });
+    firebaseRef.auth().signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
+    .catch(this.onLoginFailed);
+
+  }
+  onButtonPressReg() {
+    const {email, contraseña} = this.state;
+    this.setState({error: ''});
+    firebaseRef.auth().createUserWithEmailAndPassword(this.state.email, this.state.contraseña).then(this.onLoginSuccess)
+    .catch(this.onLoginFailedReg);
+
   }
 
   onLoginFailed() {
     this.setState({error: 'Autenticación Fallida'});
-    alert('Verifica los campos')
+    alert('Registrate!')
+  }
+
+  onLoginFailedReg() {
+    this.setState({error: 'Autenticación Fallida'});
+    alert('Verifica los campos!')
   }
 
   onLoginSuccess() {
@@ -67,7 +79,7 @@ class Login extends Component {
         </View>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input}
+          <Input style={styles.input} autoCapitalize='none'
             placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='black'
             returnKeyType='next' value={this.state.text} onChangeText={email => this.setState({email})}/>
         </Item>
@@ -78,17 +90,15 @@ class Login extends Component {
             onChangeText={contraseña => this.setState({contraseña})}/>
         </Item>
 
+        <View style={styles.botones}>
         <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
-          <Text style={styles.boton}>INGRESAR</Text>
+          <Text style={styles.boton}>INGRESA</Text>
         </Button>
 
-        <View style={styles.view2}>
-          <View style={styles.view3}>
-            <Text>¿Aún no tienes cuenta?,</Text>
-            <Text style={styles.font} onPress={() => Actions.Registro()}>REGISTRATE</Text>
-          </View>
-        </View>
-
+        <Button rounded block style={styles.buttonRegistro} onPress={this.onButtonPressReg.bind(this)}>
+          <Text style={styles.boton}>REGISTRATE</Text>
+        </Button>
+      </View>
       </Image>
     );
   }
@@ -127,11 +137,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
+  view1: {
+    height: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
   inputRounded: {
     marginRight: 40,
     marginLeft: 40,
-    marginBottom: 10,
-    borderColor: '#f08080',
+    borderColor: '#ccc',
     borderWidth: 3,
     backgroundColor: 'white'
   },
@@ -139,28 +154,33 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   buttonIngreso: {
-    marginRight: 40,
+    width: '38%',
     marginLeft: 40,
-    marginBottom: 10,
+    marginBottom: 5,
+    marginTop: 5,
+    backgroundColor: '#4DA49B'
+  },
+  buttonRegistro: {
+    width: '38%',
+    marginRight: 40,
+    marginBottom: 5,
+    marginTop: 5,
     backgroundColor: '#4DA49B'
   },
   boton: {
     color: 'white',
     fontWeight: 'bold'
   },
-  view2: {
-    justifyContent: 'flex-end',
-    backgroundColor: 'transparent'
-  },
-  view3: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginBottom: 10,
-    marginTop: 10
-  },
   font: {
-    fontWeight: 'bold'
-  }
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'white',
+  },
+  botones: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
 });
 
 export default Login;

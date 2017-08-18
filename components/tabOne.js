@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Dimensions, Image} from 'react-native';
-import {Container, Content, Card, CardItem,Right, Body, Icon, Button} from 'native-base';
+import {Container, Content, Card, CardItem, Body, Icon, Right, Button} from 'native-base';
 import Footers from '../assets/Footers';
 import {Actions} from 'react-native-router-flux';
 import Grafica from '../assets/Grafica';
@@ -10,6 +10,7 @@ export default class tabOne extends Component {
     return (
       <Container style={styles.back}>
         <Content>
+
         <Card style={styles.card}>
         <CardItem header>
             <Text>Tus Gastos</Text>
@@ -37,7 +38,7 @@ export default class tabOne extends Component {
            </CardItem>
         </Card>
 
-        <Card style={styles.card2}>
+        <Card style={styles.card}>
           <CardItem header>
             <Text style={styles.texto}>Historia</Text>
           </CardItem>
