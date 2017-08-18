@@ -12,7 +12,6 @@ import Grafica from './Grafica';
 import Tips from './Tips';
 import Log from './Log';
 import Bienvenido from './Bienvenido';
-import NuevoGasto from './NuevoGasto';
 import IngresosIntro from './IngresosIntro';
 import GastosIntro from './GastosIntro';
 
@@ -34,7 +33,6 @@ const Routes = () => {
         <Scene key="NuevoAhorro" header={null} component={NuevoAhorro}/>
         <Scene key="Grafica" header={null} component={Grafica}/>
         <Scene key="Tips" header={null} component={Tips}/>
-        <Scene key="NuevoGasto" header={null} component={NuevoGasto}/>
       </Scene>
     </Router>
   );

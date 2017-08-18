@@ -3,21 +3,78 @@ import {Container, Text, Button, Content, CardItem, List, Left, ListItem, Body, 
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
-import NuevoGasto from '../assets/NuevoGasto';
 import Valores from '../components/Modal';
 import Fecha from '../components/Fecha';
-import Modalcat from '../components/Modalcat';
+import Modalcat from './Modalcat';
 
 export default class Example extends Component {
   state = {
-    visibleModal: null
+    visibleModal: null,
+    objeto:{},
+    fecha:'',
+    icono:'add'
   };
+  conFun=(iconito)=>{
+    objeto=this.state.objeto
+    objeto['iname']=iconito
+    //const newIcon=iconito;
+    this.setState({
+      //icono:newIcon,
+      objeto
+    })
+  }
+  iFun=(i)=>{
+        newIcon=i;
+    this.setState({
+      icono:newIcon,
+    })
+  }
+
+  cateFun=(categorita)=>{
+    objeto=this.state.objeto
+    objeto['categoria']=categorita
+        //const newCat= categorita;
+        this.setState({
+          //categoria:newCat,
+          objeto
+        });
+      }
+desFun=(descripcion)=>{
+
+  objeto=this.state.objeto
+  objeto['descri']=descripcion
+
+  this.setState({objeto});
+}
+valorfun=(valorcito)=>{
+
+  objeto=this.state.objeto
+  objeto['cantidad']=valorcito
+
+  this.setState({objeto});
+}
+fechafun=(fechita)=>{
+  const newFech= fechita;
+  this.setState({
+    fecha:newFech
+  });
+}
+
+
+
+
+aceptar=()=>{
+  this.props.agregar(this.state.objeto),
+  this.setState({visibleModal:null});
+  console.log(objeto)
+}
+
 
   _renderModalContent = () => (
     <View style={styles.rootContainer}>
 
       <CardItem header>
-        <Text>Gasto</Text>
+        <Text>Nuevo gasto</Text>
       </CardItem>
 
       <List>
@@ -26,7 +83,7 @@ export default class Example extends Component {
             <Icon name="calculator" style={styles.icon}/>
           </Left>
           <Body>
-            <Valores/>
+            <Valores valorfun={this.valorfun}/>
           </Body>
         </ListItem>
         <ListItem icon>
@@ -34,35 +91,48 @@ export default class Example extends Component {
             <Icon name="calendar"/>
           </Left>
           <Body>
-            <Fecha/>
+            <Fecha fechafun={this.fechafun}/>
           </Body>
         </ListItem>
+        <ListItem icon>
+          <Left>
+            <Icon name={this.state.icono}/>
+          </Left>
+          <Body>
+            <Modalcat  cateFun={this.cateFun} conFun={this.conFun} iFun={this.iFun}/>
+          </Body>
+        </ListItem>
+
         <ListItem icon>
           <Left>
             <Icon name="paper"/>
           </Left>
           <Body >
-            <Input style={styles.input} placeholder='Descripción'/>
+            <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}  />
           </Body>
         </ListItem>
-        <Modalcat/>
+
 
       </List>
       <View style={{
         flexDirection: 'row',
         justifyContent: 'center',
-        top: 40
+        top: 10
       }}>
-        <Button transparent onPress={() => this.setState({visibleModal: null})}>
+        <Button transparent onPress={this.aceptar}>
           <Text style={styles.texto}>Aceptar</Text>
         </Button>
+         <Button transparent onPress={()=>this.setState(visibleModal:null)} >
+            <Text style={styles.texto}>Cancelar</Text>
+          </Button>
       </View>
-    </View>
+  </View>
   );
 
   render() {
     return (
       <View style={styles.container}>
+
 
         <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight" onPress={() =>
             this.setState({visibleModal: 1})}>
@@ -71,7 +141,7 @@ export default class Example extends Component {
 
         <Modal isVisible={this.state.visibleModal === 1}>
           {this._renderModalContent()}
-        </Modal>
+          </Modal>
 
       </View>
     );

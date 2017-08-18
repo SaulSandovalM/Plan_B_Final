@@ -139,14 +139,12 @@ const styles = StyleSheet.create({
   },
   card: {
     alignItems: 'center',
-    height: 250
   },
   card2: {
     alignItems: 'center',
-    height: 200
   },
   cardi: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   boton: {
     alignSelf: 'center'
