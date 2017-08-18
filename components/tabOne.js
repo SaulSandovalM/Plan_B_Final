@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View, Dimensions, Image, TouchableWithoutFeedback, ScrollView} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
 import {Container, Content, Card, CardItem, Body, Icon, Right, Button} from 'native-base';
-import Footers from '../assets/Footers';
 import {Actions} from 'react-native-router-flux';
-import Grafica from '../assets/Grafica';
 import AreaSpline from '../js/charts/AreaSpline';
 import Pie from '../js/charts/Pie';
 import Theme from '../js/theme';
@@ -84,7 +82,7 @@ export default class tabOne extends Component {
             width={width}
             height={height}
             data={data.spendingsLastMonth} />
-          <Text style={styles.chart_title}>Spending per year in {data.spendingsLastMonth[this.state.activeIndex].name}</Text>
+          <Text style={styles.chart_title}>Registro de {data.spendingsLastMonth[this.state.activeIndex].name}</Text>
           <AreaSpline
             width={width}
             height={height}
