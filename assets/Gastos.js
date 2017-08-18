@@ -56,6 +56,12 @@ import React, { Component } from 'react';
     const itemsRef = firebase.database().ref('gastos');
     this.listenForItems(itemsRef);
   }
+  borrar = (item) => {
+    let updates = {};
+    updates['/items/' + item.id] = null;
+    firebase.database().ref().update(updates);
+  }
+
 
     render() {
       return (
@@ -97,9 +103,9 @@ import React, { Component } from 'react';
 
           <Content>
           <Title style={styles.titulo}>Gastos</Title>
-          <Listconte lista={this.state.lista}  />
+          <Listconte  lista={this.state.lista} borrar={this.borrar} />
           </Content>
-          <Modalgasto agregar={this.addItem}/>
+          <Modalgasto style={styles.lista} agregar={this.addItem}/>
         </Container>
       );
     }
@@ -115,6 +121,9 @@ import React, { Component } from 'react';
   },
   back: {
     backgroundColor: 'white'
+  },
+  lista:{
+    backgroundColor:'blue'
   },
   view: {
     alignItems: 'center',

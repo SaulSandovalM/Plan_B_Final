@@ -7,9 +7,7 @@ export default StyleSheet.create({
 
 
   },
-  container: {
-    flex: 1,
-  },
+
 
   icono: {
     color: '#4DA49B'

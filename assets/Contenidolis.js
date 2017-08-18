@@ -1,11 +1,62 @@
 import React, { Component } from 'react';
+import { Animated, Alert } from 'react-native';
 import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right } from 'native-base';
+
+const ACTION_TIMER = 400;
 export default class Contenidolis extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+        done: false,
+        pressAction:  new Animated.Value(0),
+        item: null
+    };
+}
+
+componentWillMount() {
+    this._value = 0;
+    this.state.pressAction.addListener((v) => this._value = v.value);
+}
+
+
+
+pressIn = () => {
+    Animated.timing(this.state.pressAction,{
+        duration: ACTION_TIMER,
+        toValue: 1
+    }).start(this.animationActionComplete);
+}
+
+borrar = () => {
+    this.props.borrar(this.props.item);
+}
+
+animationActionComplete =() => {
+const message = '¿Seguro que quieres eliminarlo?';
+if (this._value === 1) {
+    Alert.alert(
+        'ELIMINAR',
+        message,
+        [
+            {
+                text: 'Borrar',
+                onPress: this.borrar
+            },
+            {
+                text: 'Cancelar',
+                onPress: null
+            }
+        ]
+      );
+}
+}
+
+
   render() {
     return (
 
           <List>
-            <ListItem icon>
+            <ListItem icon onPress={this.pressIn}>
               <Left>
                 <Icon name={this.props.item.iname} />
               </Left>

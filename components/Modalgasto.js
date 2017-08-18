@@ -12,7 +12,8 @@ export default class Example extends Component {
     visibleModal: null,
     objeto:{},
     fecha:'',
-    icono:'add'
+    icono:'add',
+
   };
   conFun=(iconito)=>{
     objeto=this.state.objeto
@@ -33,6 +34,7 @@ export default class Example extends Component {
   cateFun=(categorita)=>{
     objeto=this.state.objeto
     objeto['categoria']=categorita
+
         //const newCat= categorita;
         this.setState({
           //categoria:newCat,
@@ -40,10 +42,8 @@ export default class Example extends Component {
         });
       }
 desFun=(descripcion)=>{
-
   objeto=this.state.objeto
   objeto['descri']=descripcion
-
   this.setState({objeto});
 }
 valorfun=(valorcito)=>{
@@ -67,6 +67,9 @@ aceptar=()=>{
   this.props.agregar(this.state.objeto),
   this.setState({visibleModal:null});
   console.log(objeto)
+}
+cancelar=()=>{
+  this.setState({visibleModal:null});
 }
 
 
@@ -122,7 +125,7 @@ aceptar=()=>{
         <Button transparent onPress={this.aceptar}>
           <Text style={styles.texto}>Aceptar</Text>
         </Button>
-         <Button transparent onPress={()=>this.setState(visibleModal:null)} >
+         <Button transparent onPress={this.cancelar} >
             <Text style={styles.texto}>Cancelar</Text>
           </Button>
       </View>
@@ -131,7 +134,7 @@ aceptar=()=>{
 
   render() {
     return (
-      <View style={styles.container}>
+      <View >
 
 
         <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight" onPress={() =>

@@ -7,6 +7,14 @@ import Valores from '../components/Modal';
 import Fecha from '../components/Fecha';
 
 export default class Ingresos extends Component {
+  state = {
+    cantidad:''
+
+  };
+  valorfun=(valorcito)=>{
+    const newcant=valorcito;
+    this.setState({cantidad:newcant});
+  }
   render() {
     return (
       <Container style={styles.back}>
@@ -22,7 +30,7 @@ export default class Ingresos extends Component {
                   <Icon name="calculator" style={styles.icon}/>
                 </Left>
                 <Body>
-                  <Valores/>
+                  <Valores valorfun={this.valorfun}/>
                 </Body>
               </ListItem>
 
