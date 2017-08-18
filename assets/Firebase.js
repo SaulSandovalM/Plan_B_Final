@@ -8,4 +8,6 @@ var config = {
   storageBucket: "reactfixter.appspot.com",
   messagingSenderId: "430923296727"
 };
-export const firebaseRef = firebase.initializeApp(config);
+firebase.initializeApp(config);
+export const firebaseAuth = firebase.auth()
+export default firebase;
