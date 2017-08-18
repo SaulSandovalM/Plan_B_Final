@@ -96,7 +96,6 @@ import React, { Component } from 'react';
         </View>
 
           <Content>
-          <Title style={styles.titulo}>Gastos</Title>
           <Listconte lista={this.state.lista}  />
           </Content>
           <Modalgasto agregar={this.addItem}/>
