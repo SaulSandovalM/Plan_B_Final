@@ -41,7 +41,7 @@ export default class tabOne extends Component {
 
   render() {
     const height = 200;
-    const width = 500;
+    const width = 340;
 
     return (
       <Container style={styles.back}>
