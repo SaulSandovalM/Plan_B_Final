@@ -9,6 +9,7 @@ class Fecha extends Component {
       date: new Date()}
 
   }
+  
     render(){
       return (
 
