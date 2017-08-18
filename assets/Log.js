@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {firebaseRef} from './Firebase';
+import {firebaseAuth} from './Firebase';
 import {Actions} from 'react-native-router-flux';
 import Inicio from '../components/Inicio';
 import Login from './Login';
@@ -11,7 +11,7 @@ class Log extends Component {
   };
 
   componentWillMount() {
-    firebaseRef.auth().onAuthStateChanged((user) => {
+    firebaseAuth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({loggedIn: true});
       } else {

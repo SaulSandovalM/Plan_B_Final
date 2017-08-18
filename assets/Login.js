@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {firebaseRef} from './Firebase';
+import firebase, {firebaseAuth} from './Firebase';
 import FBSDK, {LoginButton, AccessToken} from 'react-native-fbsdk';
 import {Button, Icon, Item, Input} from 'native-base';
 import {Actions} from 'react-native-router-flux';
+
+const {FacebookAuthProvider} = firebase.auth
 
 class Login extends Component {
   state = {
@@ -28,8 +30,8 @@ class Login extends Component {
     AccessToken.getCurrentAccessToken().then((data) => {
       const {accessToken} = data
       const credential = FacebookAuthProvider.credential(accessToken)
-      firebaseRef.signInWithCredential(credential).then((credentials) => {
-        Actions.Inicio()
+      firebaseAuth.signInWithCredential(credential).then((credentials) => {
+        Actions.Inicio();
       }, (error) => {
         console.log("Sign in error", error)
       })
@@ -41,14 +43,14 @@ class Login extends Component {
   onButtonPress() {
     const {email, contraseña} = this.state;
     this.setState({error: ''});
-    firebaseRef.auth().signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
+    firebaseAuth.signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
     .catch(this.onLoginFailed);
 
   }
   onButtonPressReg() {
     const {email, contraseña} = this.state;
     this.setState({error: ''});
-    firebaseRef.auth().createUserWithEmailAndPassword(this.state.email, this.state.contraseña).then(this.onLoginSuccess)
+    firebaseAuth.createUserWithEmailAndPassword(this.state.email, this.state.contraseña).then(this.onLoginSuccess)
     .catch(this.onLoginFailedReg);
 
   }
@@ -108,7 +110,7 @@ handleLoginFinished = (error, result) => {
   if (error) {
     console.error(error)
   } else if (result.isCancelled) {
-    console.warn("login is cancelled.");
+    console.log("login is cancelled.");
   } else {
     this.authenticateUser()
     alert('FuncionHandle')
