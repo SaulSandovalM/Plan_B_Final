@@ -74,17 +74,23 @@ export default class tabOne extends Component {
            </CardItem>
         </Card>
 
-        <Card style={styles.card}>
-          <CardItem header>
-            <Text style={styles.texto}>Historia</Text>
-          </CardItem>
-          <CardItem style={styles.cardi}>
-          <Icon style={{color:'blue'}} active name="ios-pie-outline"/>
-          <Text>Registra tu primer Ingresos</Text>
-
-          </CardItem>
-
-        </Card>
+        <View style={styles.container} >
+          <Text style={styles.chart_title}>Historial</Text>
+          <Pie
+            pieWidth={150}
+            pieHeight={150}
+            onItemSelected={this._onPieItemSelected}
+            colors={Theme.colors}
+            width={width}
+            height={height}
+            data={data.spendingsLastMonth} />
+          <Text style={styles.chart_title}>Spending per year in {data.spendingsLastMonth[this.state.activeIndex].name}</Text>
+          <AreaSpline
+            width={width}
+            height={height}
+            data={this.state.spendingsPerYear}
+            color={Theme.colors[this.state.activeIndex]} />
+        </View>
 
           <View style={styles.align}>
             <Card style={styles.borde}>
@@ -108,24 +114,6 @@ export default class tabOne extends Component {
               <Text>Ahorros</Text>
             </Card>
           </View>
-
-        <View style={styles.container} >
-          <Text style={styles.chart_title}>Distribution of spending this month</Text>
-          <Pie
-            pieWidth={150}
-            pieHeight={150}
-            onItemSelected={this._onPieItemSelected}
-            colors={Theme.colors}
-            width={width}
-            height={height}
-            data={data.spendingsLastMonth} />
-          <Text style={styles.chart_title}>Spending per year in {data.spendingsLastMonth[this.state.activeIndex].name}</Text>
-          <AreaSpline
-            width={width}
-            height={height}
-            data={this.state.spendingsPerYear}
-            color={Theme.colors[this.state.activeIndex]} />
-        </View>
 
         </Content>
       </Container>
@@ -175,7 +163,7 @@ const styles = StyleSheet.create({
     height: 50
   },
   container: {
-    backgroundColor:'whitesmoke',
+    backgroundColor:'white',
     marginTop: 21,
   },
   chart_title : {
