@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-  import {StyleSheet, View} from 'react-native';
-  import { Container, Header, Content, List, Title, ListItem, Text} from 'native-base';
-  import Listconte from './Listconte';
-  import Cabecera2 from './Cabecera2';
-  import Modalgasto from '../components/Modalgasto';
-  import * as firebase from 'firebase';
-  import DatePicker from 'react-native-datepicker';
+import {StyleSheet, View} from 'react-native';
+import { Container, Header, Content, List, Title, ListItem, Text} from 'native-base';
+import Listconte from './Listconte';
+import Cabecera2 from './Cabecera2';
+import Modalgasto from '../components/Modalgasto';
+import firebase, {firebaseAuth} from './Firebase';
+import DatePicker from 'react-native-datepicker';
 
   export default class Gasto extends Component {
     constructor(){
