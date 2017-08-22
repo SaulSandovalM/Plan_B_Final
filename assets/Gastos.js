@@ -4,7 +4,7 @@ import React, { Component } from 'react';
   import Listconte from './Listconte';
   import Cabecera2 from './Cabecera2';
   import Modalgasto from '../components/Modalgasto';
-  import * as firebase from 'firebase';
+  import firebase, {firebaseAuth} from './Firebase';
   import DatePicker from 'react-native-datepicker';
 
   export default class Gasto extends Component {
@@ -27,10 +27,21 @@ import React, { Component } from 'react';
       this.state.lista.push(datos)
       this.setState({lista:this.state.lista})
       console.log(this.state.lista)
-      firebase.database().ref('gastos').push(datos);
+
+      firebaseAuth.onAuthStateChanged(function(user){
+        console.log('user', user)
+        if(user){
+          var uid= user.uid;
+        }
+        console.log(uid)
+
+        firebase.database().ref('usuarios/'+uid+'/gastos').push(datos);
+
+      });
+
     }
 
-    listenForItems = (itemsRef) => {
+    listenForItems (itemsRef) {
       itemsRef.on('value', (snap) => {
 
         // get children as an array
@@ -52,9 +63,23 @@ import React, { Component } from 'react';
       });
     }
 
+    componentWillMount(){
+      var that = this;
+      firebaseAuth.onAuthStateChanged(function(user){
+        console.log('user', user)
+        if(user){
+          var uid= user.uid;
+          var key = user.key;
+        }
+        console.log(uid)
+        console.log(key)
+        const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+        that.listenForItems(itemsRef);
+      });
+    }
+
     componentDidMount() {
-    const itemsRef = firebase.database().ref('gastos');
-    this.listenForItems(itemsRef);
+
   }
 
     render() {

@@ -24,6 +24,38 @@ class Login extends Component {
 
   componentWillMount() {
     this.authenticateUser();
+    firebaseAuth.onAuthStateChanged(function(user){
+      console.log('user', user)
+
+      var db = firebase.database();
+      var storage = firebase.storage();
+      if(user)
+      {
+          var uid = user.uid;
+          var exists = false;
+
+          db.ref('usuarios').once('value')
+              .then(function(snapshot)
+              {
+                  snapshot.forEach(function(key){
+                      console.log(key.val());
+                      if(key.val().uid == uid)
+                      {
+                          exists = true;
+                      }
+                  });
+                  if(exists == false)
+                  {
+                      db.ref('usuarios').push({
+                          uid: uid,
+                          nombre: user.displayName,
+                          email: user.email,
+                          profileImage: user.photoURL
+                      });
+                  }
+              });
+}
+    });
   }
 
   authenticateUser = () => {
