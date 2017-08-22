@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {firebaseRef} from './Firebase';
+import firebase, {firebaseAuth} from './Firebase';
 import FBSDK, {LoginButton, AccessToken} from 'react-native-fbsdk';
 import {Button, Icon, Item, Input} from 'native-base';
 import {Actions} from 'react-native-router-flux';
@@ -102,8 +102,8 @@ class Login extends Component {
         </View>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} autoCapitalize='none' placeholder='Correo electrónico'
-            keyboardType='email-address' placeholderTextColor='black' returnKeyType='next' value={this.state.text}
+          <Input style={styles.input} autoCapitalize='none' placeholder='Correo electrónico' keyboardType='email-address'
+            placeholderTextColor='black' returnKeyType='next' value={this.state.text}
             onChangeText={email => this.setState({email})}/>
         </Item>
 
@@ -130,7 +130,7 @@ handleLoginFinished = (error, result) => {
   if (error) {
     console.error(error)
   } else if (result.isCancelled) {
-    console.warn("login is cancelled.");
+    console.log("login is cancelled.");
   } else {
     this.authenticateUser()
     alert('FuncionHandle')
