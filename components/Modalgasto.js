@@ -59,15 +59,12 @@ fechafun=(fechita)=>{
     fecha:newFech
   });
 }
-
-
-
-
 aceptar=()=>{
   this.props.agregar(this.state.objeto),
   this.setState({visibleModal:null});
   console.log(objeto)
 }
+
 cancelar=()=>{
   this.setState({visibleModal:null});
 }
