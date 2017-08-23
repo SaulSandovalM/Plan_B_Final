@@ -1,37 +1,28 @@
-// @flow
 'use strict';
 
 import React from 'react';
-import {
-  ART,
-  LayoutAnimation,
-} from 'react-native';
-
-const {
-  Shape,
-} = ART;
-
+import {ART, LayoutAnimation} from 'react-native';
+const {Shape} = ART;
 import Morph from 'art/morph/path';
-
 import * as shape from 'd3-shape';
 
 const d3 = {
-  shape,
+  shape
 };
 
 type Props = {
   color: any,
-  d: () => any,
+  d: () => any
 };
 
 const AnimationDurationMs = 250;
 
 export default class AnimShape extends React.Component {
 
-  constructor(props: Props) {
+  constructor(props : Props) {
     super(props);
     this.state = {
-      path: '',
+      path: ''
     }
   }
 
@@ -45,15 +36,11 @@ export default class AnimShape extends React.Component {
 
   // Animations based on: https://github.com/hswolff/BetterWeather
   computeNextState(nextProps) {
-    const {
-      d,
-    } = nextProps;
+    const {d} = nextProps;
 
     const graph = this.props.d();
 
-    this.setState({
-      path: graph.path,
-    });
+    this.setState({path: graph.path});
 
     // The first time this function is hit we need to set the initial
     // this.previousGraph value.
@@ -76,18 +63,12 @@ export default class AnimShape extends React.Component {
       // was a nice shortcut to get the same effect.
       LayoutAnimation.configureNext(
         LayoutAnimation.create(
-          AnimationDurationMs,
-          LayoutAnimation.Types.easeInEaseOut,
-          LayoutAnimation.Properties.opacity
-        )
-      );
+          AnimationDurationMs, LayoutAnimation.Types.easeInEaseOut, LayoutAnimation.Properties.opacity));
 
       this.setState({
         // Create the ART Morph.Tween instance.
         path: Morph.Tween( // eslint-disable-line new-cap
-          pathFrom,
-          pathTo,
-        ),
+            pathFrom, pathTo,)
       }, () => {
         // Kick off our animations!
         this.animate();
@@ -112,9 +93,7 @@ export default class AnimShape extends React.Component {
 
         this.animating = null;
         // Just to be safe set our final value to the new graph path.
-        this.setState({
-          path: this.previousGraph.path,
-        });
+        this.setState({path: this.previousGraph.path});
 
         // Stop our animation loop.
         return;
@@ -131,12 +110,6 @@ export default class AnimShape extends React.Component {
 
   render() {
     const path = this.state.path;
-    return (
-       <Shape
-         d={path}
-         stroke={this.props.color}
-         fill={this.props.color}
-         />
-    );
+    return (<Shape d={path} stroke={this.props.color} fill={this.props.color}/>);
   }
 }
