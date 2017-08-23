@@ -7,7 +7,12 @@ export default class Contenidolis extends Component {
   constructor(props){
     super(props);
     this.state = {
-        done: false,
+        lista:[
+          cantidad:null,
+          categoria:null,
+          iname:null,
+          descri:null,
+        ]
         pressAction:  new Animated.Value(0),
         item: null
     };
@@ -28,11 +33,13 @@ pressIn = () => {
 }
 
 borrar = () => {
-    this.props.borrar(this.props.item);
+
+
+return firebase.database().ref().update(updates);
 }
 
 animationActionComplete =() => {
-const message = '¿Seguro que quieres eliminarlo?';
+const message = '¿Que deseas hacer?';
 if (this._value === 1) {
     Alert.alert(
         'ELIMINAR',
@@ -56,7 +63,7 @@ if (this._value === 1) {
     return (
 
           <List>
-            <ListItem icon onPress={this.pressIn}>
+            <ListItem icon onLongPress={this.pressIn}>
               <Left>
                 <Icon name={this.props.item.iname} />
               </Left>
