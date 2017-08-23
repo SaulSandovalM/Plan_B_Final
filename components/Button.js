@@ -14,5 +14,4 @@ export default class InputButton extends Component {
       </TouchableHighlight>
     )
   }
-
 }

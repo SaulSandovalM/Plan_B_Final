@@ -21,12 +21,14 @@ let list1 = {
   jj: {text: 'jj'},
   kk: {text: 'kk'}
 }
+
 let shortlist = {
   hello: {text: 'world'},
   how: {text: 'are you'},
   test: {text: 123},
   this: {text: 'is'},
 }
+
 let list3 = {
   hello:  'world',
   how:  'are you',

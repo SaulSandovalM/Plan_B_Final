@@ -7,11 +7,10 @@ class Fecha extends Component {
     super(props)
     this.state = {
       date: new Date()}
-
   }
+
     render(){
       return (
-
         <DatePicker
           style={{width: 200}}
           date={this.state.date}
@@ -38,10 +37,8 @@ class Fecha extends Component {
             dateText:{
               color:'#424242'
             },
-
           }}
           onDateChange={() => {this.setState({date:date})}
-
         }
         />
       );

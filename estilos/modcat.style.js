@@ -7,14 +7,12 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   containercat: {
-
     justifyContent: 'flex-start',
     alignItems: 'flex-start'
   },
   iconocat: {
     color: '#4DA49B'
   },
-
   colorcat: {
     color: "green"
   },
