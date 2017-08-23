@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Container, Content, Text} from 'native-base';
+import {Container, Content, List, ListItem, Text} from 'native-base';
 import Listconte from './Listconte';
 import CabeceraGastos from './CabeceraGastos';
 import Modalgasto from '../components/Modalgasto';
@@ -46,15 +46,9 @@ export default class Gasto extends Component {
 
       // get children as an array
       var lista = [];
-        snap.forEach((child) => {
-          lista.push({
-            iname: child.val().iname,
-            categoria: child.val().categoria,
-            descri:child.val().descri,
-            cantidad:child.val().cantidad,
-            id: child.key
-          });
-        });
+      snap.forEach((child) => {
+        lista.push({iname: child.val().iname, categoria: child.val().categoria, descri: child.val().descri, cantidad: child.val().cantidad, id: child.key});
+      });
 
       this.setState({lista: lista});
 
@@ -83,9 +77,12 @@ export default class Gasto extends Component {
       <Container style={styles.back}>
         <CabeceraGastos/>
         <View style={styles.view}>
-          <DatePicker style={styles.picker} date={this.state.date} mode="date" showIcon={false} placeholder="select date"
-            format="YYYY-MM-DD" minDate="2017-01-01" maxDate="2030-01-01" confirmBtnText="Confirm" cancelBtnText="Cancel"
-            customStyles={{
+          <DatePicker style={{
+            width: 150,
+            alignItems: 'center'
+          }} date={this.state.date} mode="date" showIcon={false} placeholder="select date" format="YYYY-MM-DD"
+          minDate="2017-01-01" maxDate="2030-01-01" confirmBtnText="Confirm" cancelBtnText="Cancel"
+          customStyles={{
             dateIcon: {
               position: 'absolute',
               left: 0,
@@ -107,9 +104,7 @@ export default class Gasto extends Component {
           }}/>
         </View>
 
-        <Content>
-          <Listconte lista={this.state.lista}/>
-        </Content>
+        <Listconte lista={this.state.lista}/>
         <Modalgasto agregar={this.addItem}/>
       </Container>
     );
@@ -117,10 +112,6 @@ export default class Gasto extends Component {
 }
 
 const styles = StyleSheet.create({
-  titulo: {
-    top: 10,
-    color: 'black'
-  },
   list: {
     top: 15
   },
@@ -131,9 +122,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     margin: 10
-  },
-  picker: {
-    width: 150,
-    alignItems: 'center'
   }
 });
