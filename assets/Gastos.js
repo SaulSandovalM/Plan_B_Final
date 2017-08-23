@@ -2,7 +2,7 @@ import React, { Component } from 'react';
   import {StyleSheet, View} from 'react-native';
   import { Container, Header, Content, List, Title, ListItem, Text} from 'native-base';
   import Listconte from './Listconte';
-  import Cabecera2 from './Cabecera2';
+  import Cabecera2 from './CabeceraGastos';
   import Modalgasto from '../components/Modalgasto';
   import firebase, {firebaseAuth} from './Firebase';
   import DatePicker from 'react-native-datepicker';
@@ -15,7 +15,8 @@ import React, { Component } from 'react';
         lista:[ ],
         selected1: "key1",
         text: '$',
-        date: new Date()
+        date: new Date(),
+
       }
     }
 
@@ -43,11 +44,10 @@ import React, { Component } from 'react';
 
     listenForItems (itemsRef) {
       itemsRef.on('value', (snap) => {
-          console.log(snap.val())
+
         // get children as an array
         var lista = [];
         snap.forEach((child) => {
-
           lista.push({
             iname: child.val().iname,
             categoria: child.val().categoria,
@@ -77,18 +77,14 @@ import React, { Component } from 'react';
         const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
         that.listenForItems(itemsRef);
       });
-
-
     }
 
     componentDidMount() {
 
-      console.log(this.state.lista)
-
   }
   borrar = (item) => {
     let updates = {};
-    updates['/gastos/' + item.id] = null;
+    updates['/gastos/' + item.descri] = null;
     firebase.database().ref().update(updates);
   }
 
@@ -130,8 +126,9 @@ import React, { Component } from 'react';
             onDateChange={(date) => {this.setState({date: date})}}
           />
         </View>
+
           <Content>
-          <View style={{margin:20}}>
+          <View style={{marginBottom:20}}>
             <Title style={styles.titulo}>Gastos</Title>
           </View>
           <Listconte  lista={this.state.lista} borrar={this.borrar} />

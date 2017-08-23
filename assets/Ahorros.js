@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image, TextInput} from 'react-native';
 import {Container, Content, Card, CardItem, Button, Icon, Left, Body, Fab} from 'native-base';
 import imgLogo from '../imgs/Ahorros.png';
-import Cabecera2 from './Cabecera2';
+import CabeceraAhorros from './CabeceraAhorros';
 import {Actions} from 'react-native-router-flux';
 
 export default class Ahorros extends Component {
@@ -21,7 +21,7 @@ export default class Ahorros extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <Cabecera2/>
+        <CabeceraAhorros/>
         <Content>
 
           <Card>

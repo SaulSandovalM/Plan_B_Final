@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Text, Button, Content, CardItem, List, Left, ListItem, Body, Icon, Fab, Input} from 'native-base';
+import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input} from 'native-base';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
@@ -15,21 +15,20 @@ export default class Example extends Component {
     icono:'add',
 
   };
-  conFun=(iconito)=>{
-    objeto=this.state.objeto
-    objeto['iname']=iconito
+  conFun = (iconito) => {
+    objeto = this.state.objeto
+    objeto['iname'] = iconito
     //const newIcon=iconito;
     this.setState({
       //icono:newIcon,
       objeto
     })
   }
-  iFun=(i)=>{
-        newIcon=i;
-    this.setState({
-      icono:newIcon,
-    })
+  iFun = (i) => {
+    newIcon = i;
+    this.setState({icono: newIcon})
   }
+
 
   cateFun=(categorita)=>{
     objeto=this.state.objeto
@@ -46,30 +45,29 @@ desFun=(descripcion)=>{
   objeto['descri']=descripcion
   this.setState({objeto});
 }
-valorfun=(valorcito)=>{
 
-  objeto=this.state.objeto
-  objeto['cantidad']=valorcito
 
-  this.setState({objeto});
-}
-fechafun=(fechita)=>{
-  const newFech= fechita;
-  this.setState({
-    fecha:newFech
-  });
-}
 
-aceptar=()=>{
-  this.props.agregar(this.state.objeto),
-  this.setState({visibleModal:null});
-  console.log(objeto)
-}
+  valorfun = (valorcito) => {
+    objeto = this.state.objeto
+    objeto['cantidad'] = valorcito
+    this.setState({objeto});
+  }
 
-cancelar=()=>{
-  this.setState({visibleModal:null});
-}
+  fechafun = (fechita) => {
+    const newFech = fechita;
+    this.setState({fecha: newFech});
+  }
 
+  cancelar = () => {
+    this.setState({visibleModal: null});
+  }
+
+  aceptar = () => {
+    this.props.agregar(this.state.objeto),
+    this.setState({visibleModal: null});
+    console.log(objeto)
+  }
 
   _renderModalContent = () => (
     <View style={styles.rootContainer}>
@@ -87,6 +85,7 @@ cancelar=()=>{
             <Valores valorfun={this.valorfun}/>
           </Body>
         </ListItem>
+
         <ListItem icon>
           <Left>
             <Icon name="calendar"/>
@@ -95,12 +94,13 @@ cancelar=()=>{
             <Fecha fechafun={this.fechafun}/>
           </Body>
         </ListItem>
+
         <ListItem icon>
           <Left>
             <Icon name={this.state.icono}/>
           </Left>
           <Body>
-            <Modalcat  cateFun={this.cateFun} conFun={this.conFun} iFun={this.iFun}/>
+            <Modalcat cateFun={this.cateFun} conFun={this.conFun} iFun={this.iFun}/>
           </Body>
         </ListItem>
 
@@ -109,42 +109,38 @@ cancelar=()=>{
             <Icon name="paper"/>
           </Left>
           <Body >
-            <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}  />
+            <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
           </Body>
         </ListItem>
-
-
       </List>
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        top: 10
-      }}>
+
+      <View style={styles.view}>
         <Button transparent onPress={this.aceptar}>
           <Text style={styles.texto}>Aceptar</Text>
         </Button>
-         <Button transparent onPress={this.cancelar} >
-            <Text style={styles.texto}>Cancelar</Text>
-          </Button>
+
+        <Button transparent onPress={this.cancelar}>
+          <Text style={styles.texto}>Cancelar</Text>
+        </Button>
       </View>
-  </View>
+    </View>
   );
 
-  render() {
-    return (
-      <View >
+  render(){
+     return (
+       <View >
 
 
-        <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight" onPress={() =>
-            this.setState({visibleModal: 1})}>
-          <Icon name="add"/>
-        </Fab>
+         <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight" onPress={() =>
+             this.setState({visibleModal: 1})}>
+           <Icon name="add"/>
+         </Fab>
 
-        <Modal isVisible={this.state.visibleModal === 1}>
-          {this._renderModalContent()}
-          </Modal>
+         <Modal isVisible={this.state.visibleModal === 1}>
+           {this._renderModalContent()}
+           </Modal>
 
-      </View>
-    );
-  }
-}
+       </View>
+     );
+   }
+ }

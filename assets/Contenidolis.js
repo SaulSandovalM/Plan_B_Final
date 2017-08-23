@@ -7,12 +7,7 @@ export default class Contenidolis extends Component {
   constructor(props){
     super(props);
     this.state = {
-        lista:[
-          cantidad:null,
-          categoria:null,
-          iname:null,
-          descri:null,
-        ]
+
         pressAction:  new Animated.Value(0),
         item: null
     };
@@ -34,8 +29,7 @@ pressIn = () => {
 
 borrar = () => {
 
-
-return firebase.database().ref().update(updates);
+ this.props.borrar(this.props.item);
 }
 
 animationActionComplete =() => {

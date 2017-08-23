@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View} from 'react-native';
-import {Header, Left, Button, Icon} from 'native-base';
+import {AppRegistry, StyleSheet} from 'react-native';
+import {Header, Left, Button, Icon, Title} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 
-export default class CabeceraAhorros extends Component {
+export default class CabeceraIngresos extends Component {
   render() {
     return (
       <Header style={styles.header}>
         <Left>
-          <Button transparent onPress={() => Actions.Ahorros()}>
+          <Button transparent onPress={() => Actions.Inicio()}>
             <Icon name='arrow-back' style={styles.color}/>
           </Button>
         </Left>
+        <Title style={styles.texto}>Ingresos</Title>
       </Header>
     );
   }
@@ -23,7 +24,12 @@ const styles = StyleSheet.create({
   },
   color: {
     color: 'green'
+  },
+  texto: {
+    color: 'black',
+    marginRight: '38%',
+    top: 12
   }
 });
 
-module.export = CabeceraAhorros;
+module.export = CabeceraIngresos;

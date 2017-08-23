@@ -3,16 +3,16 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   rootContainer: {
     backgroundColor: 'white',
-    borderRadius: 5,
-
-
+    borderRadius: 5
   },
 
+  container: {
+    flex: 1
+  },
 
   icono: {
     color: '#4DA49B'
   },
-
   color: {
     color: "green"
   },
@@ -32,9 +32,14 @@ export default StyleSheet.create({
   },
   input: {
     marginLeft: 10,
-    color: '#757575',
+    color: '#757575'
   },
-  texto:{
-      color: '#4DA49B'
+  texto: {
+    color: '#4DA49B'
+  },
+  view: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    top: 10
   }
 });
