@@ -73,7 +73,6 @@ class Login extends Component {
     this.setState({error: ''});
     firebaseAuth.createUserWithEmailAndPassword(this.state.email, this.state.contraseña).then(this.onLoginSuccess)
     .catch(this.onLoginFailedReg);
-
   }
 
   onLoginFailed() {

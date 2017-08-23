@@ -3,7 +3,7 @@ import {StyleSheet, View, Image, ListView, ActivityIndicator} from 'react-native
 import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon} from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 import Imagen from './Imagen';
-import Cabecera2 from './Cabecera2';
+import CabeceraPerfil from './CabeceraPerfil';
 import api from './api/Api';
 const CANCEL_INDEX = 0
 const DESTRUCTIVE_INDEX = 4
@@ -57,7 +57,7 @@ class Perfil extends Component {
 
     return (
       <Container>
-        <Cabecera2/>
+        <CabeceraPerfil/>
         <Content>
           <View style={styles.view}>
             <Image style={styles.img}

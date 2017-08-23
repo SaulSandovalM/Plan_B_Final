@@ -54,6 +54,8 @@
 		94CB05D51F322C870099903B /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CB05D11F322C870099903B /* FBSDKCoreKit.framework */; };
 		94CB05D61F322C870099903B /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CB05D21F322C870099903B /* FBSDKLoginKit.framework */; };
 		94CB05D71F322C870099903B /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CB05D31F322C870099903B /* FBSDKShareKit.framework */; };
+		94E0E9BA1F47A1D5009C0F27 /* libART-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C988431F33DF6400BB80B3 /* libART-tvOS.a */; };
+		94E0E9BB1F47A1DA009C0F27 /* libART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C988411F33DF6400BB80B3 /* libART.a */; };
 		967DB02933FB4A1FB79F45D4 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9C404298A0C43CA80932B22 /* SimpleLineIcons.ttf */; };
 		9B4889AEAB914E02B43E0427 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE34758956A44940B1B57648 /* Ionicons.ttf */; };
 		9CA173413DB246F480125FB6 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9106352B57E43FCB05AE10B /* Zocial.ttf */; };
@@ -409,6 +411,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
+=======
+				94E0E9BB1F47A1DA009C0F27 /* libART.a in Frameworks */,
+				94E0E9BA1F47A1D5009C0F27 /* libART-tvOS.a in Frameworks */,
+>>>>>>> 55a660a5ee6508551db1d689907cddb20d0833d2
 				94CB05D61F322C870099903B /* FBSDKLoginKit.framework in Frameworks */,
 				94CB05D41F322C870099903B /* Bolts.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,

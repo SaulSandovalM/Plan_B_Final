@@ -1,12 +1,46 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
 import {Container, Content, Card, CardItem, Body, Icon, Right, Button} from 'native-base';
-import Footers from '../assets/Footers';
 import {Actions} from 'react-native-router-flux';
-import Grafica from '../assets/Grafica';
+import AreaSpline from '../js/charts/AreaSpline';
+import Pie from '../js/charts/Pie';
+import Theme from '../js/theme';
+import data from '../resources/data';
+
+type State = {
+  activeIndex: number,
+  spendingsPerYear: any
+}
 
 export default class tabOne extends Component {
+  state: State;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeIndex: 0,
+      spendingsPerYear: data.spendingsPerYear,
+    };
+    this._onPieItemSelected = this._onPieItemSelected.bind(this);
+    this._shuffle = this._shuffle.bind(this);
+  }
+
+  _onPieItemSelected(newIndex){
+    this.setState({...this.state, activeIndex: newIndex, spendingsPerYear: this._shuffle(data.spendingsPerYear)});
+  }
+
+  _shuffle(a) {
+      for (let i = a.length; i; i--) {
+          let j = Math.floor(Math.random() * i);
+          [a[i - 1], a[j]] = [a[j], a[i - 1]];
+      }
+      return a;
+  }
+
   render() {
+    const height = 200;
+    const width = 340;
+
     return (
       <Container style={styles.back}>
         <Content>
@@ -38,17 +72,23 @@ export default class tabOne extends Component {
            </CardItem>
         </Card>
 
-        <Card style={styles.card}>
-          <CardItem header>
-            <Text style={styles.texto}>Historia</Text>
-          </CardItem>
-          <CardItem style={styles.cardi}>
-          <Icon style={{color:'blue'}} active name="ios-pie-outline"/>
-          <Text>Registra tu primer Ingresos</Text>
-
-          </CardItem>
-
-        </Card>
+        <View style={styles.container} >
+          <Text style={styles.chart_title}>Historial</Text>
+          <Pie
+            pieWidth={150}
+            pieHeight={150}
+            onItemSelected={this._onPieItemSelected}
+            colors={Theme.colors}
+            width={width}
+            height={height}
+            data={data.spendingsLastMonth} />
+          <Text style={styles.chart_title}>Registro de {data.spendingsLastMonth[this.state.activeIndex].name}</Text>
+          <AreaSpline
+            width={width}
+            height={height}
+            data={this.state.spendingsPerYear}
+            color={Theme.colors[this.state.activeIndex]} />
+        </View>
 
           <View style={styles.align}>
             <Card style={styles.borde}>
@@ -72,6 +112,7 @@ export default class tabOne extends Component {
               <Text>Ahorros</Text>
             </Card>
           </View>
+
         </Content>
       </Container>
     );
@@ -118,6 +159,20 @@ const styles = StyleSheet.create({
   img: {
     width: 50,
     height: 50
+  },
+  container: {
+    backgroundColor:'white',
+    marginTop: 21,
+  },
+  chart_title : {
+    paddingTop: 15,
+    textAlign: 'center',
+    paddingBottom: 5,
+    paddingLeft: 5,
+    fontSize: 18,
+    backgroundColor:'white',
+    color: 'grey',
+    fontWeight:'bold',
   }
 });
 
