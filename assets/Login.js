@@ -24,27 +24,37 @@ class Login extends Component {
 
   componentWillMount() {
     this.authenticateUser();
-    firebaseAuth.onAuthStateChanged(function(user) {
+    firebaseAuth.onAuthStateChanged(function(user){
       console.log('user', user)
 
       var db = firebase.database();
       var storage = firebase.storage();
-      if (user) {
-        var uid = user.uid;
-        var exists = false;
+      if(user)
+      {
+          var uid = user.uid;
+          var exists = false;
 
-        db.ref('usuarios').once('value').then(function(snapshot) {
-          snapshot.forEach(function(key) {
-            console.log(key.val());
-            if (key.val().uid == uid) {
-              exists = true;
-            }
-          });
-          if (exists == false) {
-            db.ref('usuarios').push({uid: uid, nombre: user.displayName, email: user.email, profileImage: user.photoURL});
-          }
-        });
-      }
+          db.ref('usuarios').once('value')
+              .then(function(snapshot)
+              {
+                  snapshot.forEach(function(key){
+                      console.log(key.val());
+                      if(key.val().uid == uid)
+                      {
+                          exists = true;
+                      }
+                  });
+                  if(exists == false)
+                  {
+                      db.ref('usuarios').push({
+                          uid: uid,
+                          nombre: user.displayName,
+                          email: user.email,
+                          profileImage: user.photoURL
+                      });
+                  }
+              });
+}
     });
   }
 
@@ -65,7 +75,8 @@ class Login extends Component {
   onButtonPress() {
     const {email, contraseña} = this.state;
     this.setState({error: ''});
-    firebaseAuth.signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess).catch(this.onLoginFailed);
+    firebaseAuth.signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
+    .catch(this.onLoginFailed);
 
   }
   onButtonPressReg() {
@@ -73,6 +84,7 @@ class Login extends Component {
     this.setState({error: ''});
     firebaseAuth.createUserWithEmailAndPassword(this.state.email, this.state.contraseña).then(this.onLoginSuccess)
     .catch(this.onLoginFailedReg);
+
   }
 
   onLoginFailed() {
@@ -96,30 +108,31 @@ class Login extends Component {
         <Text style={styles.texto}>BIENVENIDO</Text>
 
         <View style={styles.view}>
-          <LoginButton readPermissions={['public_profile', 'email']} onLoginFinished={this.handleLoginFinished}
-            onLogoutFinished={() => alert("Adios.")}/>
+          <LoginButton readPermissions={['public_profile', 'email']}
+            onLoginFinished={this.handleLoginFinished} onLogoutFinished={() => alert("Adios.")}/>
         </View>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} autoCapitalize='none' placeholder='Correo electrónico' keyboardType='email-address'
-            placeholderTextColor='black' returnKeyType='next' value={this.state.text}
-            onChangeText={email => this.setState({email})}/>
+          <Input style={styles.input} autoCapitalize='none'
+            placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='black'
+            returnKeyType='next' value={this.state.text} onChangeText={email => this.setState({email})}/>
         </Item>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Contraseña' placeholderTextColor='black' secureTextEntry={true}
-            value={this.state.contraseña} onChangeText={contraseña => this.setState({contraseña})}/>
+          <Input style={styles.input}
+            placeholder='Contraseña' placeholderTextColor='black' secureTextEntry={true} value={this.state.contraseña}
+            onChangeText={contraseña => this.setState({contraseña})}/>
         </Item>
 
         <View style={styles.botones}>
-          <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
-            <Text style={styles.boton}>INGRESA</Text>
-          </Button>
+        <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
+          <Text style={styles.boton}>INGRESA</Text>
+        </Button>
 
-          <Button rounded block style={styles.buttonRegistro} onPress={this.onButtonPressReg.bind(this)}>
-            <Text style={styles.boton}>REGISTRATE</Text>
-          </Button>
-        </View>
+        <Button rounded block style={styles.buttonRegistro} onPress={this.onButtonPressReg.bind(this)}>
+          <Text style={styles.boton}>REGISTRATE</Text>
+        </Button>
+      </View>
       </Image>
     );
   }
@@ -196,12 +209,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     fontSize: 18,
-    color: 'white'
+    color: 'white',
   },
   botones: {
     flexDirection: 'row',
     justifyContent: 'space-between'
-  }
+  },
 });
 
 export default Login;

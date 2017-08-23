@@ -60,7 +60,9 @@ fechafun=(fechita)=>{
   });
 }
 
-
+cancelar=()=>{
+  this.setState({visibleModal:null});
+}
 
 
 aceptar=()=>{
@@ -122,7 +124,7 @@ aceptar=()=>{
         <Button transparent onPress={this.aceptar}>
           <Text style={styles.texto}>Aceptar</Text>
         </Button>
-         <Button transparent onPress={()=>this.setState(visibleModal:null)} >
+         <Button transparent onPress={this.cancelar} >
             <Text style={styles.texto}>Cancelar</Text>
           </Button>
       </View>
