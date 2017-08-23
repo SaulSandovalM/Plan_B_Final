@@ -28,7 +28,6 @@ pressIn = () => {
 }
 
 borrar = () => {
-
  this.props.borrar(this.props.item);
 }
 
@@ -57,7 +56,7 @@ if (this._value === 1) {
     return (
 
           <List>
-            <ListItem icon onLongPress={this.pressIn}>
+            <ListItem icon onPress={this.pressIn}>
               <Left>
                 <Icon name={this.props.item.iname} />
               </Left>

@@ -48,6 +48,7 @@ desFun=(descripcion)=>{
 
 
 
+
   valorfun = (valorcito) => {
     objeto = this.state.objeto
     objeto['cantidad'] = valorcito

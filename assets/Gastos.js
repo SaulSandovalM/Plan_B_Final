@@ -11,7 +11,7 @@ import React, { Component } from 'react';
     constructor(){
       super();
       this.state={
-        nuevo:'',
+        id:'',
         lista:[ ],
         selected1: "key1",
         text: '$',
@@ -53,8 +53,11 @@ import React, { Component } from 'react';
             categoria: child.val().categoria,
             descri:child.val().descri,
             cantidad:child.val().cantidad,
-            id: child.key
-          });
+            id: child.key,
+
+          })
+          console.log(child.key);
+
         });
 
         this.setState({
@@ -83,9 +86,16 @@ import React, { Component } from 'react';
 
   }
   borrar = (item) => {
+    console.log(item)
     let updates = {};
-    updates['/gastos/' + item.descri] = null;
-    firebase.database().ref().update(updates);
+    firebaseAuth.onAuthStateChanged(function(user){
+      console.log('user', user)
+      if(user){
+        var uid= user.uid;
+
+      }
+    firebase.database().ref('usuarios/'+uid+'/gastos/'+item.id).set(null);
+  });
   }
 
 
@@ -128,9 +138,6 @@ import React, { Component } from 'react';
         </View>
 
           <Content>
-          <View style={{marginBottom:20}}>
-            <Title style={styles.titulo}>Gastos</Title>
-          </View>
           <Listconte  lista={this.state.lista} borrar={this.borrar} />
           </Content>
           <Modalgasto style={styles.lista} agregar={this.addItem}/>
