@@ -120,10 +120,9 @@ import DatePicker from 'react-native-datepicker';
           />
         </View>
 
-          <Content>
-          <Title style={styles.titulo}>Gastos</Title>
+
+
           <Listconte lista={this.state.lista}  />
-          </Content>
           <Modalgasto agregar={this.addItem}/>
         </Container>
       );
@@ -131,10 +130,7 @@ import DatePicker from 'react-native-datepicker';
   }
 
   const styles = StyleSheet.create({
-  titulo: {
-    top: 10,
-    color:'black'
-  },
+  
   list: {
     top: 15
   },

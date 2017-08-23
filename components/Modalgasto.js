@@ -133,7 +133,7 @@ aceptar=()=>{
 
   render() {
     return (
-      <View style={styles.container}>
+      <View >
 
 
         <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight" onPress={() =>
