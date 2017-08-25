@@ -4,7 +4,7 @@ import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon
 import firebase, {firebaseAuth} from './Firebase';
 import ActionSheet from 'react-native-actionsheet';
 import Imagen from './Imagen';
-import CabeceraPerfil from './CabeceraPerfil';
+import CabeceraGen from './CabeceraGen';
 import api from './api/Api';
 const CANCEL_INDEX = 0
 const DESTRUCTIVE_INDEX = 4
@@ -69,7 +69,7 @@ class Perfil extends Component {
     return (
 
       <Container>
-        <CabeceraPerfil/>
+        <CabeceraGen headerText='PERFIL'/>
         <Content>
           <View style={styles.view}>
             <Image style={styles.img}

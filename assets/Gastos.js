@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Container, Content, List, ListItem, Text} from 'native-base';
 import Listconte from './Listconte';
-import CabeceraGastos from './CabeceraGastos';
+import CabeceraGen from './CabeceraGen';
 import Modalgasto from '../components/Modalgasto';
 import firebase, {firebaseAuth} from './Firebase';
 import DatePicker from 'react-native-datepicker';
@@ -76,7 +76,7 @@ export default class Gasto extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <CabeceraGastos/>
+        <CabeceraGen headerText='GASTOS'/>
         <View style={styles.view}>
           <DatePicker style={{
             width: 150,
