@@ -18,45 +18,10 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
-    this.onLoginFailed = this.onLoginFailed.bind(this);
-    this.onLoginFailedReg = this.onLoginFailedReg.bind(this);
-  }
+    this.onLoginFailed = this.onLoginFailed.bind(this); }
 
-  componentWillMount() {
-    this.authenticateUser();
-    firebaseAuth.onAuthStateChanged(function(user){
-      console.log('user', user)
-
-      var db = firebase.database();
-      var storage = firebase.storage();
-      if(user)
-      {
-          var uid = user.uid;
-          var exists = false;
-
-          db.ref('usuarios').once('value')
-              .then(function(snapshot)
-              {
-                  snapshot.forEach(function(key){
-                      console.log(key.val());
-                      if(key.val().uid == uid)
-                      {
-                          exists = true;
-                      }
-                  });
-                  if(exists == false)
-                  {
-                      db.ref('usuarios').push({
-                          uid: uid,
-                          nombre: user.displayName,
-                          email: user.email,
-                          profileImage: user.photoURL
-                      });
-                  }
-              });
-}
-    });
-  }
+  componentWillMount(){
+    this.authenticateUser();}
 
   authenticateUser = () => {
     AccessToken.getCurrentAccessToken().then((data) => {
@@ -77,62 +42,49 @@ class Login extends Component {
     this.setState({error: ''});
     firebaseAuth.signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess)
     .catch(this.onLoginFailed);
-
-  }
-  onButtonPressReg() {
-    const {email, contraseña} = this.state;
-    this.setState({error: ''});
-    firebaseAuth.createUserWithEmailAndPassword(this.state.email, this.state.contraseña).then(this.onLoginSuccess)
-    .catch(this.onLoginFailedReg);
-
-  }
+}
 
   onLoginFailed() {
     this.setState({error: 'Autenticación Fallida'});
     alert('Registrate!')
-  }
-
-  onLoginFailedReg() {
-    this.setState({error: 'Autenticación Fallida'});
-    alert('Verifica los campos!')
-  }
-
+}
   onLoginSuccess() {
     this.setState({email: '', contraseña: '', error: ''});
   }
 
   render() {
     return (
-      <Image source={require('../imgs/fn.jpg')} style={styles.img}>
+      <Image source={require('../imgs/log.jpg')} style={styles.img}>
 
-        <Text style={styles.texto}>BIENVENIDO</Text>
+      <Text style={styles.texto}>LOGO</Text>
 
-        <View style={styles.view}>
-          <LoginButton readPermissions={['public_profile', 'email']}
-            onLoginFinished={this.handleLoginFinished} onLogoutFinished={() => alert("Adios.")}/>
-        </View>
-
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} autoCapitalize='none'
-            placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='black'
-            returnKeyType='next' value={this.state.text} onChangeText={email => this.setState({email})}/>
-        </Item>
-
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input}
-            placeholder='Contraseña' placeholderTextColor='black' secureTextEntry={true} value={this.state.contraseña}
-            onChangeText={contraseña => this.setState({contraseña})}/>
-        </Item>
-
-        <View style={styles.botones}>
-        <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
-          <Text style={styles.boton}>INGRESA</Text>
-        </Button>
-
-        <Button rounded block style={styles.buttonRegistro} onPress={this.onButtonPressReg.bind(this)}>
-          <Text style={styles.boton}>REGISTRATE</Text>
-        </Button>
+      <View style={styles.view}>
+        <LoginButton readPermissions={['public_profile', 'email']}
+          onLoginFinished={this.handleLoginFinished} onLogoutFinished={() => alert("Adios.")}/>
       </View>
+
+      <Item rounded style={styles.inputRounded}>
+        <Input style={styles.input}
+          placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
+          returnKeyType='next' value={this.state.text} onChangeText={email => this.setState({email})}/>
+      </Item>
+
+      <Item rounded style={styles.inputRounded}>
+        <Input style={styles.input}
+          placeholder='Contraseña' placeholderTextColor='#ccc' secureTextEntry={true} value={this.state.contraseña}
+          onChangeText={contraseña => this.setState({contraseña})}/>
+      </Item>
+
+      <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
+        <Text style={styles.boton}>INGRESAR</Text>
+      </Button>
+
+      <View style={styles.view2}>
+        <View style={styles.view3}>
+          <Text style={{color:'white'}}>¿Aún no tienes cuenta?, </Text>
+          <Text style={styles.font} onPress={() => Actions.Registro()}>REGISTRATE</Text>
+        </View>
+</View>
       </Image>
     );
   }
@@ -170,51 +122,42 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
-  },
-  view1: {
-    height: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
+},
   inputRounded: {
     marginRight: 40,
     marginLeft: 40,
+    marginBottom: 10,
     borderColor: '#ccc',
-    borderWidth: 3,
+    borderWidth: 1.5,
     backgroundColor: 'white'
   },
   input: {
     color: 'black'
   },
-  buttonIngreso: {
-    width: '38%',
-    marginLeft: 40,
-    marginBottom: 5,
-    marginTop: 5,
-    backgroundColor: '#4DA49B'
-  },
-  buttonRegistro: {
-    width: '38%',
+buttonIngreso: {
     marginRight: 40,
-    marginBottom: 5,
-    marginTop: 5,
+    marginLeft: 40,
+    marginBottom: 10,
     backgroundColor: '#4DA49B'
   },
   boton: {
     color: 'white',
     fontWeight: 'bold'
   },
-  font: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
-    fontSize: 18,
-    color: 'white',
+  view2: {
+    justifyContent: 'flex-end',
+    backgroundColor: 'transparent',
   },
-  botones: {
+  view3: {
+    justifyContent: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    marginBottom: 10,
+    marginTop: 10
   },
+  font: {
+    fontWeight: 'bold',
+    color: 'white'
+  }
 });
 
 export default Login;
