@@ -36,9 +36,7 @@ export default class Gasto extends Component {
       console.log(uid)
 
       firebase.database().ref('usuarios/' + uid + '/gastos').push(datos);
-
     });
-
   }
 
   listenForItems(itemsRef) {
@@ -47,7 +45,12 @@ export default class Gasto extends Component {
       // get children as an array
       var lista = [];
       snap.forEach((child) => {
-        lista.push({iname: child.val().iname, categoria: child.val().categoria, descri: child.val().descri, cantidad: child.val().cantidad, id: child.key});
+        lista.push({
+          iname: child.val().iname,
+          categoria: child.val().categoria,
+          descri: child.val().descri,
+          cantidad: child.val().cantidad,
+          id: child.key});
       });
 
       this.setState({lista: lista});
@@ -69,8 +72,6 @@ export default class Gasto extends Component {
       that.listenForItems(itemsRef);
     });
   }
-
-  componentDidMount() {}
 
   render() {
     return (

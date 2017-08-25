@@ -14,6 +14,7 @@ export default class Example extends Component {
     fecha: '',
     icono: 'add'
   };
+
   conFun = (iconito) => {
     objeto = this.state.objeto
     objeto['iname'] = iconito
@@ -23,6 +24,7 @@ export default class Example extends Component {
       objeto
     })
   }
+
   iFun = (i) => {
     newIcon = i;
     this.setState({icono: newIcon})
@@ -114,7 +116,7 @@ export default class Example extends Component {
         <Button transparent onPress={this.aceptar}>
           <Text style={styles.texto}>Aceptar</Text>
         </Button>
-        
+
         <Button transparent onPress={this.cancelar}>
           <Text style={styles.texto}>Cancelar</Text>
         </Button>
@@ -124,7 +126,7 @@ export default class Example extends Component {
 
   render() {
     return (
-      <View >
+      <View>
 
         <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight"
           onPress={() => this.setState({visibleModal: 1})}>
