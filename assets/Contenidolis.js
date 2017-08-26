@@ -56,7 +56,7 @@ if (this._value === 1) {
     return (
 
           <List>
-            <ListItem icon onPress={this.pressIn}>
+            <ListItem icon onLongPress={this.pressIn}>
               <Left>
                 <Icon name={this.props.item.iname} />
               </Left>

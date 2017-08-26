@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+  import React, { Component } from 'react';
   import {StyleSheet, View} from 'react-native';
   import { Container, Header, Content, List, Title, ListItem, Text} from 'native-base';
   import Listconte from './Listconte';
@@ -13,8 +13,7 @@ import React, { Component } from 'react';
       this.state={
         id:'',
         lista:[ ],
-        selected1: "key1",
-        text: '$',
+      
         date: new Date(),
 
       }

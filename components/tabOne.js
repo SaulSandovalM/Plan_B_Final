@@ -7,6 +7,8 @@ import Pie from '../js/charts/Pie';
 import Theme from '../js/theme';
 import data from '../resources/data';
 
+import firebase, {firebaseAuth} from '../assets/Firebase';
+
 type State = {
   activeIndex: number,
   spendingsPerYear: any
@@ -36,6 +38,36 @@ export default class tabOne extends Component {
       }
       return a;
   }
+
+
+
+listenForItems (itemsRef) {
+
+}
+
+  componentWillMount(){
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user){
+      console.log('user', user)
+      if(user){
+        var uid= user.uid;
+      }
+      console.log(uid)
+      const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+
+      itemsRef.once('value').then(snapshot => {
+        if(snapshot.hasChildren()){
+          var total = 0;
+          snapshot.forEach(function(item){
+            total += item.child('cantidad').val();
+          });
+        }
+          console.log(total);
+      });
+    });
+  }
+
+
 
   render() {
     const height = 200;
