@@ -411,11 +411,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-<<<<<<< HEAD
-=======
 				94E0E9BB1F47A1DA009C0F27 /* libART.a in Frameworks */,
 				94E0E9BA1F47A1D5009C0F27 /* libART-tvOS.a in Frameworks */,
->>>>>>> 55a660a5ee6508551db1d689907cddb20d0833d2
 				94CB05D61F322C870099903B /* FBSDKLoginKit.framework in Frameworks */,
 				94CB05D41F322C870099903B /* Bolts.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
