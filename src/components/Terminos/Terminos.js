@@ -89,7 +89,7 @@ class Terminos extends Component {
               <ListItem style={styles.listItem}>
                 <CheckBox checked={this.state.check1} onPress={this.chec1.bind(this)}/>
                 <View style={styles.view2}>
-                  <Text>He leído y estoy de acuerdo con los Términos y condiciones y los Términos especiales</Text>
+                  <Text>He leído y estoy de acuerdo con los Términos especiales y condiciones</Text>
                 </View>
               </ListItem>
 
