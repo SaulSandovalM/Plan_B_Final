@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, BackHandler} from 'react-native';
-import {CheckBox, Button, Body, List, CardItem, ListItem, Container, Content, Text, Item} from 'native-base';
+import {CheckBox, Button, Body, List, CardItem, ListItem, Container, Content, Text, Item, StyleProvider} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Cabecera3 from '../Cabecera/Cabecera3';
+import getTheme from '../../../native-base-theme/components';
+import material from '../../../native-base-theme/variables/material';
 
 class Terminos extends Component {
   constructor(props) {
@@ -60,12 +62,13 @@ class Terminos extends Component {
 
   render() {
     return (
+      <StyleProvider style={getTheme(material)}>
       <Container style={styles.back}>
         <Cabecera3/>
         <Content>
 
           <CardItem header>
-            <Text style={styles.font}>Términos y condiciones</Text>
+            <Text style={styles.font}>TÉRMINOS Y CONDICIONES</Text>
           </CardItem>
 
           <CardItem>
@@ -104,11 +107,11 @@ class Terminos extends Component {
                 </View>
               </ListItem>
 
-              <Button block onPress={this.entry.bind(this)}>
-                <Text>Acepto</Text>
+              <Button rounded block onPress={this.entry.bind(this)} style={{backgroundColor: '#4DA49B',marginRight: 20, marginLeft: 20, marginBottom: 10}}>
+                <Text style={{fontWeight: 'bold'}}>Acepto</Text>
               </Button>
 
-              <Button onPress={this.close.bind(this)} block style={styles.boton}>
+              <Button rounded block onPress={this.close.bind(this)} style={styles.boton}>
                 <Text>No acepto</Text>
               </Button>
 
@@ -116,6 +119,7 @@ class Terminos extends Component {
           </CardItem>
         </Content>
       </Container>
+      </StyleProvider>
     );
   }
 }
@@ -129,7 +133,7 @@ const styles = StyleSheet.create({
   },
   list: {
     borderBottomWidth: 2,
-    borderBottomColor: 'black'
+    borderBottomColor: '#4DA49B'
   },
   listItem: {
     borderBottomWidth: 2,
@@ -143,7 +147,10 @@ const styles = StyleSheet.create({
   },
   boton: {
     backgroundColor: 'gray',
-    top: 6
+    top: 6,
+    marginRight: 20,
+    marginLeft: 20,
+    marginBottom: 10,
   },
   check: {
     justifyContent: 'space-between'
