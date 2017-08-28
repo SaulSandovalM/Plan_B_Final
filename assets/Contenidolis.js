@@ -1,8 +1,9 @@
+
 import React, { Component } from 'react';
 import { Animated, Alert } from 'react-native';
-import { Container, Header, Content, List, ListItem, Text, Icon, Left, Body, Right } from 'native-base';
-
+import {List, ListItem, Text, Icon, Left, Body, Right} from 'native-base';
 const ACTION_TIMER = 400;
+
 export default class Contenidolis extends Component {
   constructor(props){
     super(props);
@@ -69,6 +70,7 @@ if (this._value === 1) {
               </Right>
             </ListItem>
           </List>
+
     );
   }
 }

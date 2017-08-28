@@ -17,11 +17,13 @@ type State = {
 export default class tabOne extends Component {
   state: State;
 
+
   constructor(props) {
     super(props);
     this.state = {
       activeIndex: 0,
       spendingsPerYear: data.spendingsPerYear,
+      gastos:0,
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
     this._shuffle = this._shuffle.bind(this);
@@ -41,10 +43,7 @@ export default class tabOne extends Component {
 
 
 
-listenForItems (itemsRef) {
-
-}
-
+//componentWillMount lo utilizamos para que busque en la rama especifica del usuario
   componentWillMount(){
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user){
@@ -54,19 +53,23 @@ listenForItems (itemsRef) {
       }
       console.log(uid)
       const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+      that.listenForItems(itemsRef);
 
-      itemsRef.once('value').then(snapshot => {
-        if(snapshot.hasChildren()){
-          var total = 0;
-          snapshot.forEach(function(item){
-            total += item.child('cantidad').val();
-          });
-        }
-          console.log(total);
-      });
     });
   }
-
+//este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
+  listenForItems (itemsRef) {
+    itemsRef.once('value').then(snapshot => {
+      if(snapshot.hasChildren()){
+        var gasto = 0;
+        snapshot.forEach(function(item){
+          gasto += item.child('cantidad').val();
+        });
+      }
+        console.log(gasto);
+        this.setState({gastos:gasto});
+    });
+  }
 
 
   render() {
@@ -76,7 +79,6 @@ listenForItems (itemsRef) {
     return (
       <Container style={styles.back}>
         <Content>
-
         <Card style={styles.card}>
         <CardItem header>
             <Text>Tus Gastos</Text>
@@ -92,7 +94,7 @@ listenForItems (itemsRef) {
            <Icon style={{color:'red'}} active name="md-arrow-round-up" />
            <Text>Gastos</Text>
            <Right>
-             <Text style={{color:'red'}}>$0.00</Text>
+             <Text style={{color:'red'}}>${this.state.gastos.toString()}</Text>
            </Right>
           </CardItem>
           <CardItem>

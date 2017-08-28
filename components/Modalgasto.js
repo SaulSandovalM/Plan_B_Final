@@ -15,6 +15,7 @@ export default class Example extends Component {
     icono:'add',
 
   };
+
   conFun = (iconito) => {
     objeto = this.state.objeto
     objeto['iname'] = iconito
@@ -24,6 +25,7 @@ export default class Example extends Component {
       objeto
     })
   }
+
   iFun = (i) => {
     newIcon = i;
     this.setState({icono: newIcon})
@@ -126,6 +128,7 @@ desFun=(descripcion)=>{
       </View>
     </View>
   );
+
 
   render(){
      return (

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image, ListView, ActivityIndicator} from 'react-native';
 import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon} from 'native-base';
+import firebase, {firebaseAuth} from './Firebase';
 import ActionSheet from 'react-native-actionsheet';
 import Imagen from './Imagen';
-import CabeceraPerfil from './CabeceraPerfil';
+import CabeceraGen from './CabeceraGen';
 import api from './api/Api';
 const CANCEL_INDEX = 0
 const DESTRUCTIVE_INDEX = 4
@@ -17,6 +18,7 @@ class Perfil extends Component {
       selected: '',
       isLoading: true,
       profiles:[],
+      email: ''
     }
     this.handlePress = this.handlePress.bind(this)
     this.showActionSheet = this.showActionSheet.bind(this)
@@ -30,7 +32,16 @@ class Perfil extends Component {
     this.setState({selected: i})
   }
 
-  componentDidMount() {
+  componentWillMount() {
+
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if(user){
+        image = user.photoURL
+        email = user.email;
+      }
+    });
+
     return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json')
     .then((response) => response.json())
     .then((responseJson) => {
@@ -56,27 +67,32 @@ class Perfil extends Component {
     }
 
     return (
+
       <Container>
-        <CabeceraPerfil/>
+        <CabeceraGen headerText='PERFIL'/>
         <Content>
           <View style={styles.view}>
             <Image style={styles.img}
-            source={{uri: 'https://ae01.alicdn.com/kf/HTB1YU0LRVXXXXbUXXXXq6xXFXXXz/1PC-Personalise-Square-piggy-bank-Logbook-Series-font-b-Tin-b-font-Plate-box-font-b.jpg'}}/>
+            source={require('../imgs/us.jpeg')}
+            />
+
           </View>
           <Imagen/>
 
           <List>
-            <ListItem itemDivider>
-              <Text>Info</Text>
+            <ListItem itemDivider style={{alignItems: 'center', justifyContent:'center'}}>
+              <Text >INFORMACIÓN BÁSICA</Text>
             </ListItem>
 
             <ListItem >
-              <Input placeholder='Saul'/>
-              <Icon name='information-circle'/>
+            <Icon name='ios-mail'/>
+              <Text style={{marginLeft: 10}}>{email}</Text>
+
             </ListItem>
 
-            <ListItem>
-              <Input disabled placeholder='saul@prueba.com'/>
+            <ListItem >
+            <Icon name='ios-person'/>
+              <Input  style={{marginLeft: 10}} placeholder={email}/>
             </ListItem>
 
             <ListItem itemDivider>
@@ -115,8 +131,11 @@ class Perfil extends Component {
 
 const styles = StyleSheet.create({
   view: {
+    alignSelf: 'center',
     backgroundColor: 'rgb(0,0,0)',
-    opacity: 0.6
+    opacity: 0.6,
+    height: null,
+    width: null
   },
   view2: {
     flex: 1,

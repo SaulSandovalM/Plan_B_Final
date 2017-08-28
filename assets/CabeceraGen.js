@@ -3,7 +3,7 @@ import {AppRegistry, StyleSheet} from 'react-native';
 import {Header, Left, Button, Icon, Title} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 
-export default class CabeceraGastos extends Component {
+export default class CabeceraGen extends Component {
   render() {
     return (
       <Header style={styles.header}>
@@ -12,7 +12,7 @@ export default class CabeceraGastos extends Component {
             <Icon name='arrow-back' style={styles.color}/>
           </Button>
         </Left>
-        <Title style={styles.texto}>Gastos</Title>
+        <Title style={styles.texto}>{this.props.headerText}</Title>
       </Header>
     );
   }
@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     color: 'green'
   },
   texto: {
-    color: 'black',
+    color: 'green',
     marginRight: '38%',
-    top: 12
+    top: 15
   }
 });
 
-module.export = CabeceraGastos;
+module.export = CabeceraGen;

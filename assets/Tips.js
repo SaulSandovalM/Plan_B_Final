@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {Container, Content, Text, Button, Left, Body, List, ListItem, Thumbnail, Right} from 'native-base';
-import Cabecera2 from './Cabecera2';
+import CabeceraGen from './CabeceraGen';
 import imgLogo from '../imgs/planb.png';
 
 export default class Tips extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <Cabecera2/>
+        <CabeceraGen headerText='TIPS'/>
         <Content>
           <List>
             <ListItem avatar>

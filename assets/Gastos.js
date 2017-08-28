@@ -1,8 +1,9 @@
+
   import React, { Component } from 'react';
   import {StyleSheet, View} from 'react-native';
   import { Container, Header, Content, List, Title, ListItem, Text} from 'native-base';
   import Listconte from './Listconte';
-  import Cabecera2 from './CabeceraGastos';
+  import CabeceraGen from './CabeceraGen';
   import Modalgasto from '../components/Modalgasto';
   import firebase, {firebaseAuth} from './Firebase';
   import DatePicker from 'react-native-datepicker';
@@ -13,15 +14,12 @@
       this.state={
         id:'',
         lista:[ ],
-      
         date: new Date(),
 
-      }
-    }
 
-    onValueChange(value : string) {
-    this.setState({selected1: value});
-  }
+      }
+
+}
 
     addItem=(datos)=>{
       this.state.lista.push(datos)
@@ -57,14 +55,15 @@
           })
           console.log(child.key);
 
-        });
 
-        this.setState({
-          lista: lista
-        });
+    });
+
+        this.setState({lista: lista});
 
       });
-    }
+}
+
+
 
     componentWillMount(){
       var that = this;
@@ -81,9 +80,7 @@
       });
     }
 
-    componentDidMount() {
 
-  }
   borrar = (item) => {
     console.log(item)
     let updates = {};
@@ -91,17 +88,16 @@
       console.log('user', user)
       if(user){
         var uid= user.uid;
-
       }
-    firebase.database().ref('usuarios/'+uid+'/gastos/'+item.id).set(null);
+    firebase.database().ref('usuarios/'+uid+'/gastos/'+item.id).set(null);//Esta linea coloca valor nulo en el element que se seleccione
   });
   }
 
+  render() {
+    return (
+      <Container style={styles.back}>
+        <CabeceraGen headerText='GASTOS'/>
 
-    render() {
-      return (
-        <Container style={styles.back}>
-        <Cabecera2/>
         <View style={styles.view}>
           <DatePicker
             style={{width: 150, alignItems: 'center'}}
@@ -137,7 +133,7 @@
         </View>
 
           <Content>
-          <Listconte  lista={this.state.lista} borrar={this.borrar} />
+         <Listconte  lista={this.state.lista} borrar={this.borrar} />
           </Content>
           <Modalgasto style={styles.lista} agregar={this.addItem}/>
         </Container>

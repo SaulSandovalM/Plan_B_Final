@@ -1,25 +1,74 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-import {Container, Content, Input, Left, Body, Icon, CardItem, List, ListItem, Title, Button} from 'native-base';
-import CabeceraIngresos from './CabeceraIngresos';
+import {Container, Content, Input, Left, Body, Icon, CardItem, List, ListItem, Button} from 'native-base';
+import CabeceraGen from './CabeceraGen';
 import imgLogo from '../imgs/Ingresos.png';
 import Valores from '../components/Modal';
 import Fecha from '../components/Fecha';
+import firebase, {firebaseAuth} from './Firebase';
 
 export default class Ingresos extends Component {
-  state = {
 
-    cantidad: ''
+  constructor() {
+    super();
+    this.state = {
+      ingreso: [],
+    }
+  }
 
-  };
-  valorfun = (valorcito) => {
-    const newcant = valorcito;
-    this.setState({cantidad: newcant});
+  onValueChange(value : string) {
+    this.setState({selected1: value});
+  }
+
+  addItem = (datos) => {
+    this.state.ingreso.push(datos)
+    this.setState({ingreso: this.state.ingreso})
+    console.log(this.state.lista)
+
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      console.log(uid)
+
+      firebase.database().ref('usuarios/' + uid + '/ingreso').push(datos);
+    });
+  }
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+
+      // get children as an array
+      var ingreso = [];
+      snap.forEach((child) => {
+        ingreso.push({
+          ingreso: child.val().ingreso,});
+      });
+
+      this.setState({ingreso: ingreso});
+
+    });
+  }
+
+  componentWillMount() {
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+        var key = user.key;
+      }
+      console.log(uid)
+      console.log(key)
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
+      that.listenForItems(itemsRef);
+    });
   }
   render() {
     return (
       <Container style={styles.back}>
-        <CabeceraIngresos/>
+        <CabeceraGen headerText='INGRESOS'/>
         <Content>
           <Image source={imgLogo} style={styles.img}/>
 

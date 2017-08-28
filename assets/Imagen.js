@@ -1,12 +1,26 @@
 import React from 'react';
 import {AppRegistry, StyleSheet, View, Image} from 'react-native';
 import {Thumbnail, Container, Content, Icon} from 'native-base';
+import firebase, {firebaseAuth} from './Firebase';
 import ImagePicker from 'react-native-image-picker';
 
 export default class App extends React.Component {
   state = {
     avatarSource: null
   };
+  componentDidMount() {
+
+    firebaseAuth.onAuthStateChanged(function(user) {
+      if(user){
+      if(user.photoURL != null){
+        image=user.photoURL;
+      }else{
+        image='https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png';
+      }
+    }
+    });
+
+  }
 
   selectPhotoTapped() {
     const options = {
@@ -39,8 +53,8 @@ export default class App extends React.Component {
       <View style={styles.container}>
         {
           this.state.avatarSource === null
-          ? <Thumbnail style={styles.tub} square large source={require('../imgs/user.png')}/>
-          : <Thumbnail style={styles.tub} square large source={this.state.avatarSource}/>
+          ? <Thumbnail style={styles.tub} square large source={{uri: image}}/>
+: <Thumbnail style={styles.tub} square large source={this.state.avatarSource}/>
         }
         <View style={styles.view}>
           <Icon onPress={this.selectPhotoTapped.bind(this)} name='camera'/>

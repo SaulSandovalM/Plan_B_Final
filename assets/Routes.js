@@ -6,6 +6,7 @@ import Terminos from './Terminos';
 import Ahorros from './Ahorros';
 import Perfil from './Perfil';
 import Login from './Login';
+import Registro from './Registro';
 import Inicio from '../components/Inicio';
 import NuevoAhorro from './NuevoAhorro';
 import Grafica from './Grafica';
@@ -22,6 +23,7 @@ const Routes = () => {
         <Scene key="Bienvenido" header={null} component={Bienvenido} initial/>
         <Scene key="Ter" header={null} component={Terminos}/>
         <Scene key="Login" header={null} component={Login} />
+        <Scene key="Registro" header={null} component={Registro} />
         <Scene key="IngresosIntro" header={null} component={IngresosIntro} />
         <Scene key="GastosIntro" header={null} component={GastosIntro}/>
         <Scene key="Log" header={null} component={Log}/>

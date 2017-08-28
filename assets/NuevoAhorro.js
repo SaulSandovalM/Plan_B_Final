@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, Image} from 'react-native';
 import {Container, Content, Body, Icon, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
-import Cabecera2 from './Cabecera2';
+import CabeceraGen from './CabeceraGen';
 import imgLogo from '../imgs/Ahorros.png';
 import {Actions} from 'react-native-router-flux';
 import Valores from '../components/Modal';
@@ -20,7 +20,7 @@ export default class NuevoAhorro extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <Cabecera2/>
+        <CabeceraGen headerText='NUEVO AHORRO'/>
         <Content>
           <Image source={imgLogo} style={styles.img}/>
           <CardItem header style={styles.titulo}>
