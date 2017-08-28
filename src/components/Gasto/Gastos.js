@@ -11,10 +11,8 @@ export default class Gasto extends Component {
   constructor() {
     super();
     this.state = {
-      nuevo: '',
+      id: '',
       lista: [],
-      selected1: "key1",
-      text: '$',
       date: new Date()
     }
   }
@@ -51,10 +49,11 @@ export default class Gasto extends Component {
           descri: child.val().descri,
           cantidad: child.val().cantidad,
           id: child.key});
+          
+          console.log(child.key);
       });
 
       this.setState({lista: lista});
-
     });
   }
 
@@ -78,7 +77,8 @@ export default class Gasto extends Component {
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
         <View style={styles.view}>
-          <DatePicker style={styles.picker}
+          <DatePicker
+            style={styles.picker}
             date={this.state.date}
             mode="date"
             showIcon={false}
@@ -110,8 +110,10 @@ export default class Gasto extends Component {
           }}/>
         </View>
 
-        <Listconte lista={this.state.lista}/>
-        <Modalgasto agregar={this.addItem}/>
+        <Content>
+          <Listconte lista={this.state.lista} borrar={this.borrar}/>
+        </Content>
+        <Modalgasto style={styles.lista} agregar={this.addItem}/>
       </Container>
     );
   }
@@ -132,5 +134,8 @@ const styles = StyleSheet.create({
   picker: {
     width: 150,
     alignItems: 'center'
-  }
+  },
+  lista:{
+    backgroundColor:'blue'
+  },
 });

@@ -9,6 +9,7 @@ import data from '../resources/data';
 import imgIngresos from '../../assets/imgs/Ingresos.png';
 import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
+import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 type State = {
   activeIndex: number,

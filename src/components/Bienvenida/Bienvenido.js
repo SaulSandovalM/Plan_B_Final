@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
   img: {
     width: 400,
     height: 400,
-    top: -180
+    top: -160
   },
   buttonIngreso: {
     marginRight: 40,
     marginLeft: 40,
     marginBottom: 10,
-    top: 50,
+    top: 5,
     backgroundColor: '#4DA49B'
   },
   boton: {
