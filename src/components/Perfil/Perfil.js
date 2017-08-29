@@ -38,6 +38,7 @@ class Perfil extends Component {
       if (user) {
         image = user.photoURL
         email = user.email;
+        name = user.displayName;
       }
     });
 
@@ -79,14 +80,14 @@ class Perfil extends Component {
             </ListItem>
 
             <ListItem>
-              <Icon name='ios-mail'/>
-              <Text style={styles.text}>{email}</Text>
-
+              <Icon name='ios-person'/>
+              <Input style={styles.text} placeholder={name}/>
             </ListItem>
 
             <ListItem>
-              <Icon name='ios-person'/>
-              <Input style={styles.text} placeholder={email}/>
+              <Icon name='ios-mail'/>
+              <Text style={styles.text}>{email}</Text>
+
             </ListItem>
 
             <ListItem itemDivider>

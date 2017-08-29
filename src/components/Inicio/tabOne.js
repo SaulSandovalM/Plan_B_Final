@@ -13,7 +13,6 @@ import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 type State = {
   activeIndex: number,
-  spendingsPerYear: any
 }
 
 export default class tabOne extends Component {
@@ -23,30 +22,21 @@ export default class tabOne extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      spendingsPerYear: data.spendingsPerYear,
-
       gastos:0,
       ingresos:0,
+
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
-    this._shuffle = this._shuffle.bind(this);
   }
 
   _onPieItemSelected(newIndex) {
     this.setState({
       ...this.state,
       activeIndex: newIndex,
-      spendingsPerYear: this._shuffle(data.spendingsPerYear)
     });
   }
 
-  _shuffle(a) {
-    for (let i = a.length; i; i--) {
-      let j = Math.floor(Math.random() * i);
-      [a[i - 1],a[j]] = [a[j],a[i - 1]];
-    }
-    return a;
-  }
+
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
   componentWillMount(){
     var that = this;
@@ -101,34 +91,28 @@ export default class tabOne extends Component {
               <Text>Tus Gastos</Text>
             </CardItem>
             <CardItem>
-              <Icon style={{
-                color: 'green'
-              }} active name="md-arrow-round-down"/>
+              <Icon style={styles.icon} active name="md-arrow-round-down"/>
               <Text>Ingresos</Text>
               <Right>
 
                 <Text style={styles.text1}>${this.state.ingresos}</Text>
 
+
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={{
-                color: 'red'
-              }} active name="md-arrow-round-up"/>
+              <Icon style={styles.icon2} active name="md-arrow-round-up"/>
               <Text>Gastos</Text>
               <Right>
                 <Text style={styles.text2}>${this.state.gastos}</Text>
+
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={{
-                color: 'blue'
-              }} active name="ios-cash"/>
+              <Icon style={styles.icon3} active name="ios-cash"/>
               <Text>Ahorros</Text>
               <Right>
-                <Text style={{
-                  color: 'blue'
-                }}>$0.00</Text>
+                <Text style={styles.icon3}>$0.00</Text>
               </Right>
             </CardItem>
           </Card>
@@ -142,10 +126,11 @@ export default class tabOne extends Component {
               colors={Theme.colors}
               width={width}
               height={height}
-              data={data.spendingsLastMonth}/>
-            <Text style={styles.chart_title}>Registro de {data.spendingsLastMonth[this.state.activeIndex].name}</Text>
-            <AreaSpline width={width} height={height} data={this.state.spendingsPerYear}
-              color={Theme.colors[this.state.activeIndex]}/>
+              data={[
+                {"number":  this.state.ingresos, "name": 'Ingresos'},
+                {"number": this.state.gastos, "name": 'Gastos'},
+              ]}/>
+
           </View>
 
           <View style={styles.align}>
@@ -231,6 +216,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: 'grey',
     fontWeight: 'bold'
+  },
+  icon: {
+    color: 'green'
+  },
+  icon2: {
+    color: 'red'
+  },
+  icon3: {
+    color: 'blue'
   }
 });
 
