@@ -23,7 +23,9 @@ export default class tabOne extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      spendingsPerYear: data.spendingsPerYear
+      spendingsPerYear: data.spendingsPerYear,
+      gastos:0,
+      ingreso:0,
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
     this._shuffle = this._shuffle.bind(this);
@@ -44,6 +46,48 @@ export default class tabOne extends Component {
     }
     return a;
   }
+  //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
+  componentWillMount(){
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user){
+      console.log('user', user)
+      if(user){
+        var uid= user.uid;
+      }
+      console.log(uid)
+      const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+      const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso')
+      that.listenForItems(itemsRef);
+      that.listenForIngre(IngreRef);
+
+    });
+  }
+  //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
+  listenForItems (itemsRef) {
+    itemsRef.once('value').then(snapshot => {
+      if(snapshot.hasChildren()){
+        var gasto = 0;
+        snapshot.forEach(function(item){
+          gasto += item.child('cantidad').val();
+        });
+      }
+        console.log(gasto);
+        this.setState({gastos:gasto});
+    });
+  }
+  listenForIngre (IngreRef) {
+    itemsRef.once('value').then(snapshot => {
+      if(snapshot.hasChildren()){
+        var ingreso = 0;
+        snapshot.forEach(function(item){
+          ingreso += item.child('ingreso').val();
+        });
+      }
+        console.log(ingreso);
+        this.setState({ingreso:ingreso});
+    });
+  }
+
 
   render() {
     const height = 200;
@@ -62,7 +106,7 @@ export default class tabOne extends Component {
               <Icon style={styles.cardItem1} active name="md-arrow-round-down"/>
               <Text>Ingresos</Text>
               <Right>
-                <Text style={styles.text1}>$0.00</Text>
+                <Text style={styles.text1}>${this.state.ingreso}</Text>
               </Right>
             </CardItem>
 
@@ -70,7 +114,7 @@ export default class tabOne extends Component {
               <Icon style={styles.cardItem2} active name="md-arrow-round-up"/>
               <Text>Gastos</Text>
               <Right>
-                <Text style={styles.text2}>$0.00</Text>
+                <Text style={styles.text2}>${this.state.gastos}</Text>
               </Right>
             </CardItem>
 
