@@ -12,9 +12,6 @@ export default class Tips extends Component {
         <Content>
           <List>
             <ListItem avatar>
-              <Left>
-                <Thumbnail source={imgLogo}/>
-              </Left>
               <Body>
                 <Text>Kumar Pratik</Text>
                 <Text note>Doing what you like will always keep you happy . .</Text>
@@ -26,9 +23,6 @@ export default class Tips extends Component {
           </List>
           <List>
             <ListItem avatar>
-              <Left>
-                <Thumbnail source={imgLogo}/>
-              </Left>
               <Body>
                 <Text>Kumar Pratik</Text>
                 <Text note>Doing what you like will always keep you happy . .</Text>
@@ -40,9 +34,6 @@ export default class Tips extends Component {
           </List>
           <List>
             <ListItem avatar>
-              <Left>
-                <Thumbnail source={imgLogo}/>
-              </Left>
               <Body>
                 <Text>Kumar Pratik</Text>
                 <Text note>Doing what you like will always keep you happy . .</Text>
@@ -54,9 +45,6 @@ export default class Tips extends Component {
           </List>
           <List>
             <ListItem avatar>
-              <Left>
-                <Thumbnail source={imgLogo}/>
-              </Left>
               <Body>
                 <Text>Kumar Pratik</Text>
                 <Text note>Doing what you like will always keep you happy . .</Text>
@@ -68,9 +56,6 @@ export default class Tips extends Component {
           </List>
           <List>
             <ListItem avatar>
-              <Left>
-                <Thumbnail source={imgLogo}/>
-              </Left>
               <Body>
                 <Text>Kumar Pratik</Text>
                 <Text note>Doing what you like will always keep you happy . .</Text>

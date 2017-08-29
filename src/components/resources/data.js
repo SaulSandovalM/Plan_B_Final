@@ -1,12 +1,12 @@
-import firebase, {firebaseAuth} from '../Firebase/Firebase';
+/*import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 type State = {
   activeIndex: number,
   spendingsPerYear: any
-}
+}*/
 
 export default {
-  state : State;
+  /*state : State;
 
   constructor(props) {
     super(props);
@@ -41,10 +41,10 @@ export default {
       }
       this.setState({gastos: gasto});
     });
-  }
+  }*/
 
   spendingsLastMonth: [
     {"number":  80, "name": 'Ingresos'},
-    {"number": {this.state.gastos.toString()}, "name": 'Gastos'},
+    {"number": 20, "name": 'Gastos'},
   ],
 };

@@ -12,8 +12,7 @@ import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 type State = {
-  activeIndex: number,
-  spendingsPerYear: any
+  activeIndex: number
 }
 
 export default class tabOne extends Component {
@@ -23,27 +22,17 @@ export default class tabOne extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      spendingsPerYear: data.spendingsPerYear,
-      gastos: 0
+      gastos: 0,
+      ingresos: 0
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
-    this._shuffle = this._shuffle.bind(this);
   }
 
   _onPieItemSelected(newIndex) {
     this.setState({
       ...this.state,
-      activeIndex: newIndex,
-      spendingsPerYear: this._shuffle(data.spendingsPerYear)
+      activeIndex: newIndex
     });
-  }
-
-  _shuffle(a) {
-    for (let i = a.length; i; i--) {
-      let j = Math.floor(Math.random() * i);
-      [a[i - 1],a[j]] = [a[j],a[i - 1]];
-    }
-    return a;
   }
 
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
@@ -56,7 +45,10 @@ export default class tabOne extends Component {
       }
       console.log(uid)
       const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
+      const IngreRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
       that.listenForItems(itemsRef);
+      that.listenForIngre(IngreRef);
+
     });
   }
   //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
@@ -70,6 +62,18 @@ export default class tabOne extends Component {
       }
       console.log(gasto);
       this.setState({gastos: gasto});
+    });
+  }
+  listenForIngre(IngreRef) {
+    IngreRef.once('value').then(snapshot => {
+      if (snapshot.hasChildren()) {
+        var ingreso = 0;
+        snapshot.forEach(function(ingr) {
+          ingreso += ingr.child('cantidad').val();
+        });
+      }
+      console.log(ingreso);
+      this.setState({ingresos: ingreso});
     });
   }
 
@@ -88,14 +92,17 @@ export default class tabOne extends Component {
               <Icon style={styles.icon} active name="md-arrow-round-down"/>
               <Text>Ingresos</Text>
               <Right>
-                <Text style={styles.icon}>$0.00</Text>
+
+                <Text style={styles.text1}>${this.state.ingresos}</Text>
+
               </Right>
             </CardItem>
             <CardItem>
               <Icon style={styles.icon2} active name="md-arrow-round-up"/>
               <Text>Gastos</Text>
               <Right>
-                <Text style={styles.icon2}>${this.state.gastos.toString()}</Text>
+                <Text style={styles.text2}>${this.state.gastos}</Text>
+
               </Right>
             </CardItem>
             <CardItem>
@@ -109,17 +116,18 @@ export default class tabOne extends Component {
 
           <View style={styles.container}>
             <Text style={styles.chart_title}>Historial</Text>
-            <Pie
-              pieWidth={150}
-              pieHeight={150}
-              onItemSelected={this._onPieItemSelected}
-              colors={Theme.colors}
-              width={width}
-              height={height}
-              data={data.spendingsLastMonth}/>
-            <Text style={styles.chart_title}>Registro de {data.spendingsLastMonth[this.state.activeIndex].name}</Text>
-            <AreaSpline width={width} height={height} data={this.state.spendingsPerYear}
-              color={Theme.colors[this.state.activeIndex]}/>
+            <Pie pieWidth={150} pieHeight={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors}
+              width={width} height={height}
+              data={[
+              {
+                "number": this.state.ingresos,
+                "name": 'Ingresos'
+              }, {
+                "number": this.state.gastos,
+                "name": 'Gastos'
+              }
+            ]}/>
+
           </View>
 
           <View style={styles.align}>
