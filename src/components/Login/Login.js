@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import FBSDK, {LoginButton, AccessToken} from 'react-native-fbsdk';
+import FBSDK, {LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 import {Button, Icon, Item, Input} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/log.jpg';
@@ -20,24 +20,33 @@ class Login extends Component {
     super(props);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailed = this.onLoginFailed.bind(this);
+    this.facebook = this.facebook.bind(this);
   }
 
-  componentWillMount() {
-    this.authenticateUser();
-  }
+  facebook(){
+    LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
+          (result) => {
+          if (result.isCancelled) {
+            return Promise.resolve('cancelled');
+          }
+          return AccessToken.getCurrentAccessToken();
+        }).then(data => {
+          // create a new firebase credential with the token
+          const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
 
-  authenticateUser = () => {
-    AccessToken.getCurrentAccessToken().then((data) => {
-      const {accessToken} = data
-      const credential = FacebookAuthProvider.credential(accessToken)
-      firebaseAuth.signInWithCredential(credential).then((credentials) => {
-        Actions.Inicio();
-      }, (error) => {
-        console.log("Sign in error", error)
-      })
-    }).catch((error) => {
-      console.log("Sign in error", error)
-    });
+          // login with credential
+          return firebase.auth().signInWithCredential(credential);
+        }).then((currentUser) => {
+          if (currentUser === 'cancelled') {
+            console.log('Login cancelled');
+          } else {
+            // now signed in
+            Actions.Log();
+            console.warn(JSON.stringify(currentUser.toJSON()));
+          }
+        }).catch((error) => {
+          console.log(`Login fail with error: ${error}`);
+        })
   }
 
   onButtonPress() {
@@ -60,10 +69,9 @@ class Login extends Component {
 
         <Text style={styles.texto}>LOGO</Text>
 
-        <View style={styles.view}>
-          <LoginButton readPermissions={['public_profile', 'email']} onLoginFinished={this.handleLoginFinished}
-            onLogoutFinished={() => alert("Adios.")}/>
-        </View>
+        <Button rounded block style={styles.buttonIngresoF} onPress={this.facebook.bind(this)}>
+          <Text style={styles.boton}>Iniciar con Facebook</Text>
+        </Button>
 
         <Item rounded style={styles.inputRounded}>
           <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
@@ -87,17 +95,6 @@ class Login extends Component {
         </View>
       </Image>
     );
-  }
-}
-
-handleLoginFinished = (error, result) => {
-  if (error) {
-    console.error(error)
-  } else if (result.isCancelled) {
-    console.log("login is cancelled.");
-  } else {
-    this.authenticateUser()
-    alert('FuncionHandle')
   }
 }
 
@@ -139,6 +136,12 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     marginBottom: 10,
     backgroundColor: '#4DA49B'
+  },
+  buttonIngresoF: {
+    marginRight: 40,
+    marginLeft: 40,
+    marginBottom: 10,
+    backgroundColor: '#3b5998'
   },
   boton: {
     color: 'white',
