@@ -114,6 +114,7 @@ export default class tabOne extends Component {
             </CardItem>
           </Card>
 
+          <Card>
           <View style={styles.container}>
             <Text style={styles.chart_title}>Historial</Text>
             <Pie pieWidth={150} pieHeight={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors}
@@ -127,8 +128,8 @@ export default class tabOne extends Component {
                 "name": 'Gastos'
               }
             ]}/>
-
           </View>
+          </Card>
 
           <View style={styles.align}>
             <Card style={styles.borde}>
