@@ -85,36 +85,24 @@ export default class tabOne extends Component {
               <Text>Tus Gastos</Text>
             </CardItem>
             <CardItem>
-              <Icon style={{
-                color: 'green'
-              }} active name="md-arrow-round-down"/>
+              <Icon style={styles.icon} active name="md-arrow-round-down"/>
               <Text>Ingresos</Text>
               <Right>
-                <Text style={{
-                  color: 'green'
-                }}>$0.00</Text>
+                <Text style={styles.icon}>$0.00</Text>
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={{
-                color: 'red'
-              }} active name="md-arrow-round-up"/>
+              <Icon style={styles.icon2} active name="md-arrow-round-up"/>
               <Text>Gastos</Text>
               <Right>
-                <Text style={{
-                  color: 'red'
-                }}>${this.state.gastos.toString()}</Text>
+                <Text style={styles.icon2}>${this.state.gastos.toString()}</Text>
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={{
-                color: 'blue'
-              }} active name="ios-cash"/>
+              <Icon style={styles.icon3} active name="ios-cash"/>
               <Text>Ahorros</Text>
               <Right>
-                <Text style={{
-                  color: 'blue'
-                }}>$0.00</Text>
+                <Text style={styles.icon3}>$0.00</Text>
               </Right>
             </CardItem>
           </Card>
@@ -217,6 +205,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: 'grey',
     fontWeight: 'bold'
+  },
+  icon: {
+    color: 'green'
+  },
+  icon2: {
+    color: 'red'
+  },
+  icon3: {
+    color: 'blue'
   }
 });
 
