@@ -23,7 +23,8 @@ export default class tabOne extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      spendingsPerYear: data.spendingsPerYear
+      spendingsPerYear: data.spendingsPerYear,
+      gastos: 0
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
     this._shuffle = this._shuffle.bind(this);
@@ -45,6 +46,33 @@ export default class tabOne extends Component {
     return a;
   }
 
+  //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
+  componentWillMount() {
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      console.log(uid)
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
+      that.listenForItems(itemsRef);
+    });
+  }
+  //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
+  listenForItems(itemsRef) {
+    itemsRef.once('value').then(snapshot => {
+      if (snapshot.hasChildren()) {
+        var gasto = 0;
+        snapshot.forEach(function(item) {
+          gasto += item.child('cantidad').val();
+        });
+      }
+      console.log(gasto);
+      this.setState({gastos: gasto});
+    });
+  }
+
   render() {
     const height = 200;
     const width = 340;
@@ -52,40 +80,49 @@ export default class tabOne extends Component {
     return (
       <Container style={styles.back}>
         <Content>
-
           <Card style={styles.card}>
             <CardItem header>
               <Text>Tus Gastos</Text>
             </CardItem>
-
             <CardItem>
-              <Icon style={styles.cardItem1} active name="md-arrow-round-down"/>
+              <Icon style={{
+                color: 'green'
+              }} active name="md-arrow-round-down"/>
               <Text>Ingresos</Text>
               <Right>
-                <Text style={styles.text1}>$0.00</Text>
+                <Text style={{
+                  color: 'green'
+                }}>$0.00</Text>
               </Right>
             </CardItem>
-
             <CardItem>
-              <Icon style={styles.cardItem2} active name="md-arrow-round-up"/>
+              <Icon style={{
+                color: 'red'
+              }} active name="md-arrow-round-up"/>
               <Text>Gastos</Text>
               <Right>
-                <Text style={styles.text2}>$0.00</Text>
+                <Text style={{
+                  color: 'red'
+                }}>${this.state.gastos.toString()}</Text>
               </Right>
             </CardItem>
-
             <CardItem>
-              <Icon style={styles.cardItem3} active name="ios-cash"/>
+              <Icon style={{
+                color: 'blue'
+              }} active name="ios-cash"/>
               <Text>Ahorros</Text>
               <Right>
-                <Text style={styles.text3}>$0.00</Text>
+                <Text style={{
+                  color: 'blue'
+                }}>$0.00</Text>
               </Right>
             </CardItem>
           </Card>
 
           <View style={styles.container}>
             <Text style={styles.chart_title}>Historial</Text>
-            <Pie pieWidth={150}
+            <Pie
+              pieWidth={150}
               pieHeight={150}
               onItemSelected={this._onPieItemSelected}
               colors={Theme.colors}
@@ -100,21 +137,21 @@ export default class tabOne extends Component {
           <View style={styles.align}>
             <Card style={styles.borde}>
               <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
-                <Image source={imgIngresos} style={styles.img}/>
+                <Image source={require('../imgs/Ingresos.png')} style={styles.img}/>
               </Button>
               <Text>Ingresos</Text>
             </Card>
 
             <Card style={styles.borde}>
               <Button style={styles.boton} transparent onPress={() => Actions.Gastos()}>
-                <Image source={imgGastos} style={styles.img}/>
+                <Image source={require('../imgs/Gastos.png')} style={styles.img}/>
               </Button>
               <Text>Gastos</Text>
             </Card>
 
             <Card style={styles.borde}>
               <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
-                <Image source={imgAhorros} style={styles.img}/>
+                <Image source={require('../imgs/Ahorros.png')} style={styles.img}/>
               </Button>
               <Text>Ahorros</Text>
             </Card>
@@ -180,24 +217,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: 'grey',
     fontWeight: 'bold'
-  },
-  cardItem1: {
-    color: 'green'
-  },
-  cardItem2:{
-    color: 'red'
-  },
-  cardItem3: {
-    color: 'blue'
-  },
-  text1:{
-    color: 'green'
-  },
-  text2: {
-    color: 'red'
-  },
-  text3: {
-    color: 'blue'
   }
 });
 

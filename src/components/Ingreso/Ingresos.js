@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, Image} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
 import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
-import imgLogo from '../../assets/imgs/Ingresos.png';
+import imgLogo from '../assets/imgs/Ingresos.png';
 import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
@@ -30,7 +30,6 @@ export default class Ingresos extends Component {
         var uid = user.uid;
       }
       console.log(uid)
-
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(datos);
     });
   }
@@ -43,9 +42,7 @@ export default class Ingresos extends Component {
       snap.forEach((child) => {
         ingreso.push({ingreso: child.val().ingreso});
       });
-
       this.setState({ingreso: ingreso});
-
     });
   }
 
@@ -63,7 +60,6 @@ export default class Ingresos extends Component {
       that.listenForItems(itemsRef);
     });
   }
-
   render() {
     return (
       <Container style={styles.back}>
