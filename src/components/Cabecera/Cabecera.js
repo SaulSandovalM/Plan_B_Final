@@ -6,6 +6,15 @@ import imgLogo from '../../assets/imgs/planb.png';
 import {firebaseAuth} from '../Firebase/Firebase';
 
 export default class Cabecera extends Component {
+  constructor(props) {
+    super(props);
+    this.salir = this.salir.bind(this);
+    }
+
+    salir(){
+      firebaseAuth.signOut();
+      Actions.Log();
+    }
   render() {
     return (
       <Header style={styles.header}>
@@ -19,7 +28,7 @@ export default class Cabecera extends Component {
           <Button transparent onPress={() => Actions.Perfil()}>
             <Icon name='person' style={styles.icon}/>
           </Button>
-          <Button transparent onPress={() => firebaseAuth.signOut()}>
+          <Button transparent onPress={this.salir.bind(this)}>
             <Icon name='menu' style={styles.icon}/>
           </Button>
         </Right>
