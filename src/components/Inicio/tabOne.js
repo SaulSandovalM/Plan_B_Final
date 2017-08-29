@@ -137,21 +137,21 @@ export default class tabOne extends Component {
           <View style={styles.align}>
             <Card style={styles.borde}>
               <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
-                <Image source={require('../imgs/Ingresos.png')} style={styles.img}/>
+                <Image source={imgIngresos} style={styles.img}/>
               </Button>
               <Text>Ingresos</Text>
             </Card>
 
             <Card style={styles.borde}>
               <Button style={styles.boton} transparent onPress={() => Actions.Gastos()}>
-                <Image source={require('../imgs/Gastos.png')} style={styles.img}/>
+                <Image source={imgGastos} style={styles.img}/>
               </Button>
               <Text>Gastos</Text>
             </Card>
 
             <Card style={styles.borde}>
               <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
-                <Image source={require('../imgs/Ahorros.png')} style={styles.img}/>
+                <Image source={imgAhorros} style={styles.img}/>
               </Button>
               <Text>Ahorros</Text>
             </Card>
