@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   img: {
-    width: 400,
-    height: 400,
-    top: -160
+    width: 350,
+    height: 300,
+    top: -180
   },
   buttonIngreso: {
     marginRight: 40,
