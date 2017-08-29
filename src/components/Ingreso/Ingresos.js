@@ -15,6 +15,14 @@ export default class Ingresos extends Component {
     }
   }
 
+  valorfun = (valorcito) => {
+    const newIngreso = valorcito;
+    this.setState({
+      ingreso: newIngreso,
+      objeto
+    });
+  }
+
   onValueChange(value : string) {
     this.setState({selected1: value});
   }
@@ -60,6 +68,7 @@ export default class Ingresos extends Component {
       that.listenForItems(itemsRef);
     });
   }
+
   render() {
     return (
       <Container style={styles.back}>
