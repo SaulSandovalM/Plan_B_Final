@@ -24,8 +24,9 @@ export default class tabOne extends Component {
     this.state = {
       activeIndex: 0,
       spendingsPerYear: data.spendingsPerYear,
+
       gastos:0,
-      ingreso:0,
+      ingresos:0,
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
     this._shuffle = this._shuffle.bind(this);
@@ -56,7 +57,7 @@ export default class tabOne extends Component {
       }
       console.log(uid)
       const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
-      const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso')
+      const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
       that.listenForItems(itemsRef);
       that.listenForIngre(IngreRef);
 
@@ -76,18 +77,17 @@ export default class tabOne extends Component {
     });
   }
   listenForIngre (IngreRef) {
-    itemsRef.once('value').then(snapshot => {
+    IngreRef.once('value').then(snapshot => {
       if(snapshot.hasChildren()){
         var ingreso = 0;
-        snapshot.forEach(function(item){
-          ingreso += item.child('ingreso').val();
+        snapshot.forEach(function(ingr){
+          ingreso += ingr.child('cantidad').val();
         });
       }
         console.log(ingreso);
-        this.setState({ingreso:ingreso});
+        this.setState({ingresos:ingreso});
     });
   }
-
 
   render() {
     const height = 200;
@@ -96,40 +96,47 @@ export default class tabOne extends Component {
     return (
       <Container style={styles.back}>
         <Content>
-
           <Card style={styles.card}>
             <CardItem header>
               <Text>Tus Gastos</Text>
             </CardItem>
-
             <CardItem>
-              <Icon style={styles.cardItem1} active name="md-arrow-round-down"/>
+              <Icon style={{
+                color: 'green'
+              }} active name="md-arrow-round-down"/>
               <Text>Ingresos</Text>
               <Right>
-                <Text style={styles.text1}>${this.state.ingreso}</Text>
+
+                <Text style={styles.text1}>${this.state.ingresos}</Text>
+
               </Right>
             </CardItem>
-
             <CardItem>
-              <Icon style={styles.cardItem2} active name="md-arrow-round-up"/>
+              <Icon style={{
+                color: 'red'
+              }} active name="md-arrow-round-up"/>
               <Text>Gastos</Text>
               <Right>
                 <Text style={styles.text2}>${this.state.gastos}</Text>
               </Right>
             </CardItem>
-
             <CardItem>
-              <Icon style={styles.cardItem3} active name="ios-cash"/>
+              <Icon style={{
+                color: 'blue'
+              }} active name="ios-cash"/>
               <Text>Ahorros</Text>
               <Right>
-                <Text style={styles.text3}>$0.00</Text>
+                <Text style={{
+                  color: 'blue'
+                }}>$0.00</Text>
               </Right>
             </CardItem>
           </Card>
 
           <View style={styles.container}>
             <Text style={styles.chart_title}>Historial</Text>
-            <Pie pieWidth={150}
+            <Pie
+              pieWidth={150}
               pieHeight={150}
               onItemSelected={this._onPieItemSelected}
               colors={Theme.colors}
@@ -224,24 +231,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     color: 'grey',
     fontWeight: 'bold'
-  },
-  cardItem1: {
-    color: 'green'
-  },
-  cardItem2:{
-    color: 'red'
-  },
-  cardItem3: {
-    color: 'blue'
-  },
-  text1:{
-    color: 'green'
-  },
-  text2: {
-    color: 'red'
-  },
-  text3: {
-    color: 'blue'
   }
 });
 

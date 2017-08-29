@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input} from 'native-base';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
 import Valores from './Modal';
@@ -32,24 +32,20 @@ export default class Example extends Component {
   }
 
 
-  cateFun=(categorita)=>{
-    objeto=this.state.objeto
-    objeto['categoria']=categorita
-
-        //const newCat= categorita;
-        this.setState({
-          //categoria:newCat,
-          objeto
-        });
-      }
-desFun=(descripcion)=>{
-  objeto=this.state.objeto
-  objeto['descri']=descripcion
-  this.setState({objeto});
-}
-
-
-
+  cateFun = (categorita) => {
+    objeto = this.state.objeto
+    objeto['categoria'] = categorita
+    //const newCat= categorita;
+    this.setState({
+      //categoria:newCat,
+      objeto
+    });
+  }
+  desFun = (descripcion) => {
+    objeto = this.state.objeto
+    objeto['descri'] = descripcion
+    this.setState({objeto});
+  }
 
   valorfun = (valorcito) => {
     objeto = this.state.objeto
@@ -112,7 +108,7 @@ desFun=(descripcion)=>{
             <Icon name="paper"/>
           </Left>
           <Body >
-            <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
+            <Input style={styles.input} placeholder='Descripción'/>
           </Body>
         </ListItem>
       </List>
