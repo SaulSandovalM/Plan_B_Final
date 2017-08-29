@@ -7,6 +7,7 @@
   import Modalgasto from '../components/Modalgasto';
   import firebase, {firebaseAuth} from './Firebase';
   import DatePicker from 'react-native-datepicker';
+  import Nogasto from './Nogasto';
 
   export default class Gasto extends Component {
     constructor(){
@@ -56,9 +57,11 @@
           console.log(child.key);
 
 
+
     });
 
         this.setState({lista: lista});
+        console.log(lista)
 
       });
 }
@@ -75,6 +78,7 @@
         }
         console.log(uid)
         console.log(key)
+
         const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
         that.listenForItems(itemsRef);
       });
@@ -89,7 +93,7 @@
       if(user){
         var uid= user.uid;
       }
-    firebase.database().ref('usuarios/'+uid+'/gastos/'+item.id).set(null);//Esta linea coloca valor nulo en el element que se seleccione
+    firebase.database().ref('usuarios/'+uid+'/gastos/'+item.id).set(null);//Esta linea coloca valor nulo en el element que
   });
   }
 
@@ -133,7 +137,10 @@
         </View>
 
           <Content>
-         <Listconte  lista={this.state.lista} borrar={this.borrar} />
+          {
+            this.state.lista ===null ? <Nogasto/> : <Listconte  lista={this.state.lista} borrar={this.borrar} />
+          }
+
           </Content>
           <Modalgasto style={styles.lista} agregar={this.addItem}/>
         </Container>
