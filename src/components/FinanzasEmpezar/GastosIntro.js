@@ -6,8 +6,66 @@ import Valores from '../Modal/Modal';
 import Modalgasto from '../Modal/Modalgasto';
 import img from '../../assets/imgs/intro.jpeg';
 import img2 from '../../assets/imgs/Gastos.png';
+import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 class GastosIntro extends Component {
+  constructor() {
+    super();
+    this.state = {
+      id: '',
+      lista: [],
+      date: new Date()
+    }
+  }
+
+  addItem = (datos) => {
+    this.state.lista.push(datos)
+    this.setState({lista: this.state.lista})
+    console.log(this.state.lista)
+
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      console.log(uid)
+      firebase.database().ref('usuarios/' + uid + '/gastos').push(datos);
+    });
+    Actions.Inicio()
+  }
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+      // get children as an array
+      var lista = [];
+      snap.forEach((child) => {
+        lista.push({
+          iname: child.val().iname,
+          categoria: child.val().categoria,
+          descri: child.val().descri,
+          cantidad: child.val().cantidad,
+          id: child.key})
+        console.log(child.key);
+      });
+      this.setState({lista: lista});
+    });
+  }
+
+  componentWillMount() {
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+        var key = user.key;
+      }
+      console.log(uid)
+      console.log(key)
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
+      that.listenForItems(itemsRef);
+    });
+  }
+
   render() {
     return (
       <Image source={img} style={styles.img}>
@@ -28,7 +86,7 @@ class GastosIntro extends Component {
         </View>
 
         <View>
-          <Button rounded block style={styles.button} onPress={() => Actions.Inicio()}>
+          <Button rounded block style={styles.button} onPress={this.addItem}>
             <Text style={styles.boton}>Finalizar</Text>
           </Button>
 
