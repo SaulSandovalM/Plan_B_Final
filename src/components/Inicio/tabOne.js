@@ -10,6 +10,7 @@ import imgIngresos from '../../assets/imgs/Ingresos.png';
 import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
   activeIndex: number
@@ -22,8 +23,11 @@ export default class tabOne extends Component {
     super(props);
     this.state = {
       activeIndex: 0,
-      gastos: 0,
-      ingresos: 0
+      gastos:0,
+      ingresos:0,
+      pIngreso:parseInt(100),
+      pGasto:parseInt(0),
+
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
   }
@@ -31,49 +35,64 @@ export default class tabOne extends Component {
   _onPieItemSelected(newIndex) {
     this.setState({
       ...this.state,
-      activeIndex: newIndex
+      activeIndex: newIndex,
     });
   }
 
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
-  componentWillMount() {
+  componentWillMount(){
     var that = this;
-    firebaseAuth.onAuthStateChanged(function(user) {
+    firebaseAuth.onAuthStateChanged(function(user){
       console.log('user', user)
-      if (user) {
-        var uid = user.uid;
+      if(user){
+        var uid= user.uid;
       }
       console.log(uid)
-      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
-      const IngreRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
-      that.listenForItems(itemsRef);
+      const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
       that.listenForIngre(IngreRef);
-
+      const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+      that.listenForItems(itemsRef);
     });
   }
   //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
-  listenForItems(itemsRef) {
-    itemsRef.once('value').then(snapshot => {
-      if (snapshot.hasChildren()) {
-        var gasto = 0;
-        snapshot.forEach(function(item) {
-          gasto += item.child('cantidad').val();
-        });
-      }
-      console.log(gasto);
-      this.setState({gastos: gasto});
-    });
-  }
-  listenForIngre(IngreRef) {
+
+  listenForIngre (IngreRef) {
     IngreRef.once('value').then(snapshot => {
-      if (snapshot.hasChildren()) {
+      if(snapshot.hasChildren()){
         var ingreso = 0;
-        snapshot.forEach(function(ingr) {
+        snapshot.forEach(function(ingr){
           ingreso += ingr.child('cantidad').val();
         });
       }
-      console.log(ingreso);
-      this.setState({ingresos: ingreso});
+        console.log(ingreso);
+        this.setState({ingresos:ingreso});
+    });
+  }
+  
+  listenForItems (itemsRef) {
+    itemsRef.once('value').then(snapshot => {
+      if(snapshot.hasChildren()){
+        var gasto = 0;
+        snapshot.forEach(function(item){
+          gasto += item.child('cantidad').val();
+        });
+      }
+      if(gasto==null){
+        gasto=0
+      }
+        console.log(gasto);
+        this.setState({gastos:gasto});
+        setTimeout(()=>{
+          pGasto=((this.state.gastos * 100)/this.state.ingresos),
+          this.setState({pGasto:pGasto}),
+          pIngreso=this.state.pIngreso-this.state.pGasto,
+          this.setState({pIngreso:pIngreso})
+        }, 80);
+
+        pIngreso=this.state.pIngreso-this.state.pGasto;
+        this.setState({pIngreso:pIngreso})
+        console.log(pGasto)
+        console.log(pIngreso)
     });
   }
 
@@ -95,6 +114,7 @@ export default class tabOne extends Component {
 
                 <Text style={styles.text1}>${this.state.ingresos}</Text>
 
+
               </Right>
             </CardItem>
             <CardItem>
@@ -109,27 +129,26 @@ export default class tabOne extends Component {
               <Icon style={styles.icon3} active name="ios-cash"/>
               <Text>Ahorros</Text>
               <Right>
-                <Text style={styles.icon3}>$0.00</Text>
+                <Text style={styles.icon3}>${this.state.pIngreso}</Text>
               </Right>
             </CardItem>
           </Card>
 
-          <Card>
           <View style={styles.container}>
             <Text style={styles.chart_title}>Historial</Text>
-            <Pie pieWidth={150} pieHeight={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors}
-              width={width} height={height}
+            <Pie
+              pieWidth={150}
+              pieHeight={150}
+              onItemSelected={this._onPieItemSelected}
+              colors={Theme.colors}
+              width={width}
+              height={height}
               data={[
-              {
-                "number": this.state.ingresos,
-                "name": 'Ingresos'
-              }, {
-                "number": this.state.gastos,
-                "name": 'Gastos'
-              }
-            ]}/>
+                {"number":  Math.round(this.state.pIngreso), "name": 'Ingresos'},
+                {"number": Math.round(this.state.pGasto), "name": 'Gastos'},
+              ]}/>
+
           </View>
-          </Card>
 
           <View style={styles.align}>
             <Card style={styles.borde}>
