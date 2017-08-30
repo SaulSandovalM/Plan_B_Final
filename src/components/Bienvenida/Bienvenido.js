@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import Video from 'react-native-video';
 import {Button} from 'native-base';
 import {Actions} from 'react-native-router-flux';
-import video from '../../assets/video/video2.mp4';
+import video from '../../assets/video/video.mp4';
 import img from '../../assets/imgs/planb.png';
 
 class Bienvenido extends Component {
@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   img: {
-    width: 400,
-    height: 400,
-    top: -160
+    width: 350,
+    height: 300,
+    top: -180
   },
   buttonIngreso: {
     marginRight: 40,

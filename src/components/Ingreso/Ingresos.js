@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
 import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button,  Fab,} from 'native-base';
+
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/Ingresos.png';
 import Valores from '../Modal/Modal';
@@ -11,7 +12,6 @@ export default class Ingresos extends Component {
   constructor() {
     super();
     this.state = {
-
       ingreso: [],
       objeto:{},
       date: new Date()
@@ -29,7 +29,6 @@ export default class Ingresos extends Component {
     this.setState({objeto});
   }
 
-
   addItem = () => {
     let nuevo = this.state.objeto
     this.state.ingreso.push(nuevo);
@@ -44,9 +43,10 @@ export default class Ingresos extends Component {
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
 
-
-
   }
+
+
+
   componentWillMount() {
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
@@ -61,6 +61,22 @@ export default class Ingresos extends Component {
       that.listenForItems(itemsRef);
     });
   }
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+
+      // get children as an array
+      var ingreso = [];
+      snap.forEach((child) => {
+        ingreso.push({
+          descri: child.val().descri,
+          cantidad: child.val().cantidad,
+          id: child.key})
+        console.log(child.key);
+      });
+      this.setState({ingreso: ingreso});
+    });
+  }
+
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
 

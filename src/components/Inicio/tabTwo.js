@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, View, ListView} from 'react-native';
-import {Container, Content, Card, CardItem, Thumbnail, Text, Left, Body} from 'native-base';
+import {Container, Content, Card, CardItem, Text, Left, Body} from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 
 export default class tabTwo extends Component {
@@ -20,9 +20,6 @@ export default class tabTwo extends Component {
           <Card style={styles.card}>
             <CardItem>
               <Left>
-                <Thumbnail source={{
-                  uri: 'https://avatars1.githubusercontent.com/u/20559576?v=4&s=460'
-                }}/>
                 <Body>
                   <Text>Noticia 1</Text>
                   <Text note>Mar 19 de Julio, 2016</Text>
@@ -46,9 +43,6 @@ export default class tabTwo extends Component {
           <Card style={styles.card}>
             <CardItem>
               <Left>
-                <Thumbnail source={{
-                  uri: 'https://avatars1.githubusercontent.com/u/20559576?v=4&s=460'
-                }}/>
                 <Body>
                   <Text>Noticia 2</Text>
                   <Text note>Mar 19 de Julio, 2016</Text>
@@ -72,9 +66,6 @@ export default class tabTwo extends Component {
           <Card style={styles.card}>
             <CardItem>
               <Left>
-                <Thumbnail source={{
-                  uri: 'https://avatars1.githubusercontent.com/u/20559576?v=4&s=460'
-                }}/>
                 <Body>
                   <Text>Noticia 3</Text>
                   <Text note>Mar 19 de Julio, 2016</Text>

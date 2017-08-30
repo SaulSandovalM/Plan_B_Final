@@ -10,9 +10,11 @@ import imgIngresos from '../../assets/imgs/Ingresos.png';
 import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
-  activeIndex: number,
+
+  activeIndex: number
 }
 
 export default class tabOne extends Component {
@@ -52,12 +54,7 @@ export default class tabOne extends Component {
       const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
       that.listenForIngre(IngreRef);
       const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
-
-
-      that.listenForItems(itemsRef);
-
-
-
+  that.listenForItems(itemsRef);
 
 
     });
