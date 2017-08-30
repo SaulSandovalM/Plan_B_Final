@@ -13,7 +13,7 @@ class Login extends Component {
     email: '',
     contraseña: '',
     error: '',
-    credential: ''
+    credential: '',
   };
 
   constructor(props) {
@@ -42,7 +42,7 @@ class Login extends Component {
           } else {
             // now signed in
             Actions.Log();
-            console.warn(JSON.stringify(currentUser.toJSON()));
+
           }
         }).catch((error) => {
           console.log(`Login fail with error: ${error}`);
@@ -61,6 +61,7 @@ class Login extends Component {
   }
   onLoginSuccess() {
     this.setState({email: '', contraseña: '', error: ''});
+    Actions.Log();
   }
 
   render() {
@@ -69,7 +70,8 @@ class Login extends Component {
 
         <Text style={styles.texto}>LOGO</Text>
 
-        <Button rounded block style={styles.buttonIngresoF} onPress={this.facebook.bind(this)}>
+        <Button rounded block iconLeft light style={styles.buttonIngresoF} onPress={this.facebook.bind(this)}>
+          <Icon name='logo-facebook' style={{color:'white'}}/>
           <Text style={styles.boton}>Iniciar con Facebook</Text>
         </Button>
 

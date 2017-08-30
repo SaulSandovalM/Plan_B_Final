@@ -54,7 +54,7 @@ class Terminos extends Component {
 
   entry() {
     if (this.state.selected == true && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true) {
-      Actions.Log()
+      Actions.Login()
     } else {
       alert('Acepta terminos y condiciones')
     }

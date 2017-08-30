@@ -13,7 +13,6 @@ export default class Cabecera extends Component {
 
     salir(){
       firebaseAuth.signOut();
-      Actions.Log();
     }
   render() {
     return (
