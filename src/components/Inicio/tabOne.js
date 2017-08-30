@@ -10,6 +10,7 @@ import imgIngresos from '../../assets/imgs/Ingresos.png';
 import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
   activeIndex: number,
@@ -48,18 +49,10 @@ export default class tabOne extends Component {
         var uid= user.uid;
       }
       console.log(uid)
-
       const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
       that.listenForIngre(IngreRef);
       const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
-
-
       that.listenForItems(itemsRef);
-
-
-
-
-
     });
   }
   //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
@@ -76,6 +69,7 @@ export default class tabOne extends Component {
         this.setState({ingresos:ingreso});
     });
   }
+
   listenForItems (itemsRef) {
     itemsRef.once('value').then(snapshot => {
       if(snapshot.hasChildren()){
@@ -125,6 +119,7 @@ export default class tabOne extends Component {
                 <Text style={styles.text1}>$ {this.state.ingresos}</Text>
 
 
+
               </Right>
             </CardItem>
             <CardItem>
@@ -139,7 +134,7 @@ export default class tabOne extends Component {
               <Icon style={styles.icon3} active name="ios-cash"/>
               <Text>Ahorros</Text>
               <Right>
-                <Text style={styles.icon3}>0/10</Text>
+                <Text style={styles.icon3}>${this.state.pIngreso}</Text>
               </Right>
             </CardItem>
           </Card>

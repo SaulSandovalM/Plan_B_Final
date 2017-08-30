@@ -11,7 +11,6 @@ export default class Ingresos extends Component {
   constructor() {
     super();
     this.state = {
-
       ingreso: [],
       objeto:{},
       date: new Date()
