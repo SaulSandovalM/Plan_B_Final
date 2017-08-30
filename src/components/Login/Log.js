@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {firebaseAuth} from '../Firebase/Firebase';
 import {Actions} from 'react-native-router-flux';
 import Inicio from '../Inicio/Inicio';
-import Login from './Login';
+import Bienvenido from '../Bienvenida/Bienvenido';
 
 class Log extends Component {
   state = {
@@ -25,7 +25,7 @@ class Log extends Component {
       case true:
         return <Inicio/>;
       case false:
-        return <Login/>;
+        return <Bienvenido/>;
     }
   }
 
