@@ -9,12 +9,12 @@ export default class Cabecera extends Component {
   constructor(props) {
     super(props);
     this.salir = this.salir.bind(this);
-    }
+  }
 
-    salir(){
-      firebaseAuth.signOut();
-      Actions.Log();
-    }
+  salir() {
+    firebaseAuth.signOut();
+  }
+  
   render() {
     return (
       <Header style={styles.header}>
@@ -29,7 +29,7 @@ export default class Cabecera extends Component {
             <Icon name='person' style={styles.icon}/>
           </Button>
           <Button transparent onPress={this.salir.bind(this)}>
-            <Icon name='menu' style={styles.icon}/>
+            <Icon name='close' style={styles.icon}/>
           </Button>
         </Right>
       </Header>
@@ -45,8 +45,9 @@ const styles = StyleSheet.create({
     color: "green"
   },
   image: {
-    width: 150,
-    height: 60
+    width: 120,
+    height: 40,
+    top: 5
   },
   icon: {
     color: 'green'

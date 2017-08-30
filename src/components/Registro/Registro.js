@@ -3,7 +3,8 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import {Button, Icon, Item, Input} from 'native-base';
 import {Actions} from 'react-native-router-flux';
-import img from '../../assets/imgs/reg.jpg'
+import img from '../../assets/imgs/reg.jpg';
+import imagen from '../../assets/imgs/plan2.png';
 
 class Registro extends Component {
   state = {
@@ -42,7 +43,7 @@ class Registro extends Component {
     return (
       <Image source={img} style={styles.img}>
 
-        <Text style={styles.texto}>LOGO</Text>
+        <Image source={imagen} style={styles.imagen}/>
 
         <Item rounded style={styles.inputRounded}>
           <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
@@ -147,6 +148,11 @@ const styles = StyleSheet.create({
   },
   ingresar: {
     color: 'white'
+  },
+  imagen: {
+    width: 180,
+    height: 62,
+    alignSelf: 'center'
   }
 })
 

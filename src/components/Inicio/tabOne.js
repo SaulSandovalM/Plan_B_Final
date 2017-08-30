@@ -12,8 +12,12 @@ import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
+<<<<<<< HEAD
 
   activeIndex: number
+=======
+  activeIndex: number,
+>>>>>>> d915268fb828b6c11c650763fac4c6328ceb9cb2
 }
 
 export default class tabOne extends Component {
@@ -21,13 +25,13 @@ export default class tabOne extends Component {
 
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       activeIndex: 0,
       gastos:0,
       ingresos:0,
       pIngreso:0,
       pGasto:0,
-      response: ''
 
     };
     console.ignoredYellowBox = [
@@ -84,6 +88,7 @@ export default class tabOne extends Component {
 
     });
   }
+
   listenForItems (itemsRef) {
 
     itemsRef.once('value').then(snapshot => {
@@ -120,37 +125,34 @@ export default class tabOne extends Component {
         <Content>
           <Card style={styles.card}>
             <CardItem header>
-              <Text>Tus Gastos</Text>
+              <Text style={styles.chart_title}>FINANZAS</Text>
             </CardItem>
             <CardItem>
-              <Icon style={styles.icon} active name="md-arrow-round-down"/>
-              <Text>Ingresos</Text>
+              <Icon style={styles.icon} active name="md-cash"/>
+              <Text style={styles.icon}>Ingresos</Text>
               <Right>
-
-                <Text style={styles.text1}>${this.state.ingresos}</Text>
-
-
+                <Text style={styles.finanzas}>$ {this.state.ingresos}.00</Text>
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={styles.icon2} active name="md-arrow-round-up"/>
-              <Text>Gastos</Text>
+              <Icon style={styles.icon2} active name="remove-circle"/>
+              <Text style={styles.icon2}>Gastos</Text>
               <Right>
-                <Text style={styles.text2}>${this.state.gastos}</Text>
+                <Text style={styles.finanzas2}>$ {this.state.gastos}.00</Text>
 
               </Right>
             </CardItem>
             <CardItem>
               <Icon style={styles.icon3} active name="ios-cash"/>
-              <Text>Ahorros</Text>
+              <Text style={styles.icon3}>Ahorros</Text>
               <Right>
-                <Text style={styles.icon3}>${this.state.pIngreso}</Text>
+                <Text style={styles.finanzas3}>$ {this.state.pIngreso}.00</Text>
               </Right>
             </CardItem>
           </Card>
 
           <View style={styles.container}>
-            <Text style={styles.chart_title}>Historial</Text>
+            <Text style={styles.chart_title}>ESTADISTICAS</Text>
             <Pie
               pieWidth={150}
               pieHeight={150}
@@ -170,21 +172,21 @@ export default class tabOne extends Component {
               <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
                 <Image source={imgIngresos} style={styles.img}/>
               </Button>
-              <Text>Ingresos</Text>
+              <Text style={styles.text}>INGRESOS</Text>
             </Card>
 
             <Card style={styles.borde}>
               <Button style={styles.boton} transparent onPress={() => Actions.Gastos()}>
                 <Image source={imgGastos} style={styles.img}/>
               </Button>
-              <Text>Gastos</Text>
+              <Text style={styles.text}>GASTOS</Text>
             </Card>
 
             <Card style={styles.borde}>
               <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
                 <Image source={imgAhorros} style={styles.img}/>
               </Button>
-              <Text>Ahorros</Text>
+              <Text style={styles.text}>AHORROS</Text>
             </Card>
           </View>
 
@@ -257,6 +259,24 @@ const styles = StyleSheet.create({
   },
   icon3: {
     color: 'blue'
+  },
+  text: {
+    fontWeight: 'bold'
+  },
+  finanzas: {
+    fontWeight: 'bold',
+    color: 'green',
+    fontSize: 16
+  },
+  finanzas2: {
+    fontWeight: 'bold',
+    color: 'red',
+    fontSize: 16
+  },
+  finanzas3: {
+    fontWeight: 'bold',
+    color: 'blue',
+    fontSize: 16
   }
 });
 

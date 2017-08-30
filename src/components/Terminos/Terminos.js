@@ -48,13 +48,14 @@ class Terminos extends Component {
       });
     }
   }
+
   close() {
     BackHandler.exitApp()
   }
 
   entry() {
     if (this.state.selected == true && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true) {
-      Actions.Log()
+      Actions.Login()
     } else {
       alert('Acepta terminos y condiciones')
     }
@@ -63,62 +64,62 @@ class Terminos extends Component {
   render() {
     return (
       <StyleProvider style={getTheme(material)}>
-      <Container style={styles.back}>
-        <Cabecera3/>
-        <Content>
+        <Container style={styles.back}>
+          <Cabecera3/>
+          <Content>
 
-          <CardItem header>
-            <Text style={styles.font}>TÉRMINOS Y CONDICIONES</Text>
-          </CardItem>
+            <CardItem header>
+              <Text style={styles.font}>TÉRMINOS Y CONDICIONES</Text>
+            </CardItem>
 
-          <CardItem>
-            <Body>
+            <CardItem>
+              <Body>
 
-              <List style={styles.list}>
-                <Text>Pulse los vínculos a continuación y léalos atentamente. Al marcar las casillas, usted reconoce que ha
-                  leído y que acepta los siguientes términos:</Text>
+                <List style={styles.list}>
+                  <Text>Pulse los vínculos a continuación y léalos atentamente. Al marcar las casillas, usted reconoce
+                    que ha leído y que acepta los siguientes términos:</Text>
 
-                <ListItem style={styles.ListItem}>
-                  <CheckBox checked={this.state.selected} onPress={this.toggle.bind(this)}/>
-                  <View style={styles.view}>
-                    <Text>Acepto todo</Text>
+                  <ListItem style={styles.ListItem}>
+                    <CheckBox checked={this.state.selected} onPress={this.toggle.bind(this)}/>
+                    <View style={styles.view}>
+                      <Text>Acepto todo</Text>
+                    </View>
+                  </ListItem>
+                </List>
+
+                <ListItem style={styles.listItem}>
+                  <CheckBox checked={this.state.check1} onPress={this.chec1.bind(this)}/>
+                  <View style={styles.view2}>
+                    <Text>He leído y estoy de acuerdo con los Términos especiales y condiciones</Text>
                   </View>
                 </ListItem>
-              </List>
 
-              <ListItem style={styles.listItem}>
-                <CheckBox checked={this.state.check1} onPress={this.chec1.bind(this)}/>
-                <View style={styles.view2}>
-                  <Text>He leído y estoy de acuerdo con los Términos especiales y condiciones</Text>
-                </View>
-              </ListItem>
+                <ListItem style={styles.listItem}>
+                  <CheckBox checked={this.state.check2} onPress={this.chec2.bind(this)}/>
+                  <View style={styles.view2}>
+                    <Text>He leído y estoy de acuerdo con las políticas de privacidad.</Text>
+                  </View>
+                </ListItem>
 
-              <ListItem style={styles.listItem}>
-                <CheckBox checked={this.state.check2} onPress={this.chec2.bind(this)}/>
-                <View style={styles.view2}>
-                  <Text>He leído y estoy de acuerdo con las políticas de privacidad.</Text>
-                </View>
-              </ListItem>
+                <ListItem style={styles.listItem}>
+                  <CheckBox checked={this.state.check3} onPress={this.chec3.bind(this)}/>
+                  <View style={styles.view2}>
+                    <Text>Activar servicios interactivos</Text>
+                  </View>
+                </ListItem>
 
-              <ListItem style={styles.listItem}>
-                <CheckBox checked={this.state.check3} onPress={this.chec3.bind(this)}/>
-                <View style={styles.view2}>
-                  <Text>Activar servicios interactivos</Text>
-                </View>
-              </ListItem>
+                <Button rounded block onPress={this.entry.bind(this)} style={styles.boton}>
+                  <Text style={styles.text}>Acepto</Text>
+                </Button>
 
-              <Button rounded block onPress={this.entry.bind(this)} style={{backgroundColor: '#4DA49B',marginRight: 20, marginLeft: 20, marginBottom: 10}}>
-                <Text style={{fontWeight: 'bold'}}>Acepto</Text>
-              </Button>
+                <Button rounded block onPress={this.close.bind(this)} style={styles.boton2}>
+                  <Text>No acepto</Text>
+                </Button>
 
-              <Button rounded block onPress={this.close.bind(this)} style={styles.boton}>
-                <Text>No acepto</Text>
-              </Button>
-
-            </Body>
-          </CardItem>
-        </Content>
-      </Container>
+              </Body>
+            </CardItem>
+          </Content>
+        </Container>
       </StyleProvider>
     );
   }
@@ -146,14 +147,24 @@ const styles = StyleSheet.create({
     left: 10
   },
   boton: {
+    backgroundColor: '#4DA49B',
+    top: 6,
+    marginRight: 20,
+    marginLeft: 20,
+    marginBottom: 10
+  },
+  boton2: {
     backgroundColor: 'gray',
     top: 6,
     marginRight: 20,
     marginLeft: 20,
-    marginBottom: 10,
+    marginBottom: 10
   },
   check: {
     justifyContent: 'space-between'
+  },
+  text: {
+    fontWeight: 'bold'
   }
 });
 

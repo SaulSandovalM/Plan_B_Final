@@ -11,6 +11,7 @@ import Nogasto from './Nogasto';
 export default class Gasto extends Component {
   constructor() {
     super();
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       NoGas:0,
       lista: [],
