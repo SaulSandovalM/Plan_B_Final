@@ -109,12 +109,10 @@ class Terminos extends Component {
                 </ListItem>
 
                 <Button rounded block onPress={this.entry.bind(this)} style={styles.boton}>
-                  <Text style={{
-                    fontWeight: 'bold'
-                  }}>Acepto</Text>
+                  <Text style={styles.text}>Acepto</Text>
                 </Button>
 
-                <Button rounded block onPress={this.close.bind(this)} style={styles.boton}>
+                <Button rounded block onPress={this.close.bind(this)} style={styles.boton2}>
                   <Text>No acepto</Text>
                 </Button>
 
@@ -155,10 +153,19 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginBottom: 10
   },
+  boton2: {
+    backgroundColor: 'gray',
+    top: 6,
+    marginRight: 20,
+    marginLeft: 20,
+    marginBottom: 10
+  },
   check: {
     justifyContent: 'space-between'
   },
-
+  text: {
+    fontWeight: 'bold'
+  }
 });
 
 export default Terminos;

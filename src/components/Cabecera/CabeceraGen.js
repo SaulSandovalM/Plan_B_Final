@@ -8,7 +8,7 @@ export default class CabeceraGen extends Component {
     return (
       <Header style={styles.header}>
         <Left>
-          <Button transparent onPress={() => Actions.Inicio()}>
+          <Button transparent onPress={() => Actions.Log()}>
             <Icon name='arrow-back' style={styles.color}/>
           </Button>
         </Left>

@@ -9,12 +9,12 @@ export default class Cabecera extends Component {
   constructor(props) {
     super(props);
     this.salir = this.salir.bind(this);
-    }
+  }
 
-    salir(){
-      firebaseAuth.signOut();
-      Actions.Log();
-    }
+  salir() {
+    firebaseAuth.signOut();
+  }
+  
   render() {
     return (
       <Header style={styles.header}>

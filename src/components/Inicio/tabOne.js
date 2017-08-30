@@ -12,7 +12,7 @@ import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
-  activeIndex: number
+  activeIndex: number,
 }
 
 export default class tabOne extends Component {
@@ -20,13 +20,13 @@ export default class tabOne extends Component {
 
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       activeIndex: 0,
       gastos:0,
       ingresos:0,
       pIngreso:parseInt(100),
       pGasto:parseInt(0),
-
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
   }
@@ -110,14 +110,14 @@ export default class tabOne extends Component {
               <Icon style={styles.icon} active name="md-cash"/>
               <Text style={styles.icon}>Ingresos</Text>
               <Right>
-                <Text style={styles.finanzas}>$ {this.state.ingresos}</Text>
+                <Text style={styles.finanzas}>$ {this.state.ingresos}.00</Text>
               </Right>
             </CardItem>
             <CardItem>
               <Icon style={styles.icon2} active name="remove-circle"/>
               <Text style={styles.icon2}>Gastos</Text>
               <Right>
-                <Text style={styles.finanzas2}>$ {this.state.gastos}</Text>
+                <Text style={styles.finanzas2}>$ {this.state.gastos}.00</Text>
 
               </Right>
             </CardItem>
@@ -125,7 +125,7 @@ export default class tabOne extends Component {
               <Icon style={styles.icon3} active name="ios-cash"/>
               <Text style={styles.icon3}>Ahorros</Text>
               <Right>
-                <Text style={styles.finanzas3}>$ {this.state.pIngreso}</Text>
+                <Text style={styles.finanzas3}>$ {this.state.pIngreso}.00</Text>
               </Right>
             </CardItem>
           </Card>
@@ -245,17 +245,17 @@ const styles = StyleSheet.create({
   finanzas: {
     fontWeight: 'bold',
     color: 'green',
-    fontSize: 14
+    fontSize: 16
   },
   finanzas2: {
     fontWeight: 'bold',
     color: 'red',
-    fontSize: 14
+    fontSize: 16
   },
   finanzas3: {
     fontWeight: 'bold',
     color: 'blue',
-    fontSize: 14
+    fontSize: 16
   }
 });
 
