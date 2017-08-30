@@ -24,6 +24,8 @@ export default class tabOne extends Component {
       activeIndex: 0,
       gastos:0,
       ingresos:0,
+      pIngreso:parseInt(100),
+      pGasto:parseInt(0),
 
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
@@ -46,26 +48,22 @@ export default class tabOne extends Component {
         var uid= user.uid;
       }
       console.log(uid)
-      const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+
       const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
-      that.listenForItems(itemsRef);
       that.listenForIngre(IngreRef);
+      const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+
+
+      that.listenForItems(itemsRef);
+
+
+
+
 
     });
   }
   //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
-  listenForItems (itemsRef) {
-    itemsRef.once('value').then(snapshot => {
-      if(snapshot.hasChildren()){
-        var gasto = 0;
-        snapshot.forEach(function(item){
-          gasto += item.child('cantidad').val();
-        });
-      }
-        console.log(gasto);
-        this.setState({gastos:gasto});
-    });
-  }
+
   listenForIngre (IngreRef) {
     IngreRef.once('value').then(snapshot => {
       if(snapshot.hasChildren()){
@@ -78,6 +76,35 @@ export default class tabOne extends Component {
         this.setState({ingresos:ingreso});
     });
   }
+  listenForItems (itemsRef) {
+    itemsRef.once('value').then(snapshot => {
+      if(snapshot.hasChildren()){
+        var gasto = 0;
+        snapshot.forEach(function(item){
+          gasto += item.child('cantidad').val();
+        });
+      }
+      if(gasto==null){
+        gasto=0
+      }
+        console.log(gasto);
+        this.setState({gastos:gasto});
+        setTimeout(()=>{
+          pGasto=((this.state.gastos * 100)/this.state.ingresos),
+          this.setState({pGasto:pGasto}),
+          pIngreso=this.state.pIngreso-this.state.pGasto,
+          this.setState({pIngreso:pIngreso})
+        }, 80);
+
+        pIngreso=this.state.pIngreso-this.state.pGasto;
+        this.setState({pIngreso:pIngreso})
+        console.log(pGasto)
+        console.log(pIngreso)
+    });
+  }
+
+
+
 
   render() {
     const height = 200;
@@ -112,7 +139,7 @@ export default class tabOne extends Component {
               <Icon style={styles.icon3} active name="ios-cash"/>
               <Text>Ahorros</Text>
               <Right>
-                <Text style={styles.icon3}>$0.00</Text>
+                <Text style={styles.icon3}>${this.state.pIngreso}</Text>
               </Right>
             </CardItem>
           </Card>
@@ -127,8 +154,8 @@ export default class tabOne extends Component {
               width={width}
               height={height}
               data={[
-                {"number":  this.state.ingresos, "name": 'Ingresos'},
-                {"number": this.state.gastos, "name": 'Gastos'},
+                {"number":  Math.round(this.state.pIngreso), "name": 'Ingresos'},
+                {"number": Math.round(this.state.pGasto), "name": 'Gastos'},
               ]}/>
 
           </View>

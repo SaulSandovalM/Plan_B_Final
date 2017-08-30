@@ -7,7 +7,7 @@ import Valores from './Modal';
 import Fecha from './Fecha';
 import Modalcat from './Modalcat';
 
-export default class Example extends Component {
+export default class ModalEditgasto extends Component {
   state = {
     visibleModal: null,
     objeto:{},
@@ -72,7 +72,7 @@ export default class Example extends Component {
     <View style={styles.rootContainer}>
 
       <CardItem header>
-        <Text>Nuevo gasto</Text>
+        <Text>Editar gasto</Text>
       </CardItem>
 
       <List>
@@ -130,12 +130,7 @@ export default class Example extends Component {
        <View >
 
 
-         <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight" onPress={() =>
-             this.setState({visibleModal: 1})}>
-           <Icon name="add"/>
-         </Fab>
-
-         <Modal isVisible={this.state.visibleModal === 1}>
+         <Modal isVisible={this.state.visibleModal === 2}>
            {this._renderModalContent()}
            </Modal>
 
