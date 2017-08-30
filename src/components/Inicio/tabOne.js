@@ -5,7 +5,6 @@ import {Actions} from 'react-native-router-flux';
 import AreaSpline from '../js/charts/AreaSpline';
 import Pie from '../js/charts/Pie';
 import Theme from '../js/theme';
-import data from '../resources/data';
 import imgIngresos from '../../assets/imgs/Ingresos.png';
 import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
@@ -26,10 +25,14 @@ export default class tabOne extends Component {
       activeIndex: 0,
       gastos:0,
       ingresos:0,
-      pIngreso:parseInt(100),
-      pGasto:parseInt(0),
+      pIngreso:0,
+      pGasto:0,
+      response: ''
 
     };
+    console.ignoredYellowBox = [
+      'Setting a timer'
+  ];
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
   }
 
@@ -54,7 +57,7 @@ export default class tabOne extends Component {
       const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
       that.listenForIngre(IngreRef);
       const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
-  that.listenForItems(itemsRef);
+      that.listenForItems(itemsRef);
 
 
     });
@@ -69,11 +72,20 @@ export default class tabOne extends Component {
           ingreso += ingr.child('cantidad').val();
         });
       }
-        console.log(ingreso);
-        this.setState({ingresos:ingreso});
+      if(ingreso==null){
+        ingreso=0,
+        this.setState({ingresos:ingreso})
+      }else{
+        this.setState({pIngreso:100}),
+        this.setState({ingresos:ingreso})
+      }
+
+
+
     });
   }
   listenForItems (itemsRef) {
+
     itemsRef.once('value').then(snapshot => {
       if(snapshot.hasChildren()){
         var gasto = 0;
@@ -84,19 +96,15 @@ export default class tabOne extends Component {
       if(gasto==null){
         gasto=0
       }
-        console.log(gasto);
-        this.setState({gastos:gasto});
-        setTimeout(()=>{
-          pGasto=((this.state.gastos * 100)/this.state.ingresos),
+      this.setState({gastos:gasto});
+      if(this.state.pIngreso!=0){
+        pGasto=((this.state.gastos * 100)/this.state.ingresos),
           this.setState({pGasto:pGasto}),
           pIngreso=this.state.pIngreso-this.state.pGasto,
           this.setState({pIngreso:pIngreso})
-        }, 80);
+        console.log("Hola bebe")
+      }
 
-        pIngreso=this.state.pIngreso-this.state.pGasto;
-        this.setState({pIngreso:pIngreso})
-        console.log(pGasto)
-        console.log(pIngreso)
     });
   }
 
