@@ -6,12 +6,13 @@ import CabeceraGen from '../Cabecera/CabeceraGen';
 import Modalgasto from '../Modal/Modalgasto';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import DatePicker from 'react-native-datepicker';
+import Nogasto from './Nogasto';
 
 export default class Gasto extends Component {
   constructor() {
     super();
     this.state = {
-      id: '',
+      NoGas:0,
       lista: [],
       date: new Date()
     }
@@ -47,6 +48,9 @@ export default class Gasto extends Component {
           id: child.key})
         console.log(child.key);
       });
+      if(lista==null){
+        this.setState({NoGas:1})
+      }
       this.setState({lista: lista});
     });
   }
@@ -116,7 +120,11 @@ export default class Gasto extends Component {
         </View>
 
         <Content>
-          <Listconte lista={this.state.lista} borrar={this.borrar}/>
+        {this.state.NoGas == 1
+          ? <Nogasto/>
+          : <Listconte lista={this.state.lista} borrar={this.borrar}/>
+        }
+
         </Content>
         <Modalgasto style={styles.lista} agregar={this.addItem}/>
       </Container>
