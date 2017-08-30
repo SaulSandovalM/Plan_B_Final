@@ -10,6 +10,7 @@ import DatePicker from 'react-native-datepicker';
 export default class Gasto extends Component {
   constructor() {
     super();
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       id: '',
       lista: [],
