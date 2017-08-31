@@ -49,10 +49,13 @@ export default class Gasto extends Component {
           id: child.key})
         console.log(child.key);
       });
-      if(lista==null){
+      if(lista!=null){
+        this.setState({NoGas:0}),
+        this.setState({lista: lista})
+      }else{
         this.setState({NoGas:1})
       }
-      this.setState({lista: lista});
+
     });
   }
 

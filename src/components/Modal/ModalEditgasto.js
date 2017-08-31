@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+/*import React, {Component} from 'react';
 
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Input} from 'native-base';
 
@@ -137,3 +137,4 @@ export default class ModalEditgasto extends Component {
     );
   }
 }
+*/

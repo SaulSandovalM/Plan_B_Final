@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input} from 'native-base';
+import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input,Form} from 'native-base';
 import {TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
@@ -63,9 +63,15 @@ export default class Example extends Component {
   }
 
   aceptar = () => {
+
+    if(objeto==null){
+    alert("No has llenado todos los campos")
+  }else{
     this.props.agregar(this.state.objeto),
     this.setState({visibleModal: null});
     console.log(objeto)
+  }
+
   }
 
   _renderModalContent = () => (
@@ -74,7 +80,7 @@ export default class Example extends Component {
       <CardItem header>
         <Text>Nuevo gasto</Text>
       </CardItem>
-
+    <Form>
       <List>
         <ListItem icon>
           <Left>
@@ -122,6 +128,7 @@ export default class Example extends Component {
           <Text style={styles.texto}>Cancelar</Text>
         </Button>
       </View>
+       </Form>
     </View>
   );
 
