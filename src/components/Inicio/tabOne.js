@@ -10,6 +10,8 @@ import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Boton from '../FinanzasEmpezar/Boton';
+import Octicons from 'react-native-vector-icons/Octicons';
+
 
 type State = {
   activeIndex: number,
@@ -114,7 +116,7 @@ export default class tabOne extends Component {
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={styles.icon2} active name="checklist"/>
+              <Icon style={styles.icon2} active name="ios-list-box"/>
               <Text style={styles.icon2}>Gastos</Text>
               <Right>
                 <Text style={styles.finanzas2}>$ {this.state.gastos}.00</Text>
