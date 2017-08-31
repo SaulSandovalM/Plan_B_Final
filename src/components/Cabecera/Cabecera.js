@@ -23,7 +23,7 @@ export default class Cabecera extends Component {
 
         <Right>
           <TouchableOpacity style={styles.touchMargin} onPress={() => Actions.Tips()}>
-            <Icon name='pin' style={styles.icon}/>
+            <Icon name='md-bulb' style={styles.icon}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.touchMargin} onPress={() => Actions.Perfil()}>
             <Icon name='person' style={styles.icon}/>
