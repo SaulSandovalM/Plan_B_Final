@@ -11,6 +11,7 @@ import Inicio from '../Inicio/Inicio';
 import NuevoAhorro from '../Ahorro/NuevoAhorro';
 import Tips from '../Tips/Tips';
 import Log from '../Login/Log';
+import Recover from '../Login/Recover';
 import Bienvenido from '../Bienvenida/Bienvenido';
 import IngresosIntro from '../FinanzasEmpezar/IngresosIntro';
 import GastosIntro from '../FinanzasEmpezar/GastosIntro';
@@ -22,6 +23,7 @@ const Routes = () => {
         <Scene key="Bienvenido" header={null} component={Bienvenido}/>
         <Scene key="Ter" header={null} component={Terminos}/>
         <Scene key="Login" header={null} component={Login}/>
+        <Scene key="Recover" header={null} component={Recover}/>
         <Scene key="Log" header={null} component={Log} initial/>
         <Scene key="Registro" header={null} component={Registro}/>
         <Scene key="IngresosIntro" header={null} component={IngresosIntro}/>
