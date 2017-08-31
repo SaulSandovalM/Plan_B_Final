@@ -15,6 +15,8 @@ class Login extends Component {
     contraseña: '',
     error: '',
     credential: '',
+    loading: false,
+    loadingF: false
   };
 
   constructor(props) {
@@ -25,6 +27,7 @@ class Login extends Component {
   }
 
   facebook(){
+    this.setState({loadingF: true});
     LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
           (result) => {
           if (result.isCancelled) {
@@ -65,15 +68,43 @@ class Login extends Component {
     Actions.Log();
   }
 
+  spinnerInicio(){
+    if(this.state.loading){
+      return (
+        <Button rounded block style={styles.buttonSpinner}>
+          <Spinner color='white' />
+        </Button>
+      );
+    }
+    return(
+      <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
+        <Text style={styles.boton}>INGRESAR</Text>
+      </Button>
+    );
+  }
+
+  spinnerInicioF(){
+    if(this.state.loadingF){
+      return (
+        <Button rounded block style={styles.buttonSpinnerF}>
+          <Spinner color='white' />
+        </Button>
+      );
+    }
+    return(
+      <Button rounded block iconLeft light style={styles.buttonIngresoF} onPress={this.facebook.bind(this)}>
+        <Icon name='logo-facebook' style={{color:'white'}}/>
+        <Text style={styles.boton}>Iniciar con Facebook</Text>
+      </Button>
+    );
+  }
+
   render() {
     return (
       <Image source={img} style={styles.img}>
         <Image source={img2} style={styles.imagen}/>
 
-          <Button rounded block iconLeft light style={styles.buttonIngresoF} onPress={this.facebook.bind(this)}>
-            <Icon name='logo-facebook' style={styles.icon}/>
-            <Text style={styles.boton}>Iniciar con Facebook</Text>
-          </Button>
+          {this.spinnerInicioF()}
 
           <Item rounded style={styles.inputRounded}>
             <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
@@ -85,16 +116,14 @@ class Login extends Component {
               value={this.state.contraseña} onChangeText={contraseña => this.setState({contraseña})}/>
           </Item>
 
-          <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
-            <Text style={styles.boton}>INGRESAR</Text>
-          </Button>
+          {this.spinnerInicio()}
 
           <View style={styles.view2}>
-            <View style={styles.view3}>
-              <Text style={styles.text}>¿Aún no tienes cuenta?,</Text>
-              <Text style={styles.font} onPress={() => Actions.Registro()}>REGISTRATE</Text>
-            </View>
+          <View style={styles.view3}>
+            <Text style={styles.text} onPress={() => Actions.Registro()} >¿Aún no tienes cuenta?, REGÍSTRATE</Text>
+            <Text style={styles.text} onPress={() => Actions.Recover()} >¿Olvidaste tu contraseña?</Text>
           </View>
+        </View>
         </Image>
     );
   }
@@ -139,9 +168,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#4DA49B'
   },
+  buttonSpinner: {
+    marginRight: 140,
+    marginLeft: 140,
+    marginBottom: 10,
+    backgroundColor: '#4DA49B'
+  },
   buttonIngresoF: {
     marginRight: 40,
     marginLeft: 40,
+    marginBottom: 10,
+    backgroundColor: '#3b5998'
+  },
+  buttonSpinnerF: {
+    marginRight: 140,
+    marginLeft: 140,
     marginBottom: 10,
     backgroundColor: '#3b5998'
   },
@@ -154,8 +195,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   view3: {
+    alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
     marginBottom: 10,
     marginTop: 10
   },
