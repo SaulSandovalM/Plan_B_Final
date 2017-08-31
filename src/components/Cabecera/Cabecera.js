@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Image} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {Header, Right, Button, Icon} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import imgLogo from '../../assets/imgs/planb.png';
@@ -14,7 +14,7 @@ export default class Cabecera extends Component {
   salir() {
     firebaseAuth.signOut();
   }
-  
+
   render() {
     return (
       <Header style={styles.header}>
@@ -22,15 +22,15 @@ export default class Cabecera extends Component {
         <Image source={imgLogo} style={styles.image}/>
 
         <Right>
-          <Button transparent onPress={() => Actions.Tips()}>
+          <TouchableOpacity style={styles.touchMargin} onPress={() => Actions.Tips()}>
             <Icon name='pin' style={styles.icon}/>
-          </Button>
-          <Button transparent onPress={() => Actions.Perfil()}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.touchMargin} onPress={() => Actions.Perfil()}>
             <Icon name='person' style={styles.icon}/>
-          </Button>
-          <Button transparent onPress={this.salir.bind(this)}>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.touchMargin} onPress={this.salir.bind(this)}>
             <Icon name='close' style={styles.icon}/>
-          </Button>
+          </TouchableOpacity>
         </Right>
       </Header>
     );
@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: 'green'
+  },
+  touchMargin:{
+    marginRight: 15
   }
 });
 

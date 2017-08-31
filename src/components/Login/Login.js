@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import FBSDK, {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 import {Button, Icon, Item, Input} from 'native-base';
@@ -120,8 +120,8 @@ class Login extends Component {
 
           <View style={styles.view2}>
           <View style={styles.view3}>
-            <Text style={styles.text} onPress={() => Actions.Registro()} >¿Aún no tienes cuenta?, REGÍSTRATE</Text>
-            <Text style={styles.text} onPress={() => Actions.Recover()} >¿Olvidaste tu contraseña?</Text>
+            <TouchableOpacity onPress={() => Actions.Registro()}><Text style={styles.text} >¿Aún no tienes cuenta?, REGÍSTRATE</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Recover()}><Text style={styles.text}>¿Olvidaste tu contraseña?</Text></TouchableOpacity>
           </View>
         </View>
         </Image>

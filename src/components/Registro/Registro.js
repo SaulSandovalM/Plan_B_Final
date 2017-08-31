@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import {Button, Icon, Item, Input, Spinner} from 'native-base';
 import {Actions} from 'react-native-router-flux';
@@ -18,6 +18,10 @@ class Registro extends Component {
     super(props);
     this.onLoginSuccess = this.onLoginSuccess.bind(this);
     this.onLoginFailed = this.onLoginFailed.bind(this);
+  }
+
+  atras() {
+    Actions.pop()
   }
 
   onButtonPress() {
@@ -79,9 +83,7 @@ class Registro extends Component {
         {this.spinnerInicio()}
 
         <View style={styles.footerStyle}>
-          <Text style={styles.ingresar}>¿Ya tienes cuenta?,
-          </Text>
-          <Text style={styles.font} onPress={() => Actions.Login()}> INGRESA</Text>
+          <TouchableOpacity onPress={this.atras.bind(this)}><Text style={styles.ingresar}>¿Ya tienes cuenta?, INGRESA</Text></TouchableOpacity>
         </View>
       </Image>
     );
