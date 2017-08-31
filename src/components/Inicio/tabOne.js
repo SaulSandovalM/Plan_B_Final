@@ -10,8 +10,6 @@ import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Boton from '../FinanzasEmpezar/Boton';
-import Octicons from 'react-native-vector-icons/Octicons';
-
 
 type State = {
   activeIndex: number,

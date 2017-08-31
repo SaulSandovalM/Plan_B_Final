@@ -67,7 +67,7 @@ export default class NuevoAhorro extends Component {
         </Content>
 
         <Fab active={this.state.active} direction="up" containerStyle={{}} style={styles.fab} position="bottomRight">
-          <Icon name="add"/>
+          <Icon name="md-checkmark"/>
         </Fab>
       </Container>
     );

@@ -22,7 +22,7 @@ export default class Gasto extends Component {
           categoria: 'Educacion'
         }, {
           id: 3,
-          iname: 'umbrella',
+          iname: 'ios-beer',
           categoria: 'Entretenimiento'
         }, {
           id: 4,
