@@ -11,29 +11,26 @@ class Recover extends Component {
     correo: '',
     verifyCorreo: '',
     error: '',
-    loading: false,
+    loading: false
   };
   constructor(props) {
     super(props);
     this.recover = this.recover.bind(this);
   }
 
-  recover(){
+  recover() {
     const {correo, verifyCorreo} = this.state;
     this.setState({error: '', loading: true});
-    if( correo == verifyCorreo && correo != null && verifyCorreo != null){
-    firebaseAuth.sendPasswordResetEmail(correo).then(function () {
+    if (correo == verifyCorreo && correo != null && verifyCorreo != null) {
+      firebaseAuth.sendPasswordResetEmail(correo).then(function() {
         Actions.Login()
         alert('revisa tu correo')
-      }, function (error){
+      }, function(error) {
         console.log(error)
         alert('Verifia los campos')
       });
     }
-
   }
-
-
 
   render() {
     return (
@@ -42,13 +39,11 @@ class Recover extends Component {
         <Image source={imagen} style={styles.imagen}/>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
-            returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
+          <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc' returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
         </Item>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc'
-            value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
+          <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
         </Item>
 
         <Button rounded block style={styles.buttonStyle} onPress={this.recover.bind(this)}>
@@ -58,7 +53,8 @@ class Recover extends Component {
         <View style={styles.footerStyle}>
           <Text style={styles.ingresar}>¿Ya tienes cuenta?,
           </Text>
-          <Text style={styles.font} onPress={() => Actions.Login()}> INGRESA</Text>
+          <Text style={styles.font} onPress={() => Actions.Login()}>
+            INGRESA</Text>
         </View>
       </Image>
     );
