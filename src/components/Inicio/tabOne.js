@@ -131,7 +131,7 @@ export default class tabOne extends Component {
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={styles.icon2} active name="remove-circle"/>
+              <Icon style={styles.icon2} active name="checklist"/>
               <Text style={styles.icon2}>Gastos</Text>
               <Right>
                 <Text style={styles.finanzas2}>$ {this.state.gastos}.00</Text>
@@ -139,7 +139,7 @@ export default class tabOne extends Component {
               </Right>
             </CardItem>
             <CardItem>
-              <Icon style={styles.icon3} active name="ios-cash"/>
+              <Icon style={styles.icon3} active name="star"/>
               <Text style={styles.icon3}>Ahorros</Text>
               <Right>
                 <Text style={styles.finanzas3}>$ {this.state.pIngreso}.00</Text>
