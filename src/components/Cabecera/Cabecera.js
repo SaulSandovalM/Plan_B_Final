@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     color: 'green'
   },
   touchMargin:{
-    marginRight: 15
+    marginRight: 20
   }
 });
 
