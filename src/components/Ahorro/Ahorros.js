@@ -4,18 +4,78 @@ import {Container, Content, Card, CardItem, Button, Icon, Left, Body, Fab} from 
 import imgLogo from '../../assets/imgs/Ahorros.png';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
+import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 export default class Ahorros extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
-      selected1: "key1",
-      text: '$'
-    };
+      id: '',
+      lista: [],
+      date: new Date()
+    }
   }
 
-  onValueChange(value : string) {
-    this.setState({selected1: value});
+  addItem = (datos) => {
+    this.state.lista.push(datos)
+    this.setState({lista: this.state.lista})
+    console.log(this.state.lista)
+
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      console.log(uid)
+      firebase.database().ref('usuarios/' + uid + '/ahorros').push(datos);
+    });
+
+  }
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+
+      // get children as an array
+      var lista = [];
+      snap.forEach((child) => {
+        lista.push({
+          iname: child.val().iname,
+          categoria: child.val().categoria,
+          descri: child.val().descri,
+          cantidad: child.val().cantidad,
+          id: child.key})
+        console.log(child.key);
+      });
+      this.setState({lista: lista});
+    });
+  }
+
+  componentWillMount() {
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+        var key = user.key;
+      }
+      console.log(uid)
+      console.log(key)
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/ahorros');
+      that.listenForItems(itemsRef);
+    });
+  }
+
+  borrar = (item) => {
+    console.log(item)
+    let updates = {};
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      firebase.database().ref('usuarios/' + uid + '/ahorros/' + item.id).set(null); //Esta linea coloca valor nulo en el element que se seleccione
+    });
   }
 
   render() {

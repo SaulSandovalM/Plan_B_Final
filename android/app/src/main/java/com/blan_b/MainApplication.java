@@ -14,7 +14,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import java.util.Arrays;
 import java.util.List;
-import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
   private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
@@ -34,8 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
           new MPAndroidChartPackage(),
           new ReactVideoPackage(),
-          new FBSDKPackage(mCallbackManager),
-          new VectorIconsPackage()
+          new FBSDKPackage(mCallbackManager)
       );
     }
   };

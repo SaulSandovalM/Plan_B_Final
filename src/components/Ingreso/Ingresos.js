@@ -127,7 +127,7 @@ export default class Ingresos extends Component {
           </List>
         </Content>
         <Fab direction="up" containerStyle={{}} position="bottomRight" onPress={this.addItem}>
-          <Icon name="add"/>
+          <Icon name="md-checkmark"/>
         </Fab>
       </Container>
     );

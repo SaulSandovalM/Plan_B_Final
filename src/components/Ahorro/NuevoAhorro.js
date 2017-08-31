@@ -10,6 +10,7 @@ import Fecha from '../Modal/Fecha';
 export default class NuevoAhorro extends Component {
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       selected1: "key1"
     };
@@ -60,14 +61,14 @@ export default class NuevoAhorro extends Component {
                 <Icon name="paper"/>
               </Left>
               <Body>
-                <Text style={styles.margin}>Descripción</Text>
+                <Input placeholder="Descripcion" style={styles.input}>Descripción</Input>
               </Body>
             </ListItem>
           </List>
         </Content>
 
         <Fab active={this.state.active} direction="up" containerStyle={{}} style={styles.fab} position="bottomRight">
-          <Icon name="add"/>
+          <Icon name="md-checkmark"/>
         </Fab>
       </Container>
     );
