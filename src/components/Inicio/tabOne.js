@@ -12,12 +12,8 @@ import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
-<<<<<<< HEAD
-
   activeIndex: number
-=======
-  activeIndex: number,
->>>>>>> d915268fb828b6c11c650763fac4c6328ceb9cb2
+
 }
 
 export default class tabOne extends Component {
