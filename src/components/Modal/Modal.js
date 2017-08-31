@@ -16,6 +16,7 @@ const inputButtons = [
 export default class Example extends Component {
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = ['Setting a timer'];
     this.initialState = {
       previousInputValue: 0,
       inputValue: 0,
@@ -70,8 +71,7 @@ export default class Example extends Component {
   _renderInputButtons() {
     let views = inputButtons.map((row, idx) => {
       let inputRow = row.map((buttonVal, columnIdx) => {
-        return <InputButton value={buttonVal} highlight={this.state.selectedSymbol === buttonVal}
-          onPress={this._onInputButtonPressed.bind(this, buttonVal)} key={'butt-' + columnIdx}/>;
+        return <InputButton value={buttonVal} highlight={this.state.selectedSymbol === buttonVal} onPress={this._onInputButtonPressed.bind(this, buttonVal)} key={'butt-' + columnIdx}/>;
       });
       return <View style={Style.inputRow} key={'row-' + idx}>{inputRow}</View>;
     });
@@ -130,11 +130,10 @@ export default class Example extends Component {
           inputValue: 0,
           total: eval(previousInputValue + symbol + inputValue),
           selectedSymbol: null,
-          visibleModal: null,
-
+          visibleModal: null
         });
-        setTimeout(()=>{
-            this.props.valorfun(this.state.total);
+        setTimeout(() => {
+          this.props.valorfun(this.state.total)
         }, 200);
         break;
     }
