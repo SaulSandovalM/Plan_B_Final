@@ -12,7 +12,7 @@ import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
-  activeIndex: number,
+  activeIndex: number
 }
 
 export default class tabOne extends Component {
@@ -23,10 +23,10 @@ export default class tabOne extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       activeIndex: 0,
-      gastos:0,
-      ingresos:0,
-      pIngreso:parseInt(100),
-      pGasto:parseInt(0),
+      gastos: 0,
+      ingresos: 0,
+      pIngreso: parseInt(100),
+      pGasto: parseInt(0)
     };
     this._onPieItemSelected = this._onPieItemSelected.bind(this);
   }
@@ -34,64 +34,64 @@ export default class tabOne extends Component {
   _onPieItemSelected(newIndex) {
     this.setState({
       ...this.state,
-      activeIndex: newIndex,
+      activeIndex: newIndex
     });
   }
 
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
-  componentWillMount(){
+  componentWillMount() {
     var that = this;
-    firebaseAuth.onAuthStateChanged(function(user){
+    firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
-      if(user){
-        var uid= user.uid;
+      if (user) {
+        var uid = user.uid;
       }
       console.log(uid)
-      const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
+      const IngreRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
       that.listenForIngre(IngreRef);
-      const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
       that.listenForItems(itemsRef);
     });
   }
   //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
 
-  listenForIngre (IngreRef) {
+  listenForIngre(IngreRef) {
     IngreRef.once('value').then(snapshot => {
-      if(snapshot.hasChildren()){
+      if (snapshot.hasChildren()) {
         var ingreso = 0;
-        snapshot.forEach(function(ingr){
+        snapshot.forEach(function(ingr) {
           ingreso += ingr.child('cantidad').val();
         });
       }
-        console.log(ingreso);
-        this.setState({ingresos:ingreso});
+      console.log(ingreso);
+      this.setState({ingresos: ingreso});
     });
   }
 
-  listenForItems (itemsRef) {
+  listenForItems(itemsRef) {
     itemsRef.once('value').then(snapshot => {
-      if(snapshot.hasChildren()){
+      if (snapshot.hasChildren()) {
         var gasto = 0;
-        snapshot.forEach(function(item){
+        snapshot.forEach(function(item) {
           gasto += item.child('cantidad').val();
         });
       }
-      if(gasto==null){
-        gasto=0
+      if (gasto == null) {
+        gasto = 0
       }
-        console.log(gasto);
-        this.setState({gastos:gasto});
-        setTimeout(()=>{
-          pGasto=((this.state.gastos * 100)/this.state.ingresos),
-          this.setState({pGasto:pGasto}),
-          pIngreso=this.state.pIngreso-this.state.pGasto,
-          this.setState({pIngreso:pIngreso})
-        }, 80);
+      console.log(gasto);
+      this.setState({gastos: gasto});
+      setTimeout(() => {
+        pGasto = ((this.state.gastos * 100) / this.state.ingresos),
+        this.setState({pGasto: pGasto}),
+        pIngreso = this.state.pIngreso - this.state.pGasto,
+        this.setState({pIngreso: pIngreso})
+      }, 80);
 
-        pIngreso=this.state.pIngreso-this.state.pGasto;
-        this.setState({pIngreso:pIngreso})
-        console.log(pGasto)
-        console.log(pIngreso)
+      pIngreso = this.state.pIngreso - this.state.pGasto;
+      this.setState({pIngreso: pIngreso})
+      console.log(pGasto)
+      console.log(pIngreso)
     });
   }
 
@@ -130,21 +130,27 @@ export default class tabOne extends Component {
             </CardItem>
           </Card>
 
-          <View style={styles.container}>
-            <Text style={styles.chart_title}>ESTADISTICAS</Text>
-            <Pie
-              pieWidth={150}
-              pieHeight={150}
-              onItemSelected={this._onPieItemSelected}
-              colors={Theme.colors}
-              width={width}
-              height={height}
-              data={[
-                {"number":  Math.round(this.state.pIngreso), "name": 'Ingresos'},
-                {"number": Math.round(this.state.pGasto), "name": 'Gastos'},
+          <Card>
+            <View style={styles.container}>
+              <Text style={styles.chart_title}>ESTADISTICAS</Text>
+              <Pie 
+                pieWidth={150}
+                pieHeight={150}
+                onItemSelected={this._onPieItemSelected}
+                colors={Theme.colors}
+                width={width}
+                height={height}
+                data={[
+                {
+                  "number": Math.round(this.state.pIngreso),
+                  "name": 'Ingresos'
+                }, {
+                  "number": Math.round(this.state.pGasto),
+                  "name": 'Gastos'
+                }
               ]}/>
-
-          </View>
+            </View>
+          </Card>
 
           <View style={styles.align}>
             <Card style={styles.borde}>

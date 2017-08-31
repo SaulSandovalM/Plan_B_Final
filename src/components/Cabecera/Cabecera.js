@@ -14,7 +14,7 @@ export default class Cabecera extends Component {
   salir() {
     firebaseAuth.signOut();
   }
-  
+
   render() {
     return (
       <Header style={styles.header}>
@@ -23,7 +23,7 @@ export default class Cabecera extends Component {
 
         <Right>
           <Button transparent onPress={() => Actions.Tips()}>
-            <Icon name='pin' style={styles.icon}/>
+            <Icon name='md-bulb' style={styles.icon}/>
           </Button>
           <Button transparent onPress={() => Actions.Perfil()}>
             <Icon name='person' style={styles.icon}/>
