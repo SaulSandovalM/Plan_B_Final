@@ -8,13 +8,18 @@ import Fecha from './Fecha';
 import Modalcat from './Modalcat';
 
 export default class Example extends Component {
-  state = {
-    visibleModal: null,
-    objeto:{},
-    fecha:'',
-    icono:'add',
+  constructor() {
+    super();
+    console.ignoredYellowBox = ['Setting a timer'];
+    this.state = {
+      visibleModal: null,
+      objeto:{},
+      fecha:'',
+      icono:'add',
+    };
+  }
 
-  };
+
 
   conFun = (iconito) => {
     objeto = this.state.objeto

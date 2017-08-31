@@ -16,6 +16,7 @@ const inputButtons = [
 export default class Example extends Component {
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = ['Setting a timer'];
     this.initialState = {
       previousInputValue: 0,
       inputValue: 0,
