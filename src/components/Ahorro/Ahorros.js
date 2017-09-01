@@ -30,7 +30,6 @@ export default class Ahorros extends Component {
       console.log(uid)
       firebase.database().ref('usuarios/' + uid + '/ahorros').push(datos);
     });
-
   }
 
   listenForItems(itemsRef) {
@@ -185,7 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   fab: {
-    backgroundColor: '#5067FF'
+    backgroundColor: "rgb(35,86,160)"
   }
 });
 

@@ -59,16 +59,15 @@ export default class Gasto extends Component {
     this.props.cateFun(this.state.categoria);
   }
 
-  _renderModalContentcat = () => (<Catlistconte lista={this.state.lista} iFun={this.props.iFun} conFun={this.props.conFun}
+  _renderModalContentcat = () => (
+    <Catlistconte lista={this.state.lista} iFun={this.props.iFun} conFun={this.props.conFun}
     cateFun={this.props.cateFun} icateFun={this.icateFun} modFun={this.modFun}/>);
 
   render() {
     return (
       <View style={styles.containercat}>
         <Button transparent dark onPress={() => this.setState({visibleModal: 1})}>
-          <Text style={{
-            color: '#757575'
-          }}>{this.state.categoria}</Text>
+          <Text style={{color: '#757575'}}>{this.state.categoria}</Text>
         </Button>
 
         <Modal isVisible={this.state.visibleModal === 1}>

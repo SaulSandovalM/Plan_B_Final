@@ -23,13 +23,13 @@ export default class Cabecera extends Component {
 
         <Right>
           <TouchableOpacity style={styles.touchMargin} onPress={() => Actions.Tips()}>
-            <Icon name='md-bulb' style={styles.icon}/>
+            <Icon name='md-bulb' style={styles.icon1}/>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.touchMargin} onPress={() => Actions.Perfil()}>
-            <Icon name='person' style={styles.icon}/>
+          <TouchableOpacity style={styles.margin} onPress={() => Actions.Perfil()}>
+            <Icon name='person' style={styles.icon2}/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.touchMargin} onPress={this.salir.bind(this)}>
-            <Icon name='close' style={styles.icon}/>
+            <Icon name='close' style={styles.icon3}/>
           </TouchableOpacity>
         </Right>
       </Header>
@@ -41,19 +41,26 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "white"
   },
-  color: {
-    color: "green"
-  },
   image: {
     width: 120,
     height: 40,
     top: 5
   },
-  icon: {
-    color: 'green'
+  icon1: {
+    color: rgb(241,150,90)
+  },
+  icon2: {
+    color: rgb(26,142,158)
+  },
+  icon3: {
+    color: rgb(216,30,86)
   },
   touchMargin:{
-    marginRight: 20
+    marginRight: 10
+  },
+  margin: {
+    marginRight: 30,
+    marginLeft: 20
   }
 });
 

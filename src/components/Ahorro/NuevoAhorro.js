@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   fab: {
-    backgroundColor: '#5067FF'
+    backgroundColor: rgb(35,86,160)
   },
   input: {
     marginLeft: 12

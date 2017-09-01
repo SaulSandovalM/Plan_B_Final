@@ -133,7 +133,8 @@ export default class tabOne extends Component {
           <Card>
             <View style={styles.container}>
               <Text style={styles.chart_title}>ESTADISTICAS</Text>
-              <Pie 
+              <View style={{alignItems: 'center'}}>
+              <Pie
                 pieWidth={150}
                 pieHeight={150}
                 onItemSelected={this._onPieItemSelected}
@@ -149,6 +150,7 @@ export default class tabOne extends Component {
                   "name": 'Gastos'
                 }
               ]}/>
+          </View>
             </View>
           </Card>
 
@@ -227,7 +229,7 @@ const styles = StyleSheet.create({
     marginTop: 21
   },
   chart_title: {
-    paddingTop: 15,
+    paddingTop: 10,
     textAlign: 'center',
     paddingBottom: 5,
     paddingLeft: 5,
@@ -237,30 +239,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   icon: {
-    color: 'green'
+    color: rgb(102,165,138)
   },
   icon2: {
-    color: 'red'
+    color: rgb(240,116,75)
   },
   icon3: {
-    color: 'blue'
+    color: rgb(127,73,131)
   },
   text: {
     fontWeight: 'bold'
   },
   finanzas: {
     fontWeight: 'bold',
-    color: 'green',
+    color: rgb(102,165,138),
     fontSize: 16
   },
   finanzas2: {
     fontWeight: 'bold',
-    color: 'red',
+    color: rgb(240,116,75),
     fontSize: 16
   },
   finanzas3: {
     fontWeight: 'bold',
-    color: 'blue',
+    color: rgb(127,73,131),
     fontSize: 16
   }
 });

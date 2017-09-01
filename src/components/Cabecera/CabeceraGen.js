@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   color: {
-    color: 'green'
+    color: 'rgb(102,165,138)'
   },
   texto: {
-    color: 'green',
+    color: 'rgb(102,165,138)',
     marginRight: '38%',
     top: 15
   }

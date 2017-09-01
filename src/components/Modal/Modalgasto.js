@@ -66,12 +66,11 @@ export default class Example extends Component {
   }
 
   aceptar = () => {
-    if (objeto == null) {
-      alert("No has llenado todos los campos")
+    if (this.state.objeto != {}) {
+      alert('No has llenado todos los campos')
     } else {
       this.props.agregar(this.state.objeto),
       this.setState({visibleModal: null});
-      console.log(objeto)
     }
   }
 
