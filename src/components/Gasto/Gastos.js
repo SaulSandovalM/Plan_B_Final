@@ -13,7 +13,7 @@ export default class Gasto extends Component {
     super();
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
-      NoGas:0,
+      Nogas:0,
       lista: [],
       date: new Date()
     }
@@ -21,7 +21,7 @@ export default class Gasto extends Component {
 
   addItem = (datos) => {
     this.state.lista.push(datos)
-    this.setState({lista: this.state.lista})
+    this.setState({lista: thisgstate.lista})
     console.log(this.state.lista)
 
     firebaseAuth.onAuthStateChanged(function(user) {
@@ -49,14 +49,15 @@ export default class Gasto extends Component {
           id: child.key})
         console.log(child.key);
       });
-      if(lista!=null){
-        this.setState({NoGas:0}),
-        this.setState({lista: lista})
-      }else{
-        this.setState({NoGas:1})
-      }
+
+        this.setState({lista: lista});
+        if(this.state.lista == null){
+
+          console.log("Hola bebe")
+        }
 
     });
+
   }
 
   componentWillMount() {
@@ -124,12 +125,13 @@ export default class Gasto extends Component {
         </View>
 
         <Content>
-        {this.state.NoGas == 1
+        {this.state.Nogas == 1
           ? <Nogasto/>
           : <Listconte lista={this.state.lista} borrar={this.borrar}/>
         }
 
         </Content>
+
         <Modalgasto style={styles.lista} agregar={this.addItem}/>
       </Container>
     );
