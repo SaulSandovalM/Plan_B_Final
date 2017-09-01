@@ -154,7 +154,6 @@ export default class Ahorros extends Component {
         <Fab
           active={this.state.active}
           direction="up"
-          containerStyle={{}}
           style={styles.fab}
           position="bottomRight"
           onPress={() => Actions.NuevoAhorro()}>

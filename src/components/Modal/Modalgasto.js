@@ -136,7 +136,10 @@ export default class Example extends Component {
     return (
       <View >
 
-        <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight"
+        <Fab
+          active={this.state.active}
+          direction="up"
+          position="bottomRight"
           onPress={() => this.setState({visibleModal: 1})}>
           <Icon name="add"/>
         </Fab>

@@ -119,7 +119,7 @@ export default class Gasto extends Component {
         <Content>
           <Listconte lista={this.state.lista} borrar={this.borrar}/>
         </Content>
-        <Modalgasto style={styles.lista} agregar={this.addItem}/>
+        <Modalgasto agregar={this.addItem}/>
       </Container>
     );
   }
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   lista: {
-    backgroundColor: 'blue'
+    backgroundColor: 'color: rgb(240,116,75)'
   },
   view: {
     alignItems: 'center',
