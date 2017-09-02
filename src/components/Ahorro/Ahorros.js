@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image} from 'react-native';
-import {Container, Content, Card, CardItem, Button, Icon, Left, Body, Fab} from 'native-base';
+import {Container, Content, Card, CardItem, Button, Icon, Body, Fab} from 'native-base';
 import imgLogo from '../../assets/imgs/Ahorros.png';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
@@ -83,69 +83,57 @@ export default class Ahorros extends Component {
         <CabeceraGen headerText='AHORROS'/>
         <Content>
 
-          <Card>
+          <Card style={{margin: 20}}>
             <CardItem>
-              <Left>
-                <Body>
+                <Body style={styles.body}>
                   <Text style={styles.texto}>Vacaciones</Text>
                   <Text note style={styles.texto}>Fecha: 20 de Diciembre 2017</Text>
                 </Body>
-              </Left>
             </CardItem>
             <CardItem cardBody>
               <Image source={imgLogo} style={styles.img}/>
             </CardItem>
             <CardItem>
-              <Left>
                 <Button transparent>
-                  <Icon active name="cash"/>
-                  <Text>Llevas $100.00 de $2,500.00</Text>
+                  <Icon active name="star"/>
+                  <Text style={styles.texto}>Llevas $100.00 de $2,500.00</Text>
                 </Button>
-              </Left>
             </CardItem>
           </Card>
 
           <Card>
             <CardItem>
-              <Left>
-                <Body>
+                <Body style={styles.body}>
                   <Text style={styles.texto}>Carro</Text>
                   <Text note style={styles.texto}>Fecha: 20 de Septiembre 2017</Text>
                 </Body>
-              </Left>
             </CardItem>
             <CardItem cardBody>
               <Image source={imgLogo} style={styles.img}/>
             </CardItem>
             <CardItem>
-              <Left>
                 <Button transparent>
-                  <Icon active name="cash"/>
-                  <Text>Llevas $100.00 de $2,500.00</Text>
+                  <Icon active name="star"/>
+                  <Text style={styles.texto}>Llevas $100.00 de $2,500.00</Text>
                 </Button>
-              </Left>
             </CardItem>
           </Card>
 
           <Card>
             <CardItem>
-              <Left>
-                <Body>
+                <Body style={styles.body}>
                   <Text style={styles.texto}>Videojuegos</Text>
                   <Text note style={styles.texto}>Fecha: 20 de Agosto 2017</Text>
                 </Body>
-              </Left>
             </CardItem>
             <CardItem cardBody>
               <Image source={imgLogo} style={styles.img}/>
             </CardItem>
             <CardItem>
-              <Left>
                 <Button transparent>
-                  <Icon active name="cash"/>
-                  <Text>Llevas $100.00 de $2,500.00</Text>
+                  <Icon active name="star"/>
+                  <Text style={styles.texto}>Llevas $100.00 de $2,500.00</Text>
                 </Button>
-              </Left>
             </CardItem>
           </Card>
 
@@ -171,8 +159,7 @@ const styles = StyleSheet.create({
   },
   texto: {
     fontSize: 20,
-    color: "green",
-    alignItems: 'center'
+    color: "green"
   },
   img: {
     height: 200,
@@ -184,6 +171,9 @@ const styles = StyleSheet.create({
   },
   fab: {
     backgroundColor: "rgb(35,86,160)"
+  },
+  body: {
+    alignItems: 'center'
   }
 });
 
