@@ -51,9 +51,10 @@ export default class tabOne extends Component {
       that.listenForIngre(IngreRef);
       const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
       that.listenForItems(itemsRef);
+      firebase.database().ref(itemsRef).onChildRemoved();
     });
   }
-  //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
+//este listenForItems sumara todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
 
   listenForIngre(IngreRef) {
     IngreRef.once('value').then(snapshot => {
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
     marginTop: 21
   },
   chart_title: {
-    paddingTop: 10,
+    paddingTop: 5,
     textAlign: 'center',
     paddingBottom: 5,
     paddingLeft: 5,

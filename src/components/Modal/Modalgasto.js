@@ -66,7 +66,7 @@ export default class Example extends Component {
   }
 
   aceptar = () => {
-    if (this.state.objeto != {}) {
+    if (objeto == null) {
       alert('No has llenado todos los campos')
     } else {
       this.props.agregar(this.state.objeto),
@@ -134,7 +134,7 @@ export default class Example extends Component {
 
   render() {
     return (
-      <View >
+      <View>
 
         <Fab
           active={this.state.active}
