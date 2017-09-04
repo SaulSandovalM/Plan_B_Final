@@ -101,7 +101,18 @@ export default class Ingresos extends Component {
               </Body>
             </ListItem>
 
+            <Text></Text>
+            <ListItem icon>
+              <Left>
+                <Icon name="calculator" style={styles.icon}/>
+              </Left>
+              <Body>
+                <Valores valorfun={this.valorfun}/>
+              </Body>
+            </ListItem>
+
           </List>
+
         </Content>
         <Fab direction="up" position="bottomRight" onPress={this.addItem} style={styles.fab}>
           <Icon name="md-checkmark"/>
