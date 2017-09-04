@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: 20,
     margin: 20,
-    fontSize: 25,
+    fontSize: 20,
   }
 });
 
