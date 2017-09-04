@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, BackHandler, TouchableOpacity } from 'react-native';
-import {Header, Left, Button, Icon, Title} from 'native-base';
+import {Header, Left, Button, Icon, Title, Right} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 
 export default class CabeceraGen extends Component {
@@ -16,6 +16,7 @@ export default class CabeceraGen extends Component {
           </TouchableOpacity>
         </Left>
         <Title style={styles.texto}>{this.props.headerText}</Title>
+        <Right></Right>
       </Header>
     );
   }
@@ -29,9 +30,7 @@ const styles = StyleSheet.create({
     color: 'rgb(102,165,138)'
   },
   texto: {
-    color: 'rgb(102,165,138)',
-    marginRight: '38%',
-    top: 15
+    color: 'rgb(102,165,138)'
   }
 });
 
