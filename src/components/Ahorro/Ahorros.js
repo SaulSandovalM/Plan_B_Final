@@ -96,7 +96,7 @@ export default class Ahorros extends Component {
             <CardItem>
                 <Button transparent>
                   <Icon active name="star"/>
-                  <Text style={styles.texto}>Llevas $100.00 de $2,500.00</Text>
+                  <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
                 </Button>
             </CardItem>
           </Card>
@@ -114,7 +114,7 @@ export default class Ahorros extends Component {
             <CardItem>
                 <Button transparent>
                   <Icon active name="star"/>
-                  <Text style={styles.texto}>Llevas $100.00 de $2,500.00</Text>
+                  <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
                 </Button>
             </CardItem>
           </Card>
@@ -132,7 +132,7 @@ export default class Ahorros extends Component {
             <CardItem>
                 <Button transparent>
                   <Icon active name="star"/>
-                  <Text style={styles.texto}>Llevas $100.00 de $2,500.00</Text>
+                  <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
                 </Button>
             </CardItem>
           </Card>
@@ -158,8 +158,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   texto: {
-    fontSize: 20,
-    color: "green"
+    fontSize: 20
   },
   img: {
     height: 200,
@@ -174,6 +173,10 @@ const styles = StyleSheet.create({
   },
   body: {
     alignItems: 'center'
+  },
+  text: {
+    fontSize: 20,
+    color: "rgb(35,86,160)"
   }
 });
 
