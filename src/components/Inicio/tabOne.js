@@ -17,7 +17,6 @@ type State = {
 
 export default class tabOne extends Component {
   state : State;
-
   constructor(props) {
     super(props);
     console.ignoredYellowBox = ['Setting a timer'];
@@ -39,60 +38,59 @@ export default class tabOne extends Component {
   }
 
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
-  componentWillMount() {
+  componentWillMount(){
     var that = this;
-    firebaseAuth.onAuthStateChanged(function(user) {
+    firebaseAuth.onAuthStateChanged(function(user){
       console.log('user', user)
-      if (user) {
-        var uid = user.uid;
+      if(user !=null && user !=undefined){
+        var uid= user.uid;
+        console.log(uid)
+        const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
+        that.listenForIngre(IngreRef);
+        const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+        that.listenForItems(itemsRef);
       }
-      console.log(uid)
-      const IngreRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
-      that.listenForIngre(IngreRef);
-      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
-      that.listenForItems(itemsRef);
-      firebase.database().ref(itemsRef).onChildRemoved();
     });
   }
-//este listenForItems sumara todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
+  //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
 
-  listenForIngre(IngreRef) {
+  listenForIngre (IngreRef) {
     IngreRef.once('value').then(snapshot => {
-      if (snapshot.hasChildren()) {
+      if(snapshot.hasChildren()){
         var ingreso = 0;
-        snapshot.forEach(function(ingr) {
+        snapshot.forEach(function(ingr){
           ingreso += ingr.child('cantidad').val();
         });
       }
-      console.log(ingreso);
-      this.setState({ingresos: ingreso});
+        console.log(ingreso);
+        this.setState({ingresos:ingreso});
     });
   }
 
-  listenForItems(itemsRef) {
+  listenForItems (itemsRef) {
     itemsRef.once('value').then(snapshot => {
-      if (snapshot.hasChildren()) {
+      if(snapshot.hasChildren()){
         var gasto = 0;
-        snapshot.forEach(function(item) {
+        snapshot.forEach(function(item){
           gasto += item.child('cantidad').val();
         });
       }
-      if (gasto == null) {
-        gasto = 0
+      if(gasto==null){
+        gasto=0
       }
-      console.log(gasto);
-      this.setState({gastos: gasto});
-      setTimeout(() => {
-        pGasto = ((this.state.gastos * 100) / this.state.ingresos),
-        this.setState({pGasto: pGasto}),
-        pIngreso = this.state.pIngreso - this.state.pGasto,
-        this.setState({pIngreso: pIngreso})
-      }, 80);
+        console.log(gasto);
+        this.setState({gastos:gasto});
+        setTimeout(()=>{
+          pGasto=((this.state.gastos * 100)/this.state.ingresos),
+          this.setState({pGasto:pGasto}),
+          pIngreso=this.state.pIngreso-this.state.pGasto,
+          this.setState({pIngreso:pIngreso})
+        }, 80);
 
-      pIngreso = this.state.pIngreso - this.state.pGasto;
-      this.setState({pIngreso: pIngreso})
-      console.log(pGasto)
-      console.log(pIngreso)
+        pIngreso=this.state.pIngreso-this.state.pGasto;
+        this.setState({pIngreso:pIngreso})
+        console.log(pGasto)
+        console.log(pIngreso)
     });
   }
 
