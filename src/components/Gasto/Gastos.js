@@ -21,7 +21,7 @@ export default class Gasto extends Component {
 
   addItem = (datos) => {
     this.state.lista.push(datos)
-    this.setState({lista: thisgstate.lista})
+    this.setState({lista: this.state.lista})
     console.log(this.state.lista)
 
     firebaseAuth.onAuthStateChanged(function(user) {
@@ -31,31 +31,6 @@ export default class Gasto extends Component {
       }
       console.log(uid)
       firebase.database().ref('usuarios/' + uid + '/gastos').push(datos);
-    });
-
-  }
-
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var lista = [];
-      snap.forEach((child) => {
-        lista.push({
-          iname: child.val().iname,
-          categoria: child.val().categoria,
-          descri: child.val().descri,
-          cantidad: child.val().cantidad,
-          id: child.key})
-        console.log(child.key);
-      });
-
-        this.setState({lista: lista});
-        if(this.state.lista == null){
-
-          console.log("Hola bebe")
-        }
-
     });
 
   }
@@ -75,6 +50,38 @@ export default class Gasto extends Component {
     });
   }
 
+    listenForItems(itemsRef) {
+      itemsRef.on('value', (snap) => {
+
+        // get children as an array
+        var lista = [];
+        snap.forEach((child) => {
+          lista.push({
+            iname: child.val().iname,
+            categoria: child.val().categoria,
+            descri: child.val().descri,
+            cantidad: child.val().cantidad,
+            id: child.key})
+          console.log(child.key);
+        });
+
+        this.setState({lista: lista});
+        setTimeout(()=>{
+            if(this.state.lista == {}){
+              this.setState({Nogas:0}),
+              console.log(this.state.lista)
+              console.log(this.state.Nogas)
+            }else{
+              this.setState({Nogas:1}),
+                console.log(this.state.Nogas)
+            }
+        },50)
+        console.log(this.state.Nogas)
+      });
+
+    }
+
+
   borrar = (item) => {
     console.log(item)
     let updates = {};
@@ -88,6 +95,7 @@ export default class Gasto extends Component {
   }
 
   render() {
+    var Gasto = this.state.Nogas = 0 ? <Nogasto/>:<Listconte lista={this.state.lista} borrar={this.borrar}/>  ;
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
@@ -125,14 +133,13 @@ export default class Gasto extends Component {
         </View>
 
         <Content>
-        {this.state.Nogas == 1
-          ? <Nogasto/>
-          : <Listconte lista={this.state.lista} borrar={this.borrar}/>
+        {
+          Gasto
         }
 
         </Content>
-
         <Modalgasto style={styles.lista} agregar={this.addItem}/>
+
       </Container>
     );
   }
@@ -150,7 +157,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   lista: {
-    backgroundColor: 'blue'
+    backgroundColor: 'color: rgb(240,116,75)'
   },
   view: {
     alignItems: 'center',

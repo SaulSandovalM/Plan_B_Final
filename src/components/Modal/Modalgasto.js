@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input,Form} from 'native-base';
+
 import {TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
@@ -13,13 +14,12 @@ export default class Example extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: null,
-      objeto:{},
-      fecha:'',
-      icono:'add',
+
+      objeto: {},
+      fecha: '',
+      icono: 'add'
     };
   }
-
-
 
   conFun = (iconito) => {
     objeto = this.state.objeto
@@ -46,6 +46,7 @@ export default class Example extends Component {
       objeto
     });
   }
+
   desFun = (descripcion) => {
     objeto = this.state.objeto
     objeto['descri'] = descripcion
@@ -66,16 +67,12 @@ export default class Example extends Component {
   cancelar = () => {
     this.setState({visibleModal: null});
   }
-
   aceptar = () => {
 
-    if(objeto==null){
-    alert("No has llenado todos los campos")
-  }else{
-    this.props.agregar(this.state.objeto),
-    this.setState({visibleModal: null});
-    console.log(objeto)
-  }
+
+      this.props.agregar(this.state.objeto),
+      this.setState({visibleModal: null});
+  
 
   }
 
@@ -85,6 +82,7 @@ export default class Example extends Component {
       <CardItem header>
         <Text>Nuevo gasto</Text>
       </CardItem>
+
     <Form>
       <List>
         <ListItem icon>

@@ -6,57 +6,34 @@ import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/reg.jpg';
 import imagen from '../../assets/imgs/plan2.png';
 
-class Registro extends Component {
+class Recover extends Component {
   state = {
     correo: '',
-    password: '',
-    verifyPassword: '',
+    verifyCorreo: '',
     error: '',
-    loading: false,
+    loading: false
   };
   constructor(props) {
     super(props);
-    this.onLoginSuccess = this.onLoginSuccess.bind(this);
-    this.onLoginFailed = this.onLoginFailed.bind(this);
+    this.recover = this.recover.bind(this);
   }
 
   atras() {
     Actions.pop()
   }
 
-  onButtonPress() {
-    const {correo, password, verifyPassword} = this.state;
+  recover(){
+    const {correo, verifyCorreo} = this.state;
     this.setState({error: '', loading: true});
-
-    if (password == verifyPassword && password != null && verifyPassword != null) {
-      firebaseAuth.createUserWithEmailAndPassword(correo, password).then(this.onLoginSuccess).catch(this.onLoginFailed);
-    } else {
-      alert("Verifica campos");
+    if (correo == verifyCorreo && correo != null && verifyCorreo != null) {
+      firebaseAuth.sendPasswordResetEmail(correo).then(function() {
+        Actions.Login()
+        alert('revisa tu correo')
+      }, function(error) {
+        console.log(error)
+        alert('Verifia los campos')
+      });
     }
-  }
-
-  onLoginFailed() {
-    this.setState({error: 'Autenticación Fallida', loading:false});
-    alert('Autenticación Fallida')
-  }
-  onLoginSuccess() {
-    this.setState({correo: '', password: '', error: '', verifyPassword: '', loading:false});
-    Actions.Log();
-  }
-
-  spinnerInicio(){
-    if(this.state.loading){
-      return (
-        <Button rounded block style={styles.buttonSpinner}>
-          <Spinner color='white' />
-        </Button>
-      );
-    }
-    return(
-      <Button rounded block style={styles.buttonStyle} onPress={this.onButtonPress.bind(this)}>
-        <Text style={styles.text}>CREAR CUENTA</Text>
-      </Button>
-    );
   }
 
   render() {
@@ -66,21 +43,16 @@ class Registro extends Component {
         <Image source={imagen} style={styles.imagen}/>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
-            returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
+          <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc' returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
         </Item>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Contraseña' placeholderTextColor='#ccc' secureTextEntry={true}
-            value={this.state.password} onChangeText={password => this.setState({password})}/>
+          <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
         </Item>
 
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Verificar Contraseña' secureTextEntry={true} placeholderTextColor='#ccc'
-            value={this.state.verifyPassword} onChangeText={(verifyPassword) => this.setState({verifyPassword})}/>
-        </Item>
-
-        {this.spinnerInicio()}
+        <Button rounded block style={styles.buttonStyle} onPress={this.recover.bind(this)}>
+          <Text style={styles.text}>ENVIAR CONTRASEÑA</Text>
+        </Button>
 
         <View style={styles.footerStyle}>
           <TouchableOpacity onPress={this.atras.bind(this)}><Text style={styles.ingresar}>¿Ya tienes cuenta?, INGRESA</Text></TouchableOpacity>
@@ -178,4 +150,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Registro;
+export default Recover;

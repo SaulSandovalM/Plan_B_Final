@@ -13,7 +13,6 @@ import Boton from '../FinanzasEmpezar/Boton';
 
 type State = {
   activeIndex: number
-
 }
 
 export default class tabOne extends Component {
@@ -39,36 +38,34 @@ export default class tabOne extends Component {
   _onPieItemSelected(newIndex) {
     this.setState({
       ...this.state,
-      activeIndex: newIndex,
+      activeIndex: newIndex
     });
   }
 
 
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
-  componentWillMount(){
+  componentWillMount() {
     var that = this;
-    firebaseAuth.onAuthStateChanged(function(user){
+    firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
-      if(user){
-        var uid= user.uid;
+      if (user) {
+        var uid = user.uid;
       }
       console.log(uid)
 
       const IngreRef = firebase.database().ref('usuarios/'+uid+'/ingreso');
       that.listenForIngre(IngreRef);
-      const itemsRef = firebase.database().ref('usuarios/'+uid+'/gastos');
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
       that.listenForItems(itemsRef);
-
-
     });
   }
   //este listenForItems nos hara es sumar todos los gastos ya ingresados y los sacara en una  suma total para poder colocarlos
 
-  listenForIngre (IngreRef) {
+  listenForIngre(IngreRef) {
     IngreRef.once('value').then(snapshot => {
-      if(snapshot.hasChildren()){
+      if (snapshot.hasChildren()) {
         var ingreso = 0;
-        snapshot.forEach(function(ingr){
+        snapshot.forEach(function(ingr) {
           ingreso += ingr.child('cantidad').val();
         });
       }
@@ -79,23 +76,22 @@ export default class tabOne extends Component {
         this.setState({pIngreso:100}),
         this.setState({ingresos:ingreso})
       }
-
-
-
     });
   }
 
-  listenForItems (itemsRef) {
 
+
+
+  listenForItems(itemsRef) {
     itemsRef.once('value').then(snapshot => {
-      if(snapshot.hasChildren()){
+      if (snapshot.hasChildren()) {
         var gasto = 0;
-        snapshot.forEach(function(item){
+        snapshot.forEach(function(item) {
           gasto += item.child('cantidad').val();
         });
       }
-      if(gasto==null){
-        gasto=0
+      if (gasto == null) {
+        gasto = 0
       }
       this.setState({gastos:gasto});
       if(this.state.pIngreso!=0){
@@ -147,21 +143,29 @@ export default class tabOne extends Component {
             </CardItem>
           </Card>
 
-          <View style={styles.container}>
-            <Text style={styles.chart_title}>ESTADISTICAS</Text>
-            <Pie
-              pieWidth={150}
-              pieHeight={150}
-              onItemSelected={this._onPieItemSelected}
-              colors={Theme.colors}
-              width={width}
-              height={height}
-              data={[
-                {"number":  Math.round(this.state.pIngreso), "name": 'Ingresos'},
-                {"number": Math.round(this.state.pGasto), "name": 'Gastos'},
+          <Card>
+            <View style={styles.container}>
+              <Text style={styles.chart_title}>ESTADISTICAS</Text>
+              <View style={{alignItems: 'center'}}>
+              <Pie
+                pieWidth={150}
+                pieHeight={150}
+                onItemSelected={this._onPieItemSelected}
+                colors={Theme.colors}
+                width={width}
+                height={height}
+                data={[
+                {
+                  "number": Math.round(this.state.pIngreso),
+                  "name": 'Ingresos'
+                }, {
+                  "number": Math.round(this.state.pGasto),
+                  "name": 'Gastos'
+                }
               ]}/>
-
           </View>
+            </View>
+          </Card>
 
           <View style={styles.align}>
             <Card style={styles.borde}>
@@ -238,7 +242,7 @@ const styles = StyleSheet.create({
     marginTop: 21
   },
   chart_title: {
-    paddingTop: 15,
+    paddingTop: 10,
     textAlign: 'center',
     paddingBottom: 5,
     paddingLeft: 5,
@@ -248,30 +252,30 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   icon: {
-    color: 'green'
+    color: rgb(102,165,138)
   },
   icon2: {
-    color: 'red'
+    color: rgb(240,116,75)
   },
   icon3: {
-    color: 'blue'
+    color: rgb(127,73,131)
   },
   text: {
     fontWeight: 'bold'
   },
   finanzas: {
     fontWeight: 'bold',
-    color: 'green',
+    color: rgb(102,165,138),
     fontSize: 16
   },
   finanzas2: {
     fontWeight: 'bold',
-    color: 'red',
+    color: rgb(240,116,75),
     fontSize: 16
   },
   finanzas3: {
     fontWeight: 'bold',
-    color: 'blue',
+    color: rgb(127,73,131),
     fontSize: 16
   }
 });

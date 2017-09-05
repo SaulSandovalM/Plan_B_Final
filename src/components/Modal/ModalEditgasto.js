@@ -15,7 +15,7 @@ export default class ModalEditgasto extends Component {
 
     objeto: {},
     fecha: '',
-    icono: 'add'
+    icono: 'add',
   };
 
   conFun = (iconito) => {

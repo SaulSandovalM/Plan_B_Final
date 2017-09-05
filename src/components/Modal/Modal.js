@@ -9,7 +9,7 @@ const inputButtons = [
     [1, 2, 3,'/'],
     [4, 5, 6,'*'],
     [7, 8, 9,'-'],
-    [0 ,'=','+'],
+    ['=',0,'+'],
     ['Cancelar','ok']
 ];
 
@@ -71,8 +71,7 @@ export default class Example extends Component {
   _renderInputButtons() {
     let views = inputButtons.map((row, idx) => {
       let inputRow = row.map((buttonVal, columnIdx) => {
-        return <InputButton value={buttonVal} highlight={this.state.selectedSymbol === buttonVal}
-          onPress={this._onInputButtonPressed.bind(this, buttonVal)} key={'butt-' + columnIdx}/>;
+        return <InputButton value={buttonVal} highlight={this.state.selectedSymbol === buttonVal} onPress={this._onInputButtonPressed.bind(this, buttonVal)} key={'butt-' + columnIdx}/>;
       });
       return <View style={Style.inputRow} key={'row-' + idx}>{inputRow}</View>;
     });
@@ -131,11 +130,12 @@ export default class Example extends Component {
           inputValue: 0,
           total: eval(previousInputValue + symbol + inputValue),
           selectedSymbol: null,
-          visibleModal: null,
-
+          visibleModal: null
         });
+
         setTimeout(()=>{
             this.props.valorfun(this.state.total)
+
         }, 200);
         break;
     }

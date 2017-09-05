@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, BackHandler, TouchableOpacity } from 'react-native';
 import {Header, Left, Button, Icon, Title} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 
 export default class CabeceraGen extends Component {
+  atras() {
+    Actions.pop()
+  }
   render() {
     return (
       <Header style={styles.header}>
         <Left>
-          <Button transparent onPress={() => Actions.Log()}>
+        <TouchableOpacity onPress={this.atras.bind(this)}>
             <Icon name='arrow-back' style={styles.color}/>
-          </Button>
+          </TouchableOpacity>
         </Left>
         <Title style={styles.texto}>{this.props.headerText}</Title>
       </Header>
@@ -23,10 +26,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   color: {
-    color: 'green'
+    color: 'rgb(102,165,138)'
   },
   texto: {
-    color: 'green',
+    color: 'rgb(102,165,138)',
     marginRight: '38%',
     top: 15
   }

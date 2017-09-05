@@ -112,21 +112,16 @@ export default class Ingresos extends Component {
 
             <ListItem icon>
               <Left>
-                <Icon name="paper"/>
+                <Icon name="paper" style={styles.icon}/>
               </Left>
               <Body >
                 <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
               </Body>
             </ListItem>
 
-            <Button rounded block style={styles.buttonIngreso}>
-              <Text style={styles.boton}>$</Text>
-              <Input placeholder="Ingresos Extras" placeholderTextColor="white" style={styles.boton}/>
-            </Button>
-
           </List>
         </Content>
-        <Fab direction="up" containerStyle={{}} position="bottomRight" onPress={this.addItem}>
+        <Fab direction="up" position="bottomRight" onPress={this.addItem} style={styles.fab}>
           <Icon name="md-checkmark"/>
         </Fab>
       </Container>
@@ -153,7 +148,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   icon: {
-    color: '#ff5722'
+    color: 'rgb(102,165,138)'
   },
   input: {
     marginLeft: 10,
@@ -169,6 +164,9 @@ const styles = StyleSheet.create({
   boton: {
     color: 'white',
     fontWeight: 'bold'
+  },
+  fab: {
+    backgroundColor: "rgb(102,165,138)"
   }
 });
 
