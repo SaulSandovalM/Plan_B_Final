@@ -1,10 +1,32 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image} from 'react-native';
-import {Container, Content, Card, CardItem, Button, Icon, Body, Fab} from 'native-base';
+import {Container, Content, Card, CardItem, Button, Icon, Body, Fab, Left, Thumbnail, View, DeckSwiper} from 'native-base';
 import imgLogo from '../../assets/imgs/Ahorros.png';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+const cards = [
+  {
+    text: 'Vacaciones',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+  },
+  {
+    text: 'Carro',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+  },
+  {
+    text: 'Escuela',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+  },
+  {
+    text: 'Casa',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+  },
+];
 
 export default class Ahorros extends Component {
   constructor() {
@@ -81,7 +103,47 @@ export default class Ahorros extends Component {
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='AHORROS'/>
-        <Content>
+
+          <View>
+         <DeckSwiper
+           ref={(c) => this._deckSwiper = c}
+           dataSource={cards}
+           renderEmpty={() =>
+             <View style={{ alignSelf: "center" }}>
+               <Text>Over</Text>
+             </View>}
+           renderItem={item =>
+             <Card style={{ elevation: 3, margin: 10 }}>
+               <CardItem>
+                 <Left>
+                   <Thumbnail source={item.image} />
+                   <Body>
+                     <Text>{item.text}</Text>
+                     <Text note>NativeBase</Text>
+                   </Body>
+                 </Left>
+               </CardItem>
+               <CardItem cardBody>
+                 <Image style={{ height: 300, flex: 1 }} source={item.image} />
+               </CardItem>
+               <CardItem>
+                 <Icon name="heart" style={{ color: '#ED4A6A' }} />
+                 <Text>{item.name}</Text>
+               </CardItem>
+             </Card>
+           }
+         />
+       </View>
+       <View style={{ flexDirection: "row", flex: 1, position: "absolute", bottom: 50, left: 0, right: 0, justifyContent: 'space-between', padding: 15 }}>
+         <Button iconLeft onPress={() => this._deckSwiper._root.swipeLeft()}>
+           <Icon name="arrow-back" />
+         </Button>
+         <Button iconRight onPress={() => this._deckSwiper._root.swipeRight()}>
+           <Icon name="arrow-forward" />
+         </Button>
+       </View>
+
+        {/*<Content>
 
           <Card style={{margin: 20}}>
             <CardItem>
@@ -146,7 +208,7 @@ export default class Ahorros extends Component {
           position="bottomRight"
           onPress={() => Actions.NuevoAhorro()}>
           <Icon name="add"/>
-        </Fab>
+        </Fab>*/}
 
       </Container>
     );
