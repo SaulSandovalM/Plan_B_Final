@@ -1,10 +1,36 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image} from 'react-native';
-import {Container, Content, Card, CardItem, Button, Icon, Body, Fab} from 'native-base';
+import {Container, Content, Card, CardItem, Button, Icon, Body, Fab, Left, Thumbnail, View, DeckSwiper} from 'native-base';
 import imgLogo from '../../assets/imgs/Ahorros.png';
-import CabeceraGen from '../Cabecera/CabeceraGen';
+import CabeceraAhorro from '../Cabecera/CabeceraAhorro';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+const cards = [
+  {
+    text: 'Vacaciones',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+    fecha: '20 de Septiembre del 2017'
+  },
+  {
+    text: 'Carro',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+    fecha: '20 de Septiembre del 2017'
+  },
+  {
+    text: 'Escuela',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+    fecha: '20 de Septiembre del 2017'
+  },
+  {
+    text: 'Casa',
+    name: 'Plan B',
+    image: require('../../assets/imgs/Ahorros.png'),
+    fecha: '20 de Septiembre del 2017'
+  },
+];
 
 export default class Ahorros extends Component {
   constructor() {
@@ -73,15 +99,56 @@ export default class Ahorros extends Component {
       if (user) {
         var uid = user.uid;
       }
-      firebase.database().ref('usuarios/' + uid + '/ahorros/' + item.id).set(null); //Esta linea coloca valor nulo en el element que se seleccione
+      firebase.database().ref('usuarios/' + uid + '/ahorros/' + item.id).set(null);
+      //Esta linea coloca valor nulo en el element que se seleccione
     });
   }
 
   render() {
     return (
       <Container style={styles.back}>
-        <CabeceraGen headerText='AHORROS'/>
-        <Content>
+        <CabeceraAhorro/>
+
+          <View>
+         <DeckSwiper
+           ref={(c) => this._deckSwiper = c}
+           dataSource={cards}
+           renderEmpty={() =>
+             <View style={styles.view}>
+               <Text>Over</Text>
+             </View>}
+           renderItem={item =>
+             <Card style={styles.card}>
+               <CardItem>
+                 <Left>
+                   <Thumbnail source={item.image} />
+                   <Body>
+                     <Text>{item.text}</Text>
+                     <Text note>{item.fecha}</Text>
+                   </Body>
+                 </Left>
+               </CardItem>
+               <CardItem cardBody>
+                 <Image style={styles.img} source={item.image} />
+               </CardItem>
+               <CardItem>
+                 <Icon name="heart" style={styles.icon} />
+                 <Text>{item.name}</Text>
+               </CardItem>
+             </Card>
+           }
+         />
+       </View>
+       <View style={styles.view2}>
+         <Button iconLeft onPress={() => this._deckSwiper._root.swipeLeft()}>
+           <Icon name="arrow-back" />
+         </Button>
+         <Button iconRight onPress={() => this._deckSwiper._root.swipeRight()}>
+           <Icon name="arrow-forward" />
+         </Button>
+       </View>
+
+        {/*<Content>
 
           <Card style={{margin: 20}}>
             <CardItem>
@@ -146,7 +213,7 @@ export default class Ahorros extends Component {
           position="bottomRight"
           onPress={() => Actions.NuevoAhorro()}>
           <Icon name="add"/>
-        </Fab>
+        </Fab>*/}
 
       </Container>
     );
@@ -177,6 +244,29 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: "rgb(35,86,160)"
+  },
+  view: {
+    alignSelf: "center"
+  },
+  card: {
+    elevation: 3
+  },
+  img: {
+    height: 300,
+    flex: 1
+  },
+  icon: {
+    color: '#ED4A6A'
+  },
+  view2: {
+    flexDirection: "row",
+    flex: 1,
+    position: "absolute",
+    bottom: 50,
+    left: 0,
+    right: 0,
+    justifyContent: 'space-between',
+    padding: 15
   }
 });
 

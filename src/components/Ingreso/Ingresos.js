@@ -170,9 +170,9 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(102,165,138)"
   },
   text: {
-    marginLeft: 20,
+    marginLeft: 60,
     margin: 20,
-    fontSize: 25,
+    fontSize: 20,
   }
 });
 
