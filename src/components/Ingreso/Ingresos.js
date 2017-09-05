@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button, Fab} from 'native-base';
+import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button, Fab, Title} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/Ingresos.png';
 import Valores from '../Modal/Modal';
@@ -101,13 +101,21 @@ export default class Ingresos extends Component {
               </Body>
             </ListItem>
 
-            <Text></Text>
+            <Text style={styles.text}>Ingreso Extra</Text>
             <ListItem icon>
               <Left>
                 <Icon name="calculator" style={styles.icon}/>
               </Left>
               <Body>
                 <Valores valorfun={this.valorfun}/>
+              </Body>
+            </ListItem>
+            <ListItem icon>
+              <Left>
+                <Icon name="paper" style={styles.icon}/>
+              </Left>
+              <Body >
+                <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
               </Body>
             </ListItem>
 
@@ -160,6 +168,11 @@ const styles = StyleSheet.create({
   },
   fab: {
     backgroundColor: "rgb(102,165,138)"
+  },
+  text: {
+    marginLeft: 20,
+    margin: 20,
+    fontSize: 25,
   }
 });
 
