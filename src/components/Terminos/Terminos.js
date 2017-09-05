@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, BackHandler} from 'react-native';
-import {CheckBox, Button, Body, List, CardItem, ListItem, Container, Content, Text, Item, StyleProvider} from 'native-base';
+import {CheckBox, Button, Body, List, CardItem, ListItem, Container, Content, Text, Item, StyleProvider, Toast} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import Cabecera3 from '../Cabecera/Cabecera3';
 import getTheme from '../../../native-base-theme/components';
@@ -57,7 +57,12 @@ class Terminos extends Component {
     if (this.state.selected == true && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true) {
       Actions.Login()
     } else {
-      alert('Acepta terminos y condiciones')
+      Toast.show({
+                text: 'Acepta todos los términos y condiciones',
+                position: 'bottom',
+                duration: 2000,
+                type: 'danger'
+              })
     }
   }
 
