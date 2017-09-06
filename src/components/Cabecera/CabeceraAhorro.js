@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   },
   texto: {
     color: 'rgb(102,165,138)',
-    marginRight: '20%',
+    marginRight: '5%',
     top: 15
   }
 });
