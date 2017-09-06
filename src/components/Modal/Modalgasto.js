@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input, Form} from 'native-base';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View, Alert} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
 import Valores from './Modal';
@@ -13,6 +13,7 @@ export default class Example extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: null,
+      validacion: [],
       objeto: {},
       fecha: '',
       icono: 'add'
@@ -37,6 +38,7 @@ export default class Example extends Component {
   cateFun = (categorita) => {
     objeto = this.state.objeto
     objeto['categoria'] = categorita
+
     //const newCat= categorita;
     this.setState({
       //categoria:newCat,
@@ -63,15 +65,31 @@ export default class Example extends Component {
 
   cancelar = () => {
     this.setState({visibleModal: null});
+    this.setState({objeto: {}})
   }
 
   aceptar = () => {
-    if (objeto == null) {
-      alert('No has llenado todos los campos')
-    } else {
-      this.props.agregar(this.state.objeto),
+    var objeto = this.state.objeto
+    console.log(Object.keys(objeto).length) //esta parte te dice cuantos elmentos hay en el objeto "No Arreglo"
+    if (Object.keys(objeto).length >= 4) {
       this.setState({visibleModal: null});
+      this.props.agregar(this.state.objeto),
+      console.log(Object.keys(objeto).length)
+      this.setState({objeto: {}})
+    } else {
+      const message = 'No has llenado todos los campos';
+      Alert.alert('Advertencia', message, [
+        {
+          text: 'ok',
+          onPress: null
+        }
+      ]);
+      console.log(Object.keys(objeto).length)
     }
+  }
+
+  activar = () => {
+    this.setState({visibleModal: 1})
   }
 
   _renderModalContent = () => (
@@ -80,6 +98,7 @@ export default class Example extends Component {
       <CardItem header>
         <Text>Nuevo gasto</Text>
       </CardItem>
+
       <Form>
         <List>
           <ListItem icon>
@@ -123,11 +142,11 @@ export default class Example extends Component {
           <Button transparent onPress={this.aceptar}>
             <Text style={styles.texto}>Aceptar</Text>
           </Button>
-
           <Button transparent onPress={this.cancelar}>
             <Text style={styles.texto}>Cancelar</Text>
           </Button>
         </View>
+
       </Form>
     </View>
   );
@@ -140,7 +159,7 @@ export default class Example extends Component {
           active={this.state.active}
           direction="up"
           position="bottomRight"
-          onPress={() => this.setState({visibleModal: 1})}>
+          onPress={this.activar}>
           <Icon name="add"/>
         </Fab>
 

@@ -12,7 +12,8 @@ class ListComponent extends Component {
           <Text>Categoria</Text>
         </ListItem>
 
-        {this.props.lista.map(item => <Contenidocatlis icateFun={this.props.icateFun} conFun={this.props.conFun}
+        {this.props.lista.map(item =>
+          <Contenidocatlis icateFun={this.props.icateFun} conFun={this.props.conFun}
           cateFun={this.props.cateFun} modFun={this.props.modFun} iFun={this.props.iFun} key={item.id} item={item}/>)}
 
         <ListItem>

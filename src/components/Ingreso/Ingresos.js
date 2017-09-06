@@ -12,7 +12,7 @@ export default class Ingresos extends Component {
     super();
     this.state = {
       ingreso: [],
-      objeto:{},
+      objeto: {},
       date: new Date()
     }
   }
@@ -33,7 +33,6 @@ export default class Ingresos extends Component {
     let nuevo = this.state.objeto
     this.state.ingreso.push(nuevo);
     this.setState({ingreso: this.state.ingreso})
-
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
       if (user) {
@@ -61,14 +60,23 @@ export default class Ingresos extends Component {
 
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
+      // get children as an array
+      var ingreso = [];
+      snap.forEach((child) => {
+        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
+        console.log(child.key);
+      });
+      this.setState({ingreso: ingreso});
+    });
+  }
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
 
       // get children as an array
       var ingreso = [];
       snap.forEach((child) => {
-        ingreso.push({
-          descri: child.val().descri,
-          cantidad: child.val().cantidad,
-          id: child.key})
+        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
         console.log(child.key);
       });
       this.setState({ingreso: ingreso});
@@ -172,7 +180,7 @@ const styles = StyleSheet.create({
   text: {
     marginLeft: 60,
     margin: 20,
-    fontSize: 20,
+    fontSize: 20
   }
 });
 
