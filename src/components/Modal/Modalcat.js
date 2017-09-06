@@ -8,6 +8,7 @@ import styles from '../estilos/modcat.style';
 export default class Gasto extends Component {
   constructor() {
     super();
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: 0,
       categoria: 'CATEGORIA',

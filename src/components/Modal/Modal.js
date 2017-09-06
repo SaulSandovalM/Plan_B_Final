@@ -9,7 +9,7 @@ const inputButtons = [
     [1, 2, 3,'/'],
     [4, 5, 6,'*'],
     [7, 8, 9,'-'],
-    [0 ,'=','+'],
+    ['=',0,'+'],
     ['Cancelar','ok']
 ];
 
@@ -132,9 +132,11 @@ export default class Example extends Component {
           selectedSymbol: null,
           visibleModal: null
         });
-        setTimeout(() => {
-          this.props.valorfun(this.state.total)
-        }, 200);
+
+        setTimeout(()=>{
+            this.props.valorfun(this.state.total)
+
+        }, 150);
         break;
     }
   }

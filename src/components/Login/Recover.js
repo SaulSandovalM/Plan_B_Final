@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import {Button, Icon, Item, Input, Spinner} from 'native-base';
+import {Button, Icon, Item, Input, Spinner, Toast} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/reg.jpg';
 import imagen from '../../assets/imgs/plan2.png';
@@ -28,12 +28,40 @@ class Recover extends Component {
     if (correo == verifyCorreo && correo != null && verifyCorreo != null) {
       firebaseAuth.sendPasswordResetEmail(correo).then(function() {
         Actions.Login()
-        alert('revisa tu correo')
+        Toast.show({
+                  text: 'Revisa tu correo, continua los pasos',
+                  position: 'bottom',
+                  buttonText: 'OK',
+                  type: 'success'
+                })
       }, function(error) {
         console.log(error)
-        alert('Verifia los campos')
+        Toast.show({
+                  text: 'Correo inválido, verifique campos',
+                  position: 'bottom',
+                  buttonText: 'OK',
+                  type: 'danger'
+                })
       });
     }
+  }
+
+  buttonCorreo(){
+    const {verifyCorreo, correo} = this.state;
+    if(verifyCorreo == correo){
+      return (
+      <Item rounded success style={styles.inputRounded}>
+        <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
+        <Icon name='checkmark-circle' style={{marginRight: 10}}/>
+      </Item>
+    );
+    }
+    return(
+    <Item rounded error style={styles.inputRounded}>
+      <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
+      <Icon name='close-circle' style={{marginRight: 10}}/>
+    </Item>
+  );
   }
 
   render() {
@@ -43,12 +71,10 @@ class Recover extends Component {
         <Image source={imagen} style={styles.imagen}/>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc' returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
+            <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc' returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
         </Item>
 
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
-        </Item>
+        {this.buttonCorreo()}
 
         <Button rounded block style={styles.buttonStyle} onPress={this.recover.bind(this)}>
           <Text style={styles.text}>ENVIAR CONTRASEÑA</Text>

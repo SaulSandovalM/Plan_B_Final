@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Container, Content, List, Text} from 'native-base';
-import Listconte from '../Modal/Listconte';
+import Listconte from './Listconte';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import Modalgasto from '../Modal/Modalgasto';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import {Button, Icon, Item, Input, Spinner} from 'native-base';
+import {Button, Icon, Item, Input, Spinner, Toast} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/reg.jpg';
 import imagen from '../../assets/imgs/plan2.png';
@@ -31,17 +31,33 @@ class Registro extends Component {
     if (password == verifyPassword && password != null && verifyPassword != null) {
       firebaseAuth.createUserWithEmailAndPassword(correo, password).then(this.onLoginSuccess).catch(this.onLoginFailed);
     } else {
-      alert("Verifica campos");
+      Toast.show({
+                text: 'Llene los campos correctamente',
+                position: 'bottom',
+                buttonText: 'OK',
+                type: 'danger'
+              })
     }
   }
 
   onLoginFailed() {
     this.setState({error: 'Autenticación Fallida', loading:false});
-    alert('Autenticación Fallida')
+    Toast.show({
+              text: 'Registro fallido, verifique campos',
+              position: 'bottom',
+              buttonText: 'OK',
+              type: 'danger'
+            })
   }
   onLoginSuccess() {
     this.setState({correo: '', password: '', error: '', verifyPassword: '', loading:false});
     Actions.Log();
+    Toast.show({
+              text: 'Bienvenido',
+              position: 'bottom',
+              duration: 3000,
+              type: 'success'
+            })
   }
 
   spinnerInicio(){
@@ -56,6 +72,26 @@ class Registro extends Component {
       <Button rounded block style={styles.buttonStyle} onPress={this.onButtonPress.bind(this)}>
         <Text style={styles.text}>CREAR CUENTA</Text>
       </Button>
+    );
+  }
+
+  buttonContra(){
+    const{verifyPassword, password} = this.state;
+    if(verifyPassword == password){
+      return(
+        <Item rounded success style={styles.inputRounded}>
+          <Input style={styles.input} placeholder='Verificar Contraseña' secureTextEntry={true} placeholderTextColor='#ccc'
+            value={this.state.verifyPassword} onChangeText={(verifyPassword) => this.setState({verifyPassword})}/>
+            <Icon name='checkmark-circle' style={{marginRight: 10}}/>
+        </Item>
+      );
+    }
+    return(
+      <Item rounded error style={styles.inputRounded}>
+        <Input style={styles.input} placeholder='Verificar Contraseña' secureTextEntry={true} placeholderTextColor='#ccc'
+          value={this.state.verifyPassword} onChangeText={(verifyPassword) => this.setState({verifyPassword})}/>
+          <Icon name='close-circle' style={{marginRight: 10}}/>
+      </Item>
     );
   }
 
@@ -75,10 +111,7 @@ class Registro extends Component {
             value={this.state.password} onChangeText={password => this.setState({password})}/>
         </Item>
 
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Verificar Contraseña' secureTextEntry={true} placeholderTextColor='#ccc'
-            value={this.state.verifyPassword} onChangeText={(verifyPassword) => this.setState({verifyPassword})}/>
-        </Item>
+        {this.buttonContra()}
 
         {this.spinnerInicio()}
 
