@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Container, Content, List, Text} from 'native-base';
-import Listconte from '../Modal/Listconte';
+import Listconte from './Listconte';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import Modalgasto from '../Modal/Modalgasto';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
@@ -11,9 +11,8 @@ import Nogasto from './Nogasto';
 export default class Gasto extends Component {
   constructor() {
     super();
-    console.ignoredYellowBox = ['Setting a timer'];
+    console.ignoredYellowBox = true;
     this.state = {
-      Nogas:0,
       lista: [],
       date: new Date()
     }
@@ -66,17 +65,7 @@ export default class Gasto extends Component {
         });
 
         this.setState({lista: lista});
-        setTimeout(()=>{
-            if(this.state.lista == {}){
-              this.setState({Nogas:0}),
-              console.log(this.state.lista)
-              console.log(this.state.Nogas)
-            }else{
-              this.setState({Nogas:1}),
-                console.log(this.state.Nogas)
-            }
-        },50)
-        console.log(this.state.Nogas)
+
       });
 
     }
@@ -95,7 +84,7 @@ export default class Gasto extends Component {
   }
 
   render() {
-    var Gasto = this.state.Nogas = 0 ? <Nogasto/>:<Listconte lista={this.state.lista} borrar={this.borrar}/>  ;
+    var Gasto = this.state.lista.length < 1 ? <Nogasto/>:<Listconte lista={this.state.lista} borrar={this.borrar}/>  ;
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>

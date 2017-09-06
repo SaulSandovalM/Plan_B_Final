@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Root} from 'native-base';
 import {Router, Scene} from 'react-native-router-flux';
 import Ingresos from '../Ingreso/Ingresos';
 import Gastos from '../Gasto/Gastos';
@@ -18,6 +19,7 @@ import GastosIntro from '../FinanzasEmpezar/GastosIntro';
 
 const Routes = () => {
   return (
+    <Root>
     <Router>
       <Scene key="root">
         <Scene key="Bienvenido" header={null} component={Bienvenido}/>
@@ -37,6 +39,7 @@ const Routes = () => {
         <Scene key="Perfil" header={null} component={Perfil}/>
       </Scene>
     </Router>
+    </Root>
   );
 }
 export default Routes;

@@ -105,9 +105,6 @@ export default class tabOne extends Component {
     });
   }
 
-
-
-
   render() {
     const height = 200;
     const width = 340;
@@ -242,7 +239,7 @@ const styles = StyleSheet.create({
     marginTop: 21
   },
   chart_title: {
-    paddingTop: 10,
+    paddingTop: 5,
     textAlign: 'center',
     paddingBottom: 5,
     paddingLeft: 5,

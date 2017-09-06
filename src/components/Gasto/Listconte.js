@@ -3,6 +3,11 @@ import {Content} from 'native-base';
 import Contenidolis from './Contenidolis';
 
 class Listconte extends Component {
+  constructor() {
+    super();
+  console.ignoredYellowBox = true;
+
+  }
   render() {
     return (
       <Content>

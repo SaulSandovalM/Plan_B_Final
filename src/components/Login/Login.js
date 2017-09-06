@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import FBSDK, {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
-import {Button, Icon, Item, Input} from 'native-base';
+import {Button, Icon, Item, Input, Toast, Spinner} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/log.jpg';
 import img2 from '../../assets/imgs/plan2.png';
@@ -46,6 +46,12 @@ class Login extends Component {
           } else {
             // now signed in
             Actions.Log();
+            Toast.show({
+                      text: 'Bienvenido',
+                      position: 'bottom',
+                      duration: 3000,
+                      type: 'success'
+                    })
 
           }
         }).catch((error) => {
@@ -60,12 +66,24 @@ class Login extends Component {
   }
 
   onLoginFailed() {
-    this.setState({error: 'Autenticación Fallida'});
-    alert('Registrate!')
+    this.setState({error: 'Autenticación Fallida', loading: false});
+    Toast.show({
+              text: 'Usuario/contraseña inválidos',
+              position: 'bottom',
+              buttonText: 'OK',
+              type: 'danger'
+            })
+
   }
   onLoginSuccess() {
-    this.setState({email: '', contraseña: '', error: ''});
+    this.setState({email: '', contraseña: '', error: '', loading: false});
     Actions.Log();
+    Toast.show({
+              text: 'Bienvenido',
+              position: 'bottom',
+              duration: 3000,
+              type: 'success'
+            })
   }
 
   spinnerInicio(){

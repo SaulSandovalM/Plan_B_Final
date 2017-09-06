@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import {Button, Icon, Item, Input, Spinner} from 'native-base';
+import {Button, Icon, Item, Input, Spinner, Toast} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/reg.jpg';
 import imagen from '../../assets/imgs/plan2.png';
@@ -31,17 +31,33 @@ class Registro extends Component {
     if (password == verifyPassword && password != null && verifyPassword != null) {
       firebaseAuth.createUserWithEmailAndPassword(correo, password).then(this.onLoginSuccess).catch(this.onLoginFailed);
     } else {
-      alert("Verifica campos");
+      Toast.show({
+                text: 'Llene los campos correctamente',
+                position: 'bottom',
+                buttonText: 'OK',
+                type: 'danger'
+              })
     }
   }
 
   onLoginFailed() {
     this.setState({error: 'Autenticación Fallida', loading:false});
-    alert('Autenticación Fallida')
+    Toast.show({
+              text: 'Registro fallido, verifique campos',
+              position: 'bottom',
+              buttonText: 'OK',
+              type: 'danger'
+            })
   }
   onLoginSuccess() {
     this.setState({correo: '', password: '', error: '', verifyPassword: '', loading:false});
     Actions.Log();
+    Toast.show({
+              text: 'Bienvenido',
+              position: 'bottom',
+              duration: 3000,
+              type: 'success'
+            })
   }
 
   spinnerInicio(){

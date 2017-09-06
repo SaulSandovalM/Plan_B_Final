@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import {Button, Icon, Item, Input, Spinner} from 'native-base';
+import {Button, Icon, Item, Input, Spinner, Toast} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/reg.jpg';
 import imagen from '../../assets/imgs/plan2.png';
@@ -28,10 +28,20 @@ class Recover extends Component {
     if (correo == verifyCorreo && correo != null && verifyCorreo != null) {
       firebaseAuth.sendPasswordResetEmail(correo).then(function() {
         Actions.Login()
-        alert('revisa tu correo')
+        Toast.show({
+                  text: 'Revisa tu correo, continua los pasos',
+                  position: 'bottom',
+                  buttonText: 'OK',
+                  type: 'success'
+                })
       }, function(error) {
         console.log(error)
-        alert('Verifia los campos')
+        Toast.show({
+                  text: 'Correo inválido, verifique campos',
+                  position: 'bottom',
+                  buttonText: 'OK',
+                  type: 'danger'
+                })
       });
     }
   }

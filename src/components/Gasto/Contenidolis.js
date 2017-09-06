@@ -8,6 +8,7 @@ export default class Contenidolis extends Component {
 
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = true;
     this.state = {
       pressAction: new Animated.Value(0),
       item: null

@@ -2,10 +2,15 @@ import React, {Component} from 'react';
 import {List, ListItem, Text, Icon, Left, Body} from 'native-base';
 
 export default class ListIconExample extends Component {
-  state = {
-    icono: '',
-    categoria: ''
+  constructor() {
+    super();
+    console.ignoredYellowBox = ['Setting a timer'];
+    state = {
+      icono: '',
+      categoria: ''
+    }
   }
+
 
   setIcon = () => {
     this.setState({icono: this.props.item.iname, categoria: this.props.item.categoria}),

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button,  Fab,} from 'native-base';
 
+import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button, Fab, Title} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/Ingresos.png';
 import Valores from '../Modal/Modal';
@@ -119,7 +119,26 @@ export default class Ingresos extends Component {
               </Body>
             </ListItem>
 
+            <Text style={styles.text}>Ingreso Extra</Text>
+            <ListItem icon>
+              <Left>
+                <Icon name="calculator" style={styles.icon}/>
+              </Left>
+              <Body>
+                <Valores valorfun={this.valorfun}/>
+              </Body>
+            </ListItem>
+            <ListItem icon>
+              <Left>
+                <Icon name="paper" style={styles.icon}/>
+              </Left>
+              <Body >
+                <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
+              </Body>
+            </ListItem>
+
           </List>
+
         </Content>
         <Fab direction="up" position="bottomRight" onPress={this.addItem} style={styles.fab}>
           <Icon name="md-checkmark"/>
@@ -167,6 +186,11 @@ const styles = StyleSheet.create({
   },
   fab: {
     backgroundColor: "rgb(102,165,138)"
+  },
+  text: {
+    marginLeft: 60,
+    margin: 20,
+    fontSize: 20,
   }
 });
 
