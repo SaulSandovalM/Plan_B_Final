@@ -10,6 +10,7 @@ import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Boton from '../FinanzasEmpezar/Boton';
+import Nodata from './Nodata';
 
 type State = {
   activeIndex: number
@@ -133,10 +134,15 @@ export default class tabOne extends Component {
             <Card>
               <View style={styles.container}>
                 <Text style={styles.chart_title}>ESTADISTICAS</Text>
-                <View style={{
-                  alignItems: 'center'
-                }}>
-                  <Pie pieWidth={150} pieHeight={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} width={width} height={height} data={[
+                <View style={styles.view}>
+                  <Pie
+                    pieWidth={150}
+                    pieHeight={150}
+                    onItemSelected={this._onPieItemSelected}
+                    colors={Theme.colors}
+                    width={width}
+                    height={height}
+                    data={[
                     {
                       "number": Math.round(this.state.pIngreso),
                       "name": 'Ingresos'
@@ -148,6 +154,8 @@ export default class tabOne extends Component {
                 </View>
               </View>
             </Card>
+
+            <Nodata/>
 
             <View style={styles.align}>
               <Card style={styles.borde}>
@@ -259,6 +267,9 @@ export default class tabOne extends Component {
       fontWeight: 'bold',
       color: rgb(127, 73, 131),
       fontSize: 16
+    },
+    view: {
+      alignItems: 'center'
     }
   });
 

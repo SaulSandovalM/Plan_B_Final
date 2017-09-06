@@ -121,7 +121,6 @@ export default class Ahorros extends Component {
              <Card style={styles.card}>
                <CardItem>
                  <Left>
-                   <Thumbnail source={item.image} />
                    <Body>
                      <Text>{item.text}</Text>
                      <Text note>{item.fecha}</Text>
@@ -252,7 +251,7 @@ const styles = StyleSheet.create({
     elevation: 3
   },
   img: {
-    height: 300,
+    height: 200,
     flex: 1
   },
   icon: {

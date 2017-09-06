@@ -16,23 +16,16 @@ class Boton extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    zIndex: 1000,
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   text: {
     color: 'white',
     fontWeight: 'bold'
   },
   boton: {
     borderRadius: 50,
-    marginTop: '50%'
+  },
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   }
 });
 
