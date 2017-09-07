@@ -27,7 +27,7 @@ export default class Depositar extends Component {
         <Text style={styles.boton}>ACEPTAR</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={this.cancelar}>
-        <Text style={styles.boton}>CANCERLAR</Text>
+        <Text style={styles.boton}>CANCELAR</Text>
       </TouchableOpacity>
     </View>
   </View>
