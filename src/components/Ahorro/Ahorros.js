@@ -37,7 +37,12 @@ export default class Ahorros extends Component {
       // get children as an array
       var lista = [];
       snap.forEach((child) => {
-        lista.push({iname: child.val().iname, categoria: child.val().categoria, descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
+        lista.push({
+          iname: child.val().iname,
+          categoria: child.val().categoria,
+          descri: child.val().descri,
+          cantidad: child.val().cantidad,
+          id: child.key})
         console.log(child.key);
       });
       this.setState({lista: lista});

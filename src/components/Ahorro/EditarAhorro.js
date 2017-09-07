@@ -1,29 +1,16 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image} from 'react-native';
-import {Container, Content, Body, Icon, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
-import CabeceraGen from '../Cabecera/CabeceraGen';
+import {Container, Content, Icon, Body, Fab, Left} from 'native-base';
 import imgLogo from '../../assets/imgs/Ahorros.png';
+import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
-import Valores from '../Modal/Modal';
-import Fecha from '../Modal/Fecha';
+import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
-export default class NuevoAhorro extends Component {
-  constructor(props) {
-    super(props);
-    console.ignoredYellowBox = ['Setting a timer'];
-    this.state = {
-      selected1: "key1"
-    };
-  }
-
-  onValueChange(value : string) {
-    this.setState({selected1: value});
-  }
-
+export default class EditarAhorro extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <CabeceraGen headerText='NUEVO AHORRO'/>
+        <CabeceraGen headerText='EDITAR AHORRO'/>
         <Content>
           <Image source={imgLogo} style={styles.img}/>
           <CardItem header style={styles.titulo}>
@@ -82,21 +69,11 @@ export default class NuevoAhorro extends Component {
 }
 
 const styles = StyleSheet.create({
-  img: {
-    height: 200,
-    width: '100%',
-    flex: 1
+  fab: {
+    backgroundColor: rgb(35,86,160)
   },
-  texto: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    alignSelf: 'center'
-  },
-  back: {
-    backgroundColor: "white"
-  },
-  titulo: {
-    justifyContent: 'center'
+  input: {
+    marginLeft: 12
   },
   icon1: {
     color: '#ff5722'
@@ -107,15 +84,19 @@ const styles = StyleSheet.create({
   icon3: {
     color: '#2196f3'
   },
-  margin: {
-    marginLeft: 15
+  img: {
+    height: 200,
+    width: '100%',
+    flex: 1
   },
-  fab: {
-    backgroundColor: rgb(35,86,160)
+  texto: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    alignSelf: 'center'
   },
-  input: {
-    marginLeft: 12
-  }
+  titulo: {
+    justifyContent: 'center'
+  },
 });
 
-module.export = NuevoAhorro;
+module.export = EditarAhorro;
