@@ -5,6 +5,7 @@ import imgLogo from '../../assets/imgs/Ahorros.png';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+import Valores from './Depositar';
 
 export default class Ahorros extends Component {
   constructor() {
@@ -89,16 +90,16 @@ export default class Ahorros extends Component {
             </CardItem>
             <CardItem>
               <Body style={styles.body}>
-                <Text style={styles.texto}>Vacaciones</Text>
+                <Text style={styles.texto}>Celular</Text>
                 <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
               </Body>
             </CardItem>
             <CardItem>
               <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton}>EDITAR AHORRO</Text>
+                <Text style={styles.boton} onPress={()=> Actions.EditarAhorro()}>EDITAR AHORRO</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton}>DEPOSITAR</Text>
+                <Text style={styles.boton} onPress={() => Actions.Depositar()}>DEPOSITAR</Text>
               </TouchableOpacity>
             </CardItem>
           </Card>
@@ -109,16 +110,16 @@ export default class Ahorros extends Component {
             </CardItem>
             <CardItem>
               <Body style={styles.body}>
-                <Text style={styles.texto}>Vacaciones</Text>
+                <Text style={styles.texto}>Celular</Text>
                 <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
               </Body>
             </CardItem>
             <CardItem>
               <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton}>EDITAR AHORRO</Text>
+                <Text style={styles.boton} onPress={()=> Actions.EditarAhorro()}>EDITAR AHORRO</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton}>DEPOSITAR</Text>
+                <Text style={styles.boton} onPress={() => Actions.Depositar()}>DEPOSITAR</Text>
               </TouchableOpacity>
             </CardItem>
           </Card>
@@ -129,16 +130,16 @@ export default class Ahorros extends Component {
             </CardItem>
             <CardItem>
               <Body style={styles.body}>
-                <Text style={styles.texto}>Vacaciones</Text>
+                <Text style={styles.texto}>Celular</Text>
                 <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
               </Body>
             </CardItem>
             <CardItem>
               <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton}>EDITAR AHORRO</Text>
+                <Text style={styles.boton} onPress={()=> Actions.EditarAhorro()}>EDITAR AHORRO</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton}>DEPOSITAR</Text>
+                <Text style={styles.boton} onPress={() => Actions.Depositar()}>DEPOSITAR</Text>
               </TouchableOpacity>
             </CardItem>
           </Card>

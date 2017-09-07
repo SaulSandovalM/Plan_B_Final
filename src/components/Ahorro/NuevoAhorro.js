@@ -5,7 +5,6 @@ import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/Ahorros.png';
 import {Actions} from 'react-native-router-flux';
 import Valores from '../Modal/Modal';
-import Fecha from '../Modal/Fecha';
 
 export default class NuevoAhorro extends Component {
   constructor(props) {
@@ -46,15 +45,6 @@ export default class NuevoAhorro extends Component {
               </Left>
               <Body>
                 <Valores/>
-              </Body>
-            </ListItem>
-
-            <ListItem icon>
-              <Left>
-                <Icon name="calendar" style={styles.icon3}/>
-              </Left>
-              <Body>
-                <Fecha/>
               </Body>
             </ListItem>
 
