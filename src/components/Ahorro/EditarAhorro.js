@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, Image} from 'react-native';
-import {Container, Content, Body, Icon, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
+import {StyleSheet, Text, Image, View} from 'react-native';
+import {Container, Content, Icon, Body, Fab, Left, CardItem, ListItem, List, Input} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
-import imgLogo from '../../assets/imgs/Ahorros.png';
 import {Actions} from 'react-native-router-flux';
+import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Valores from '../Modal/Modal';
 
-export default class NuevoAhorro extends Component {
+export default class EditarAhorro extends Component {
   constructor(props) {
     super(props);
     console.ignoredYellowBox = ['Setting a timer'];
@@ -22,11 +22,12 @@ export default class NuevoAhorro extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <CabeceraGen headerText='NUEVO AHORRO'/>
+        <CabeceraGen headerText='EDITAR AHORRO'/>
         <Content>
-          <Image source={imgLogo} style={styles.img}/>
+          <View style={styles.view1}/>
+          <View style={styles.view2}>
           <CardItem header style={styles.titulo}>
-            <Text style={styles.texto}>¿Cuanto quieres ahorrar?</Text>
+            <Text style={styles.texto}>Información General</Text>
           </CardItem>
 
           <List>
@@ -57,6 +58,7 @@ export default class NuevoAhorro extends Component {
               </Body>
             </ListItem>
           </List>
+        </View>
         </Content>
 
         <Fab
@@ -72,21 +74,14 @@ export default class NuevoAhorro extends Component {
 }
 
 const styles = StyleSheet.create({
-  img: {
-    height: 200,
-    width: '100%',
-    flex: 1
-  },
-  texto: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    alignSelf: 'center'
-  },
   back: {
     backgroundColor: "white"
   },
-  titulo: {
-    justifyContent: 'center'
+  fab: {
+    backgroundColor: rgb(35,86,160)
+  },
+  input: {
+    marginLeft: 12
   },
   icon1: {
     color: '#ff5722'
@@ -97,15 +92,33 @@ const styles = StyleSheet.create({
   icon3: {
     color: '#2196f3'
   },
-  margin: {
-    marginLeft: 15
+  img: {
+    height: 200,
+    width: '100%',
+    flex: 1
   },
-  fab: {
-    backgroundColor: rgb(35,86,160)
+  texto: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    color: rgb(241,150,90)
   },
-  input: {
-    marginLeft: 12
+  titulo: {
+    justifyContent: 'center'
+  },
+  view1: {
+    width: '100%',
+    height: 50,
+    backgroundColor: 'powderblue',
+    position: 'absolute',
+    zIndex: 1
+  },
+  view2: {
+    margin: 20,
+    borderColor: 'gray',
+    borderWidth: 1,
+    zIndex: 2
   }
 });
 
-module.export = NuevoAhorro;
+module.export = EditarAhorro;

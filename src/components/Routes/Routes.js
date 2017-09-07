@@ -16,6 +16,8 @@ import Recover from '../Login/Recover';
 import Bienvenido from '../Bienvenida/Bienvenido';
 import IngresosIntro from '../FinanzasEmpezar/IngresosIntro';
 import GastosIntro from '../FinanzasEmpezar/GastosIntro';
+import EditarAhorro from '../Ahorro/EditarAhorro';
+import Depositar from '../Ahorro/Depositar';
 
 const Routes = () => {
   return (
@@ -37,6 +39,8 @@ const Routes = () => {
         <Scene key="NuevoAhorro" header={null} component={NuevoAhorro}/>
         <Scene key="Tips" header={null} component={Tips}/>
         <Scene key="Perfil" header={null} component={Perfil}/>
+        <Scene key="EditarAhorro" header={null} component={EditarAhorro}/>
+        <Scene key="Depositar" header={null} component={Depositar}/>
       </Scene>
     </Router>
     </Root>
