@@ -5,7 +5,8 @@ import imgLogo from '../../assets/imgs/Ahorros.png';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import Valores from './Depositar';
+import Depositar from './Depositar';
+import EditarAhorro from './EditarAhorro';
 
 export default class Ahorros extends Component {
   constructor() {
@@ -95,12 +96,8 @@ export default class Ahorros extends Component {
               </Body>
             </CardItem>
             <CardItem>
-              <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton} onPress={()=> Actions.EditarAhorro()}>EDITAR AHORRO</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton} onPress={() => Actions.Depositar()}>DEPOSITAR</Text>
-              </TouchableOpacity>
+              <EditarAhorro/>
+              <Depositar/>
             </CardItem>
           </Card>
 
@@ -115,12 +112,8 @@ export default class Ahorros extends Component {
               </Body>
             </CardItem>
             <CardItem>
-              <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton} onPress={()=> Actions.EditarAhorro()}>EDITAR AHORRO</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton} onPress={() => Actions.Depositar()}>DEPOSITAR</Text>
-              </TouchableOpacity>
+              <EditarAhorro/>
+              <Depositar/>
             </CardItem>
           </Card>
 
@@ -135,12 +128,8 @@ export default class Ahorros extends Component {
               </Body>
             </CardItem>
             <CardItem>
-              <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton} onPress={()=> Actions.EditarAhorro()}>EDITAR AHORRO</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={this._onPressButton}>
-                <Text style={styles.boton} onPress={() => Actions.Depositar()}>DEPOSITAR</Text>
-              </TouchableOpacity>
+              <EditarAhorro/>
+              <Depositar/>
             </CardItem>
           </Card>
 
