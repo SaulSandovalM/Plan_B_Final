@@ -46,6 +46,24 @@ class Recover extends Component {
     }
   }
 
+  buttonCorreo(){
+    const {verifyCorreo, correo} = this.state;
+    if(verifyCorreo == correo){
+      return (
+      <Item rounded success style={styles.inputRounded}>
+        <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
+        <Icon name='checkmark-circle' style={{marginRight: 10}}/>
+      </Item>
+    );
+    }
+    return(
+    <Item rounded error style={styles.inputRounded}>
+      <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
+      <Icon name='close-circle' style={{marginRight: 10}}/>
+    </Item>
+  );
+  }
+
   render() {
     return (
       <Image source={img} style={styles.img}>
@@ -53,12 +71,10 @@ class Recover extends Component {
         <Image source={imagen} style={styles.imagen}/>
 
         <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc' returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
+            <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc' returnKeyType='next' value={this.state.correo} onChangeText={correo => this.setState({correo})}/>
         </Item>
 
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Verificar correo' keyboardType='email-address' placeholderTextColor='#ccc' value={this.state.verifyCorreo} onChangeText={(verifyCorreo) => this.setState({verifyCorreo})}/>
-        </Item>
+        {this.buttonCorreo()}
 
         <Button rounded block style={styles.buttonStyle} onPress={this.recover.bind(this)}>
           <Text style={styles.text}>ENVIAR CONTRASEÑA</Text>

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import {StyleSheet,View} from 'react-native';
-import { Container, Header, Content,Thumbnail, Card, CardItem, Text, Body, Left,Right, } from 'native-base';
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {Thumbnail, Text} from 'native-base';
 import imgNoGastos from '../../assets/imgs/nogasto.jpg';
 
-export default class NoHaygasto extends Component{
+export default class NoHaygasto extends Component {
 
-  render(){
-    return(
+  render() {
+    return (
       <View style={styles.container}>
         <Thumbnail square source={imgNoGastos}/>
         <Text>Ingresa tu primer gasto</Text>
@@ -20,5 +20,6 @@ const styles= StyleSheet.create({
   justifyContent:'center',
   alignItems:'center',
   flexDirection:'column'
+
   }
 });

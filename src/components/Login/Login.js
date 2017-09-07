@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import FBSDK, {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
-import {Button, Icon, Item, Input, Toast, Spinner} from 'native-base';
+import {Button, Icon, Item, Input, Toast, Spinner, Label} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/log.jpg';
 import img2 from '../../assets/imgs/plan2.png';
@@ -61,7 +61,7 @@ class Login extends Component {
 
   onButtonPress() {
     const {email, contraseña} = this.state;
-    this.setState({error: ''});
+    this.setState({error: '', loading: true});
     firebaseAuth.signInWithEmailAndPassword(email, contraseña).then(this.onLoginSuccess).catch(this.onLoginFailed);
   }
 
@@ -81,7 +81,7 @@ class Login extends Component {
     Toast.show({
               text: 'Bienvenido',
               position: 'bottom',
-              duration: 3000,
+              duration: 5000,
               type: 'success'
             })
   }
@@ -116,6 +116,7 @@ class Login extends Component {
       </Button>
     );
   }
+
 
   render() {
     return (

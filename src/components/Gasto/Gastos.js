@@ -49,27 +49,23 @@ export default class Gasto extends Component {
     });
   }
 
-    listenForItems(itemsRef) {
-      itemsRef.on('value', (snap) => {
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
 
-        // get children as an array
-        var lista = [];
-        snap.forEach((child) => {
-          lista.push({
-            iname: child.val().iname,
-            categoria: child.val().categoria,
-            descri: child.val().descri,
-            cantidad: child.val().cantidad,
-            id: child.key})
-          console.log(child.key);
-        });
-
-        this.setState({lista: lista});
-
+      // get children as an array
+      var lista = [];
+      snap.forEach((child) => {
+        lista.push({
+          iname: child.val().iname,
+          categoria: child.val().categoria,
+          descri: child.val().descri,
+          cantgast: child.val().cantgast,
+          id: child.key})
+        console.log(child.key);
       });
-
-    }
-
+      this.setState({lista: lista});
+    });
+  }
 
   borrar = (item) => {
     console.log(item)
@@ -79,27 +75,31 @@ export default class Gasto extends Component {
       if (user) {
         var uid = user.uid;
       }
-      firebase.database().ref('usuarios/' + uid + '/gastos/' + item.id).set(null); //Esta linea coloca valor nulo en el element que se seleccione
+      firebase.database().ref('usuarios/' + uid + '/gastos/' + item.id).set(null);
+      //Esta linea coloca valor nulo en el element que se seleccione
     });
   }
 
   render() {
-    var Gasto = this.state.lista.length < 1 ? <Nogasto/>:<Listconte lista={this.state.lista} borrar={this.borrar}/>  ;
+
+    var Gasto = this.state.lista.length < 1
+      ? <Nogasto/>
+      : <Listconte lista={this.state.lista} borrar={this.borrar}/>;
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
         <View style={styles.view}>
-          <DatePicker style={styles.picker}
-          date={this.state.date}
-          mode="date"
-          showIcon={false}
-          placeholder="select date"
-          format="YYYY-MM-DD"
-          minDate="2017-01-01"
-          maxDate="2030-01-01"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
+          <DatePicker
+            style={styles.picker}
+            date={this.state.date}
+            mode="date" showIcon={false}
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            minDate="2017-01-01"
+            maxDate="2030-01-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
             dateIcon: {
               position: 'absolute',
               left: 0,
@@ -122,10 +122,7 @@ export default class Gasto extends Component {
         </View>
 
         <Content>
-        {
-          Gasto
-        }
-
+          {Gasto}
         </Content>
         <Modalgasto style={styles.lista} agregar={this.addItem}/>
 

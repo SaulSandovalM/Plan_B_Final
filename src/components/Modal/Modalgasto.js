@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input,Form} from 'native-base';
+
+import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input, Form} from 'native-base';
 import {TouchableOpacity, View, Alert} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
@@ -13,7 +14,8 @@ export default class Example extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: null,
-      validacion:[],
+
+      validacion: [],
       objeto: {},
       fecha: '',
       icono: 'add'
@@ -57,7 +59,7 @@ export default class Example extends Component {
 
   valorfun = (valorcito) => {
     objeto = this.state.objeto
-    objeto['cantidad'] = valorcito
+    objeto['cantgast'] = valorcito
     this.setState({objeto});
   }
 
@@ -68,7 +70,8 @@ export default class Example extends Component {
 
   cancelar = () => {
     this.setState({visibleModal: null});
-    this.setState({objeto:{}})
+
+    this.setState({objeto: {}})
   }
 
   aceptar = () => {
@@ -89,8 +92,9 @@ export default class Example extends Component {
     }
   }
 
-  activar = ()=>{
-  this.setState({visibleModal: 1})
+
+  activar = () => {
+    this.setState({visibleModal: 1})
   }
 
   _renderModalContent = () => (
@@ -100,55 +104,55 @@ export default class Example extends Component {
         <Text>Nuevo gasto</Text>
       </CardItem>
 
-    <Form>
-      <List>
-        <ListItem icon>
-          <Left>
-            <Icon name="calculator" style={styles.icon}/>
-          </Left>
-          <Body>
-            <Valores valorfun={this.valorfun}/>
-          </Body>
-        </ListItem>
+      <Form>
+        <List>
+          <ListItem icon>
+            <Left>
+              <Icon name="calculator" style={styles.icon}/>
+            </Left>
+            <Body>
+              <Valores valorfun={this.valorfun}/>
+            </Body>
+          </ListItem>
 
-        <ListItem icon>
-          <Left>
-            <Icon name="calendar"/>
-          </Left>
-          <Body>
-            <Fecha fechafun={this.fechafun}/>
-          </Body>
-        </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name="calendar"/>
+            </Left>
+            <Body>
+              <Fecha fechafun={this.fechafun}/>
+            </Body>
+          </ListItem>
 
-        <ListItem icon>
-          <Left>
-            <Icon name={this.state.icono}/>
-          </Left>
-          <Body>
-            <Modalcat cateFun={this.cateFun} conFun={this.conFun} iFun={this.iFun}/>
-          </Body>
-        </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon name={this.state.icono}/>
+            </Left>
+            <Body>
+              <Modalcat cateFun={this.cateFun} conFun={this.conFun} iFun={this.iFun}/>
+            </Body>
+          </ListItem>
 
-        <ListItem icon>
-          <Left>
-            <Icon name="paper"/>
-          </Left>
-          <Body >
-            <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
-          </Body>
-        </ListItem>
-      </List>
+          <ListItem icon>
+            <Left>
+              <Icon name="paper"/>
+            </Left>
+            <Body >
+              <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
+            </Body>
+          </ListItem>
+        </List>
 
-      <View style={styles.view}>
-        <Button transparent onPress={this.aceptar}>
-          <Text style={styles.texto}>Aceptar</Text>
-        </Button>
-        <Button transparent onPress={this.cancelar}>
-          <Text style={styles.texto}>Cancelar</Text>
-        </Button>
-      </View>
+        <View style={styles.view}>
+          <Button transparent onPress={this.aceptar}>
+            <Text style={styles.texto}>Aceptar</Text>
+          </Button>
+          <Button transparent onPress={this.cancelar}>
+            <Text style={styles.texto}>Cancelar</Text>
+          </Button>
+        </View>
 
-       </Form>
+      </Form>
     </View>
   );
 
@@ -157,10 +161,14 @@ export default class Example extends Component {
     return (
       <View>
 
-         <Fab active={this.state.active} direction="up" containerStyle={{}} position="bottomRight" onPress={this.activar} >
-           <Icon name="add"/>
-         </Fab>
 
+        <Fab
+          active={this.state.active}
+          direction="up"
+          position="bottomRight"
+          onPress={this.activar}>
+          <Icon name="add"/>
+        </Fab>
          <Modal isVisible={this.state.visibleModal === 1}>
            {this._renderModalContent()}
            </Modal>

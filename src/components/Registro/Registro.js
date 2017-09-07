@@ -75,6 +75,26 @@ class Registro extends Component {
     );
   }
 
+  buttonContra(){
+    const{verifyPassword, password} = this.state;
+    if(verifyPassword == password){
+      return(
+        <Item rounded success style={styles.inputRounded}>
+          <Input style={styles.input} placeholder='Verificar Contraseña' secureTextEntry={true} placeholderTextColor='#ccc'
+            value={this.state.verifyPassword} onChangeText={(verifyPassword) => this.setState({verifyPassword})}/>
+            <Icon name='checkmark-circle' style={{marginRight: 10}}/>
+        </Item>
+      );
+    }
+    return(
+      <Item rounded error style={styles.inputRounded}>
+        <Input style={styles.input} placeholder='Verificar Contraseña' secureTextEntry={true} placeholderTextColor='#ccc'
+          value={this.state.verifyPassword} onChangeText={(verifyPassword) => this.setState({verifyPassword})}/>
+          <Icon name='close-circle' style={{marginRight: 10}}/>
+      </Item>
+    );
+  }
+
   render() {
     return (
       <Image source={img} style={styles.img}>
@@ -91,10 +111,7 @@ class Registro extends Component {
             value={this.state.password} onChangeText={password => this.setState({password})}/>
         </Item>
 
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Verificar Contraseña' secureTextEntry={true} placeholderTextColor='#ccc'
-            value={this.state.verifyPassword} onChangeText={(verifyPassword) => this.setState({verifyPassword})}/>
-        </Item>
+        {this.buttonContra()}
 
         {this.spinnerInicio()}
 
