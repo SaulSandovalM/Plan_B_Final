@@ -50,7 +50,7 @@ export default class tabOne extends Component {
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
 
-      if (user != null && user != undefined) {
+      if (typeof user !== "undefined" &&  user !== null  ) {
         var uid = user.uid;
         console.log(uid)
         const IngreRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
@@ -68,10 +68,10 @@ export default class tabOne extends Component {
       const ingr = s.val();
       let totI = this.state.totI;
       totI += ingr.cantidad;
-      this.setState({totI});
-      if(totI!=0){
-        this.setState({pIngreso:100})
-      }
+      this.setState({totI}, () => {
+        console.log(this.state.totI)
+      });
+      this.setState({pIngreso:100});
 
 });
 }
@@ -81,14 +81,30 @@ listenForItems(itemsRef) {
     const gast = item.val();
     let totG = this.state.totG;
     totG += gast.cantgast;
-    this.setState({totG});
-    if (this.state.pIngreso != 0) {
-      pGasto = ((this.state.totG * 100) / this.state.totI),
-      this.setState({pGasto: pGasto}),
-      pIngreso = this.state.pIngreso - this.state.pGasto,
-      this.setState({pIngreso: pIngreso})
-      }
-  });
+    this.setState({totG},()=>{
+        console.log("Hola Bebe")
+        if (this.state.pIngreso !== 0) {
+          let pGasto = this.state.pGasto;
+          pGasto = ((this.state.totG * 100) / this.state.totI);
+          console.log(pGasto);
+          this.setState({pGasto}, ()=>{
+            let pIngreso = this.state.pIngreso;
+            console.log(this.state.pIngreso);
+            console.log(this.state.pGasto);
+            pIngreso = 100- this.state.pGasto;
+            this.setState({pIngreso});
+            console.log(pIngreso);
+          });
+        }
+        });
+
+
+    });
+
+}
+
+componentDidMount(){
+
 }
 //hasta aqui
 
