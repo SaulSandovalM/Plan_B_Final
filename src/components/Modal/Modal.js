@@ -71,12 +71,7 @@ export default class Example extends Component {
   _renderInputButtons() {
     let views = inputButtons.map((row, idx) => {
       let inputRow = row.map((buttonVal, columnIdx) => {
-        return
-        <InputButton
-          value={buttonVal}
-          highlight={this.state.selectedSymbol === buttonVal}
-          onPress={this._onInputButtonPressed.bind(this, buttonVal)}
-          key={'butt-' + columnIdx}/>;
+        return <InputButton value={buttonVal} highlight={this.state.selectedSymbol === buttonVal} onPress={this._onInputButtonPressed.bind(this, buttonVal)} key={'butt-' + columnIdx}/>;
       });
       return <View style={Style.inputRow} key={'row-' + idx}>{inputRow}</View>;
     });
@@ -140,6 +135,7 @@ export default class Example extends Component {
 
         setTimeout(()=>{
             this.props.valorfun(this.state.total)
+
         }, 150);
         break;
     }
