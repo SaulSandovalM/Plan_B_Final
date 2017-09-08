@@ -1,36 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, Image} from 'react-native';
-import {Container, Content, Card, CardItem, Button, Icon, Body, Fab, Left, Thumbnail, View, DeckSwiper} from 'native-base';
+import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
+import {Container, Content, Card, CardItem, Button, Icon, Body, Fab, Left, View, DeckSwiper} from 'native-base';
 import imgLogo from '../../assets/imgs/Ahorros.png';
-import CabeceraAhorro from '../Cabecera/CabeceraAhorro';
+import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-const cards = [
-  {
-    text: 'Vacaciones',
-    name: 'Plan B',
-    image: require('../../assets/imgs/Ahorros.png'),
-    fecha: '20 de Septiembre del 2017'
-  },
-  {
-    text: 'Carro',
-    name: 'Plan B',
-    image: require('../../assets/imgs/Ahorros.png'),
-    fecha: '20 de Septiembre del 2017'
-  },
-  {
-    text: 'Escuela',
-    name: 'Plan B',
-    image: require('../../assets/imgs/Ahorros.png'),
-    fecha: '20 de Septiembre del 2017'
-  },
-  {
-    text: 'Casa',
-    name: 'Plan B',
-    image: require('../../assets/imgs/Ahorros.png'),
-    fecha: '20 de Septiembre del 2017'
-  },
-];
+import Depositar from './Depositar';
+import EditarAhorro from './EditarAhorro';
 
 export default class Ahorros extends Component {
   constructor() {
@@ -60,7 +36,6 @@ export default class Ahorros extends Component {
 
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
-
       // get children as an array
       var lista = [];
       snap.forEach((child) => {
@@ -107,100 +82,54 @@ export default class Ahorros extends Component {
   render() {
     return (
       <Container style={styles.back}>
-        <CabeceraAhorro/>
+        <CabeceraGen headerText='AHORROS'/>
+        <Content>
 
-          <View>
-         <DeckSwiper
-           ref={(c) => this._deckSwiper = c}
-           dataSource={cards}
-           renderEmpty={() =>
-             <View style={styles.view}>
-               <Text>Over</Text>
-             </View>}
-           renderItem={item =>
-             <Card style={styles.card}>
-               <CardItem>
-                 <Left>
-                   <Thumbnail source={item.image} />
-                   <Body>
-                     <Text>{item.text}</Text>
-                     <Text note>{item.fecha}</Text>
-                   </Body>
-                 </Left>
-               </CardItem>
-               <CardItem cardBody>
-                 <Image style={styles.img} source={item.image} />
-               </CardItem>
-               <CardItem>
-                 <Icon name="heart" style={styles.icon} />
-                 <Text>{item.name}</Text>
-               </CardItem>
-             </Card>
-           }
-         />
-       </View>
-       <View style={styles.view2}>
-         <Button iconLeft onPress={() => this._deckSwiper._root.swipeLeft()}>
-           <Icon name="arrow-back" />
-         </Button>
-         <Button iconRight onPress={() => this._deckSwiper._root.swipeRight()}>
-           <Icon name="arrow-forward" />
-         </Button>
-       </View>
-
-        {/*<Content>
-
-          <Card style={{margin: 20}}>
-            <CardItem>
-                <Body style={styles.body}>
-                  <Text style={styles.texto}>Vacaciones</Text>
-                  <Text note style={styles.texto}>Fecha: 20 de Diciembre 2017</Text>
-                </Body>
-            </CardItem>
+          <Card>
             <CardItem cardBody>
               <Image source={imgLogo} style={styles.img}/>
             </CardItem>
             <CardItem>
-                <Button transparent>
-                  <Icon active name="star"/>
-                  <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
-                </Button>
+              <Body style={styles.body}>
+                <Text style={styles.texto}>Celular</Text>
+                <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <EditarAhorro/>
+              <Depositar/>
             </CardItem>
           </Card>
 
           <Card>
-            <CardItem>
-                <Body style={styles.body}>
-                  <Text style={styles.texto}>Carro</Text>
-                  <Text note style={styles.texto}>Fecha: 20 de Septiembre 2017</Text>
-                </Body>
-            </CardItem>
             <CardItem cardBody>
               <Image source={imgLogo} style={styles.img}/>
             </CardItem>
             <CardItem>
-                <Button transparent>
-                  <Icon active name="star"/>
-                  <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
-                </Button>
+              <Body style={styles.body}>
+                <Text style={styles.texto}>Celular</Text>
+                <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <EditarAhorro/>
+              <Depositar/>
             </CardItem>
           </Card>
 
           <Card>
-            <CardItem>
-                <Body style={styles.body}>
-                  <Text style={styles.texto}>Videojuegos</Text>
-                  <Text note style={styles.texto}>Fecha: 20 de Agosto 2017</Text>
-                </Body>
-            </CardItem>
             <CardItem cardBody>
               <Image source={imgLogo} style={styles.img}/>
             </CardItem>
             <CardItem>
-                <Button transparent>
-                  <Icon active name="star"/>
-                  <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
-                </Button>
+              <Body style={styles.body}>
+                <Text style={styles.texto}>Celular</Text>
+                <Text style={styles.text}>Llevas $100.00 de $2,500.00</Text>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <EditarAhorro/>
+              <Depositar/>
             </CardItem>
           </Card>
 
@@ -213,7 +142,7 @@ export default class Ahorros extends Component {
           position="bottomRight"
           onPress={() => Actions.NuevoAhorro()}>
           <Icon name="add"/>
-        </Fab>*/}
+        </Fab>
 
       </Container>
     );
@@ -225,10 +154,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   texto: {
-    fontSize: 20
+    fontSize: 18,
+    fontWeight: 'bold'
   },
   img: {
-    height: 200,
+    height: 75,
     width: '100%',
     flex: 1
   },
@@ -239,11 +169,14 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(35,86,160)"
   },
   body: {
-    alignItems: 'center'
+    flexDirection: 'column'
   },
   text: {
-    fontSize: 20,
+    fontSize: 16,
     color: "rgb(35,86,160)"
+  },
+  text2: {
+    fontSize: 16
   },
   view: {
     alignSelf: "center"
@@ -252,7 +185,7 @@ const styles = StyleSheet.create({
     elevation: 3
   },
   img: {
-    height: 300,
+    height: 200,
     flex: 1
   },
   icon: {
@@ -267,6 +200,11 @@ const styles = StyleSheet.create({
     right: 0,
     justifyContent: 'space-between',
     padding: 15
+  },
+  boton: {
+    fontWeight: 'bold',
+    color: "rgb(35,86,160)",
+    margin: 10
   }
 });
 

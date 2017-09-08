@@ -5,7 +5,6 @@ import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/Ahorros.png';
 import {Actions} from 'react-native-router-flux';
 import Valores from '../Modal/Modal';
-import Fecha from '../Modal/Fecha';
 
 export default class NuevoAhorro extends Component {
   constructor(props) {
@@ -15,9 +14,11 @@ export default class NuevoAhorro extends Component {
       selected1: "key1"
     };
   }
+
   onValueChange(value : string) {
     this.setState({selected1: value});
   }
+
   render() {
     return (
       <Container style={styles.back}>
@@ -49,15 +50,6 @@ export default class NuevoAhorro extends Component {
 
             <ListItem icon>
               <Left>
-                <Icon name="calendar" style={styles.icon3}/>
-              </Left>
-              <Body>
-                <Fecha/>
-              </Body>
-            </ListItem>
-
-            <ListItem icon>
-              <Left>
                 <Icon name="paper"/>
               </Left>
               <Body>
@@ -67,7 +59,11 @@ export default class NuevoAhorro extends Component {
           </List>
         </Content>
 
-        <Fab active={this.state.active} direction="up" containerStyle={{}} style={styles.fab} position="bottomRight">
+        <Fab
+          active={this.state.active}
+          direction="up"
+          style={styles.fab}
+          position="bottomRight">
           <Icon name="md-checkmark"/>
         </Fab>
       </Container>

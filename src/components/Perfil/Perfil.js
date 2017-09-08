@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image, ListView, ActivityIndicator} from 'react-native';
-import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon} from 'native-base';
+import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon, Card} from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Imagen from './Imagen';
@@ -42,7 +42,7 @@ class Perfil extends Component {
       }
     });
 
-    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/profiles.json').then((response) => response.json())
+    return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/polizas.json').then((response) => response.json())
     .then((responseJson) => {
       let ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
@@ -107,13 +107,23 @@ class Perfil extends Component {
             </Form>
 
             <ListItem itemDivider>
-              <Text>Cuentas</Text>
-              <View style={styles.view2}>
-                <ListView dataSource={this.state.dataSource} renderRow={(rowData) =>
-                  <Text>{rowData.username},{rowData.email}</Text>}/>
-              </View>
+              <Text>Tus Productos</Text>
             </ListItem>
           </List>
+          <View style={styles.view2}>
+            <ListView dataSource={this.state.dataSource} renderRow={(rowData) =>
+              <Text>{rowData.fecha_poliza}</Text>}/>
+          </View>
+
+          <View style={styles.view2}>
+            <ListView dataSource={this.state.dataSource} renderRow={(rowData) =>
+              <Text>{rowData.tpersona}</Text>}/>
+          </View>
+
+          <View style={styles.view2}>
+            <ListView dataSource={this.state.dataSource} renderRow={(rowData) =>
+              <Text>{rowData.tpersona}</Text>}/>
+          </View>
 
           <ActionSheet ref={o => this.ActionSheet = o} title={title} options={options}
             cancelButtonIndex={CANCEL_INDEX} destructiveButtonIndex={DESTRUCTIVE_INDEX} onPress={this.handlePress}/>

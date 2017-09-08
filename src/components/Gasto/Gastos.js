@@ -6,13 +6,13 @@ import CabeceraGen from '../Cabecera/CabeceraGen';
 import Modalgasto from '../Modal/Modalgasto';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import DatePicker from 'react-native-datepicker';
+import Nogasto from './Nogasto';
 
 export default class Gasto extends Component {
   constructor() {
     super();
-    console.ignoredYellowBox = ['Setting a timer'];
+    console.ignoredYellowBox = true;
     this.state = {
-      id: '',
       lista: [],
       date: new Date()
     }
@@ -34,6 +34,21 @@ export default class Gasto extends Component {
 
   }
 
+  componentWillMount() {
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+        var key = user.key;
+      }
+      console.log(uid)
+      console.log(key)
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
+      that.listenForItems(itemsRef);
+    });
+  }
+
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
 
@@ -52,21 +67,6 @@ export default class Gasto extends Component {
     });
   }
 
-  componentWillMount() {
-    var that = this;
-    firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
-      if (user) {
-        var uid = user.uid;
-        var key = user.key;
-      }
-      console.log(uid)
-      console.log(key)
-      const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
-      that.listenForItems(itemsRef);
-    });
-  }
-
   borrar = (item) => {
     console.log(item)
     let updates = {};
@@ -75,26 +75,30 @@ export default class Gasto extends Component {
       if (user) {
         var uid = user.uid;
       }
-      firebase.database().ref('usuarios/' + uid + '/gastos/' + item.id).set(null); //Esta linea coloca valor nulo en el element que se seleccione
+      firebase.database().ref('usuarios/' + uid + '/gastos/' + item.id).set(null);
+      //Esta linea coloca valor nulo en el element que se seleccione
     });
   }
 
   render() {
+    var Gasto = this.state.lista.length < 1
+      ? <Nogasto/>
+      : <Listconte lista={this.state.lista} borrar={this.borrar}/>;
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
         <View style={styles.view}>
-          <DatePicker style={styles.picker}
-          date={this.state.date}
-          mode="date"
-          showIcon={false}
-          placeholder="select date"
-          format="YYYY-MM-DD"
-          minDate="2017-01-01"
-          maxDate="2030-01-01"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
+          <DatePicker
+            style={styles.picker}
+            date={this.state.date}
+            mode="date" showIcon={false}
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            minDate="2017-01-01"
+            maxDate="2030-01-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
             dateIcon: {
               position: 'absolute',
               left: 0,
@@ -117,9 +121,10 @@ export default class Gasto extends Component {
         </View>
 
         <Content>
-          <Listconte lista={this.state.lista} borrar={this.borrar}/>
+          {Gasto}
         </Content>
-        <Modalgasto agregar={this.addItem}/>
+        <Modalgasto style={styles.lista} agregar={this.addItem}/>
+
       </Container>
     );
   }
