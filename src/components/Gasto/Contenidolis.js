@@ -58,7 +58,7 @@ export default class Contenidolis extends Component {
             <Text note>{this.props.item.descri}</Text>
           </Body>
           <Right>
-            <Text>${this.props.item.cantgast}</Text>
+            <Text>${this.props.item.cantidad}</Text>
           </Right>
         </ListItem>
       </List>

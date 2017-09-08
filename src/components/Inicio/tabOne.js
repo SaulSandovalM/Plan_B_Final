@@ -21,13 +21,14 @@ export default class tabOne extends Component {
 
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = ['Setting a timer'];
+    console.ignoredYellowBox = true;
     this.state = {
       activeIndex: 0,
       pIngreso:0,
       pGasto:0,
       totI:0,
-      totG:0
+      totG:0,
+      totGr:0
 
     };
 
@@ -73,14 +74,15 @@ export default class tabOne extends Component {
       });
       this.setState({pIngreso:100});
 
-});
-}
+    });
 
+}
+//insertar
 listenForItems(itemsRef) {
   itemsRef.on('child_added', (item)=> {
     const gast = item.val();
     let totG = this.state.totG;
-    totG += gast.cantgast;
+    totG += gast.cantidad;
     this.setState({totG},()=>{
         console.log("Hola Bebe")
         if (this.state.pIngreso !== 0) {
@@ -91,21 +93,48 @@ listenForItems(itemsRef) {
             let pIngreso = this.state.pIngreso;
             console.log(this.state.pIngreso);
             console.log(this.state.pGasto);
-            pIngreso = 100- this.state.pGasto;
+            pIngreso = 100 - this.state.pGasto;
             this.setState({pIngreso});
             console.log(pIngreso);
           });
         }
         });
 
+// HACK:
 
     });
+    //eliminar
+    itemsRef.on('child_removed',(b)=>{
+      const borrado = b.val();
+      console.log(borrado)
+      itemsRef.once('value',(l)=>{
+        const gast = l.val();
+        if(l.hasChildren()){
+          var total= 0;
+          l.forEach(function(item){
+            total += item.child('cantidad').val();
+          });
+          console.log(total)
+          this.setState({totG:total},()=>{
+              console.log("haber que pasa")
+              if (this.state.pIngreso !== 0) {
+                let pGasto = this.state.pGasto;
+                pGasto = ((this.state.totG * 100) / this.state.totI);
+                console.log(pGasto);
+                this.setState({pGasto}, ()=>{
+                  let pIngreso = this.state.pIngreso;
+                  pIngreso = 100 - this.state.pGasto;
+                  this.setState({pIngreso});
+                  console.log(pIngreso);
+                });
+              }
+          });
+        }
+    });
+  });//aqui termina eliminar
 
 }
 
-componentDidMount(){
-
-}
 //hasta aqui
 
     render() {

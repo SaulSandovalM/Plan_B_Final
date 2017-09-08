@@ -59,7 +59,7 @@ export default class Example extends Component {
 
   valorfun = (valorcito) => {
     objeto = this.state.objeto
-    objeto['cantgast'] = valorcito
+    objeto['cantidad'] = valorcito
     this.setState({objeto});
   }
 
