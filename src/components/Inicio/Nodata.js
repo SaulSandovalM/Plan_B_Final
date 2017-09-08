@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Card, Text} from 'native-base';
-import Boton from '../FinanzasEmpezar/Boton';
+import IngresosIntro from '../FinanzasEmpezar/IngresosIntro';
 
 export default class Nodata extends Component {
   render() {
@@ -9,7 +9,7 @@ export default class Nodata extends Component {
       <Card>
         <View style={styles.container}>
           <Text style={styles.chart_title}>Aun no has agregado ningun dato de finanzas agraga uno</Text>
-          <Boton/>
+          <IngresosIntro style={{alignItems: 'center'}}/>
         </View>
       </Card>
     );

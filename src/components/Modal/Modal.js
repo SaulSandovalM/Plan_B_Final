@@ -134,8 +134,7 @@ export default class Example extends Component {
         });
 
         setTimeout(()=>{
-            this.props.valorfun(this.state.total)
-
+          this.props.valorfun(this.state.total)
         }, 150);
         break;
     }

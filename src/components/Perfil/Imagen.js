@@ -55,9 +55,6 @@ export default class App extends React.Component {
           ? <Thumbnail style={styles.tub} square large source={{uri: image}}/>
           : <Thumbnail style={styles.tub} square large source={this.state.avatarSource}/>
         }
-        <View style={styles.view}>
-          <Icon onPress={this.selectPhotoTapped.bind(this)} name='camera'/>
-        </View>
       </View>
     );
   }

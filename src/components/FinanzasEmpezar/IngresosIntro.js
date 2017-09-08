@@ -1,39 +1,56 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {Button, Input} from 'native-base';
+import {StyleSheet, Text, Image, TouchableOpacity, View, TextInput} from 'react-native';
+import {Container, Content, Button, Title, Right, Input, List, ListItem, Icon, Body, Left} from 'native-base';
 import {Actions} from 'react-native-router-flux';
-import Valores from '../Modal/Modal';
-import img from '../../assets/imgs/intro.jpeg';
-import ingresos from '../../assets/imgs/Ingresos.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+import Modal from 'react-native-modal';
+import Valores from '../Modal/Modal';
 
-class IngresosIntro extends Component {
+export default class IngresosIntro extends Component {
   constructor() {
     super();
+    console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
+      visibleModal: null,
       ingreso: [],
-      objeto:{},
-      date: new Date()
-    }
+    };
   }
 
-  valorfun = (valorcito) => {
-    objeto = this.state.objeto
-    objeto['cantidad'] = valorcito
-    this.setState({objeto});
-  }
+  _renderModalContent = () => (
+    <View style={{backgroundColor: 'white', borderRadius: 10}}>
+      <List>
+        <ListItem icon>
+          <Left>
+            <Icon name="calculator" style={styles.icon}/>
+          </Left>
+          <Body>
+            <Valores valorfun={this.valorfun}/>
+          </Body>
+        </ListItem>
 
-  desFun = (descripcion) => {
-    objeto = this.state.objeto
-    objeto['descri'] = descripcion
-    this.setState({objeto});
+        <ListItem icon>
+          <Left>
+            <Icon name="paper" style={styles.icon}/>
+          </Left>
+          <Body >
+            <Input style={styles.input} placeholder='Descripción' onChangeText={this.desFun}/>
+          </Body>
+        </ListItem>
+      </List>
+      <TouchableOpacity onPress={this.addItem}>
+        <Text style={styles.boton}>SIGUIENTE</Text>
+      </TouchableOpacity>
+  </View>
+  );
+
+  activar = () => {
+    this.setState({visibleModal: 1})
   }
 
   addItem = () => {
     let nuevo = this.state.objeto
     this.state.ingreso.push(nuevo);
     this.setState({ingreso: this.state.ingreso})
-
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
       if (user) {
@@ -43,109 +60,47 @@ class IngresosIntro extends Component {
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
     Actions.GastosIntro()
-  }
+    this.setState({visibleModal: null});
+    this.setState({objeto: {}})
 
-  componentWillMount() {
-    var that = this;
-    firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
-      if (user) {
-        var uid = user.uid;
-        var key = user.key;
-      }
-      console.log(uid)
-      console.log(key)
-      const itemsRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
-      that.listenForItems(itemsRef);
-    });
-  }
-
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var ingreso = [];
-      snap.forEach((child) => {
-        ingreso.push({
-          descri: child.val().descri,
-          cantidad: child.val().cantidad,
-          id: child.key})
-        console.log(child.key);
-      });
-      this.setState({ingreso: ingreso});
-    });
   }
 
   render() {
     return (
-      <Image source={img} style={styles.img}>
+      <View>
+        <TouchableOpacity onPress={this.activar}>
+          <Text style={styles.boton}>EMPEZAR</Text>
+        </TouchableOpacity>
 
-        <View style={styles.view}>
-          <View style={styles.view2}>
-            <Text style={styles.titulo}>INGRESOS FIJOS</Text>
-            <Text style={styles.texto}>Agrega tu ingreso mensuales</Text>
-            <Image source={ingresos} style={styles.logo}/>
-
-            <Button rounded block style={styles.buttonIngreso}>
-              <Text style={styles.boton}>$</Text>
-              <Input placeholder="Ingresa tu Salario" placeholderTextColor="white" style={styles.boton}/>
-            </Button>
-
-          </View>
-        </View>
-
-        <View>
-          <Button rounded block style={styles.buttonIngreso} onPress={this.addItem}>
-            <Text style={styles.boton}>SIGUIENTE</Text>
-          </Button>
-
-        </View>
-      </Image>
+        <Modal isVisible={this.state.visibleModal === 1}>
+          {this._renderModalContent()}
+        </Modal>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  img: {
-    justifyContent: 'space-between',
-    flex: 2,
-    height: null,
-    width: null
-  },
-  logo: {
-    width: 200,
-    height: 200
+  boton: {
+    fontWeight: 'bold',
+    color: "rgb(35,86,160)",
+    margin: 10
   },
   view: {
+    flexDirection: 'row',
     justifyContent: 'flex-end',
-    top: 50
+    margin: 10
   },
-  view2: {
-    justifyContent: 'center',
-    flexDirection: 'column',
-    marginBottom: 10,
-    marginTop: 20,
-    alignItems: 'center'
-  },
-  titulo: {
-    fontWeight: 'bold',
-    fontSize: 30,
-    backgroundColor: 'transparent'
-  },
-  texto: {
+  title: {
     fontSize: 20,
-    backgroundColor: 'transparent'
+    textAlign: 'left',
+    fontWeight: 'bold',
+    color: 'black',
+    margin: 10
   },
-  buttonIngreso: {
-    marginRight: 40,
-    marginLeft: 40,
-    marginBottom: 10,
-    backgroundColor: '#4DA49B'
-  },
-  boton: {
-    color: 'white',
-    fontWeight: 'bold'
+  text: {
+    margin: 10
   }
 });
 
-export default IngresosIntro;
+module.export = IngresosIntro;
