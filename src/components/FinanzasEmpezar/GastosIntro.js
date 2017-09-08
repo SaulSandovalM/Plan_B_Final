@@ -6,13 +6,14 @@ import styles from '../estilos/Modgast.style';
 import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import Modalcat from '../Modal/Modalcat';
+import {Actions} from 'react-native-router-flux';
 
 export default class GastosIntro extends Component {
   constructor() {
     super();
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
-      visibleModal: null,
+      visibleModal: 1,
       validacion: [],
       objeto: {},
       fecha: '',
@@ -85,6 +86,7 @@ export default class GastosIntro extends Component {
         }
       ]);
       console.log(Object.keys(objeto).length)
+      Actions.Inicio()
     }
   }
 
