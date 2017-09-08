@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, View, ListView, ScrollView} from 'react-native';
 import NoticiaDetalle from './NoticiaDetalle';
 
-
 class tabTwo extends Component {
   state = { noticias: [] };
 
@@ -22,13 +21,11 @@ class tabTwo extends Component {
     );
   }
 
-
   render() {
     return (
       <ScrollView>
         {this.renderNoticias()}
       </ScrollView>
-
     );
   }
 }
