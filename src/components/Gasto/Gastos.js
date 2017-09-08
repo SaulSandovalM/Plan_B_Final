@@ -81,6 +81,7 @@ export default class Gasto extends Component {
   }
 
   render() {
+
     var Gasto = this.state.lista.length < 1
       ? <Nogasto/>
       : <Listconte lista={this.state.lista} borrar={this.borrar}/>;

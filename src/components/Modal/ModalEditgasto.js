@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
+/*import React, {Component} from 'react';
+
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Input} from 'native-base';
+
 import {TouchableOpacity, View} from 'react-native';
 import Modal from 'react-native-modal';
 import styles from '../estilos/Modgast.style';
@@ -10,6 +12,7 @@ import Modalcat from './Modalcat';
 export default class ModalEditgasto extends Component {
   state = {
     visibleModal: null,
+
     objeto: {},
     fecha: '',
     icono: 'add',
@@ -29,7 +32,6 @@ export default class ModalEditgasto extends Component {
     newIcon = i;
     this.setState({icono: newIcon})
   }
-
   cateFun = (categorita) => {
     objeto = this.state.objeto
     objeto['categoria'] = categorita
@@ -135,3 +137,4 @@ export default class ModalEditgasto extends Component {
     );
   }
 }
+*/

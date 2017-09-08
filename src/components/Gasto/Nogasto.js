@@ -15,10 +15,11 @@ export default class NoHaygasto extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column'
+const styles= StyleSheet.create({
+  container:{
+  justifyContent:'center',
+  alignItems:'center',
+  flexDirection:'column'
+
   }
 });

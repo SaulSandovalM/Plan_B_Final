@@ -5,9 +5,11 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5
   },
+
   container: {
     flex: 1
   },
+
   icono: {
     color: '#4DA49B'
   },

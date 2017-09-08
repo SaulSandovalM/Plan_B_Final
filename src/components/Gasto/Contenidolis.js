@@ -1,11 +1,14 @@
+
 import React, {Component} from 'react';
 import {Animated, Alert} from 'react-native';
 import {List, ListItem, Text, Icon, Left, Body, Right} from 'native-base';
 const ACTION_TIMER = 400;
 
 export default class Contenidolis extends Component {
+
   constructor(props) {
     super(props);
+    console.ignoredYellowBox = true;
     this.state = {
       pressAction: new Animated.Value(0),
       item: null
@@ -55,7 +58,7 @@ export default class Contenidolis extends Component {
             <Text note>{this.props.item.descri}</Text>
           </Body>
           <Right>
-            <Text>{this.props.item.cantidad}</Text>
+            <Text>${this.props.item.cantidad}</Text>
           </Right>
         </ListItem>
       </List>

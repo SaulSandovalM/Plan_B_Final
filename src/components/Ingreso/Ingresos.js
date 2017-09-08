@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
+
 import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button, Fab, Title} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/Ingresos.png';
@@ -22,7 +23,6 @@ export default class Ingresos extends Component {
     objeto['cantidad'] = valorcito
     this.setState({objeto});
   }
-
   desFun = (descripcion) => {
     objeto = this.state.objeto
     objeto['descri'] = descripcion
@@ -41,7 +41,10 @@ export default class Ingresos extends Component {
       console.log(nuevo)
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
+
   }
+
+
 
   componentWillMount() {
     var that = this;
@@ -55,6 +58,21 @@ export default class Ingresos extends Component {
       console.log(key)
       const itemsRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
       that.listenForItems(itemsRef);
+    });
+  }
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+
+      // get children as an array
+      var ingreso = [];
+      snap.forEach((child) => {
+        ingreso.push({
+          descri: child.val().descri,
+          cantidad: child.val().cantidad,
+          id: child.key})
+        console.log(child.key);
+      });
+      this.setState({ingreso: ingreso});
     });
   }
 

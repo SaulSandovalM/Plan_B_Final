@@ -20,9 +20,10 @@ export default class tabOne extends Component {
 
   constructor(props) {
     super(props);
-    console.ignoredYellowBox = ['Setting a timer'];
+    console.ignoredYellowBox = true;
     this.state = {
       activeIndex: 0,
+
       pIngreso: 0,
       pGasto: 0,
       totI: 0,
@@ -38,6 +39,7 @@ export default class tabOne extends Component {
     });
   }
 
+
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
   //se eliminaron variables del State y hay cambio en la card de los datos es un
   //this.state.totI y totG
@@ -45,6 +47,7 @@ export default class tabOne extends Component {
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
+
 
       if (typeof user !== "undefined" && user !== null) {
         var uid = user.uid;
@@ -54,11 +57,13 @@ export default class tabOne extends Component {
         const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
         that.listenForItems(itemsRef);
       }
+
     });
   }
   //Esto ya hace una suma de todo
 
   listenForIngre(IngreRef) {
+
     IngreRef.on('child_added', (s) => {
       const ingr = s.val();
       let totI = this.state.totI;
@@ -69,9 +74,9 @@ export default class tabOne extends Component {
         console.log(this.state.totI)
       });
       this.setState({pIngreso: 100});
-
     });
   }
+
 
   listenForItems(itemsRef) {
     itemsRef.on('child_added', (item) => {
@@ -85,6 +90,7 @@ export default class tabOne extends Component {
           let pGasto = this.state.pGasto;
           pGasto = ((this.state.totG * 100) / this.state.totI);
           console.log(pGasto);
+
           this.setState({
             pGasto
           }, () => {
@@ -95,10 +101,45 @@ export default class tabOne extends Component {
             this.setState({pIngreso});
             console.log(pIngreso);
           });
+
         }
+        });
       });
+
+    //eliminar
+    itemsRef.on('child_removed',(b)=>{
+      const borrado = b.val();
+      console.log(borrado)
+      itemsRef.once('value',(l)=>{
+        const gast = l.val();
+        if(l.hasChildren()){
+          var total= 0;
+          l.forEach(function(item){
+            total += item.child('cantidad').val();
+          });
+          console.log(total)
+          this.setState({totG:total},()=>{
+              console.log("haber que pasa")
+              if (this.state.pIngreso !== 0) {
+                let pGasto = this.state.pGasto;
+                pGasto = ((this.state.totG * 100) / this.state.totI);
+                console.log(pGasto);
+                this.setState({pGasto}, ()=>{
+                  let pIngreso = this.state.pIngreso;
+                  pIngreso = 100 - this.state.pGasto;
+                  this.setState({pIngreso});
+                  console.log(pIngreso);
+                });
+              }
+          });
+        }
     });
-  }
+  });//aqui termina eliminar
+
+}
+
+//hasta aqui
+
 
   render() {
     const height = 200;
@@ -130,7 +171,7 @@ export default class tabOne extends Component {
               <Icon style={styles.icon3} active name="star"/>
               <Text style={styles.icon3}>Ahorros</Text>
               <Right>
-                <Text style={styles.finanzas3}>$ {this.state.pIngreso}.00</Text>
+                <Text style={styles.finanzas3}>$ 0.00</Text>
               </Right>
             </CardItem>
           </Card>
