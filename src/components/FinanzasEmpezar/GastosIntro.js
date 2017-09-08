@@ -144,9 +144,6 @@ export default class GastosIntro extends Component {
           <Button transparent onPress={this.aceptar}>
             <Text style={styles.texto}>Aceptar</Text>
           </Button>
-          <Button transparent onPress={this.cancelar}>
-            <Text style={styles.texto}>Cancelar</Text>
-          </Button>
         </View>
 
       </Form>
