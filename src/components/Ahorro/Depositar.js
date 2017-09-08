@@ -6,27 +6,53 @@ import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Modal from 'react-native-modal';
 
 export default class Depositar extends Component {
+  constructor() {
+    super();
+    console.ignoredYellowBox = ['Setting a timer'];
+    this.state = {
+      visibleModal: null,
+    };
+  }
+
+  _renderModalContent = () => (
+    <View style={{backgroundColor: 'white', borderRadius: 10}}>
+    <Title style={styles.title}>Depósito</Title>
+    <Text style={styles.text}>El depósito no tomará ningun valor de tu cuenta.
+      Sirve sólo como información para el control personal</Text>
+
+    <Text style={styles.text}>Cantidad</Text>
+      <TextInput keyboardType='numeric' style={styles.text}/>
+    <View style={styles.view}>
+      <TouchableOpacity onPress={this._onPressButton}>
+        <Text style={styles.boton}>ACEPTAR</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={this.cancelar}>
+        <Text style={styles.boton}>CANCELAR</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+  );
+
+  activar = () => {
+    this.setState({visibleModal: 1})
+  }
+
+  cancelar = () => {
+    this.setState({visibleModal: null});
+    this.setState({objeto: {}})
+  }
+
   render() {
     return (
-      <Container style={styles.back}>
-        <Content>
-          <Title style={styles.title}>Depósito</Title>
-          <Text style={styles.text}>El depósito no tomará ningun valor de tu cuenta.
-            Sirve sólo como información para el control personal</Text>
+      <View>
+        <TouchableOpacity onPress={this.activar}>
+          <Text style={styles.boton}>DEPOSITAR</Text>
+        </TouchableOpacity>
 
-          <Text style={styles.text}>Cantidad</Text>
-            <TextInput keyboardType='numeric' style={styles.text}/>
-          <View style={styles.view}>
-            <TouchableOpacity onPress={this._onPressButton}>
-              <Text style={styles.boton}>ACEPTAR</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this._onPressButton}>
-              <Text style={styles.boton}>CANCERLAR</Text>
-            </TouchableOpacity>
-          </View>
-
-        </Content>
-      </Container>
+        <Modal isVisible={this.state.visibleModal === 1}>
+          {this._renderModalContent()}
+        </Modal>
+      </View>
     );
   }
 }
