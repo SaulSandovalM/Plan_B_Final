@@ -145,87 +145,89 @@ export default class tabOne extends Component {
     const height = 200;
     const width = 340;
 
+    var Gasto = this.state.pIngreso < 1
+      ? <Nodata />
+      : <Content>
+        <Card style={styles.card}>
+          <CardItem header>
+            <Text style={styles.chart_title}>FINANZAS</Text>
+          </CardItem>
+          <CardItem>
+            <Icon style={styles.icon} active name="md-cash"/>
+            <Text style={styles.icon}>Ingresos</Text>
+            <Right>
+              <Text style={styles.finanzas}>$ {this.state.totI}.00</Text>
+            </Right>
+          </CardItem>
+          <CardItem>
+            <Icon style={styles.icon2} active name="ios-list-box"/>
+            <Text style={styles.icon2}>Gastos</Text>
+            <Right>
+              <Text style={styles.finanzas2}>$ {this.state.totG}.00</Text>
+
+            </Right>
+          </CardItem>
+          <CardItem>
+            <Icon style={styles.icon3} active name="star"/>
+            <Text style={styles.icon3}>Ahorros</Text>
+            <Right>
+              <Text style={styles.finanzas3}>$ 0.00</Text>
+            </Right>
+          </CardItem>
+        </Card>
+
+        <Card>
+          <View style={styles.container}>
+            <Text style={styles.chart_title}>ESTADISTICAS</Text>
+            <View style={styles.view}>
+              <Pie
+                pieWidth={150}
+                pieHeight={150}
+                onItemSelected={this._onPieItemSelected}
+                colors={Theme.colors}
+                width={width}
+                height={height}
+                data={[
+                {
+                  "number": Math.round(this.state.pIngreso),
+                  "name": 'Ingresos'
+                }, {
+                  "number": Math.round(this.state.pGasto),
+                  "name": 'Gastos'
+                }
+              ]}/>
+            </View>
+          </View>
+        </Card>
+
+        <View style={styles.align}>
+          <Card style={styles.borde}>
+            <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
+              <Image source={imgIngresos} style={styles.img}/>
+            </Button>
+            <Text style={styles.text}>INGRESOS</Text>
+          </Card>
+
+          <Card style={styles.borde}>
+            <Button style={styles.boton} transparent onPress={() => Actions.Gastos()}>
+              <Image source={imgGastos} style={styles.img}/>
+            </Button>
+            <Text style={styles.text}>GASTOS</Text>
+          </Card>
+
+          <Card style={styles.borde}>
+            <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
+              <Image source={imgAhorros} style={styles.img}/>
+            </Button>
+            <Text style={styles.text}>AHORROS</Text>
+          </Card>
+        </View>
+
+      </Content>
+
     return (
       <Container style={styles.back}>
-        <Content>
-          <Card style={styles.card}>
-            <CardItem header>
-              <Text style={styles.chart_title}>FINANZAS</Text>
-            </CardItem>
-            <CardItem>
-              <Icon style={styles.icon} active name="md-cash"/>
-              <Text style={styles.icon}>Ingresos</Text>
-              <Right>
-                <Text style={styles.finanzas}>$ {this.state.totI}.00</Text>
-              </Right>
-            </CardItem>
-            <CardItem>
-              <Icon style={styles.icon2} active name="ios-list-box"/>
-              <Text style={styles.icon2}>Gastos</Text>
-              <Right>
-                <Text style={styles.finanzas2}>$ {this.state.totG}.00</Text>
-
-              </Right>
-            </CardItem>
-            <CardItem>
-              <Icon style={styles.icon3} active name="star"/>
-              <Text style={styles.icon3}>Ahorros</Text>
-              <Right>
-                <Text style={styles.finanzas3}>$ 0.00</Text>
-              </Right>
-            </CardItem>
-          </Card>
-
-          <Card>
-            <View style={styles.container}>
-              <Text style={styles.chart_title}>ESTADISTICAS</Text>
-              <View style={styles.view}>
-                <Pie
-                  pieWidth={150}
-                  pieHeight={150}
-                  onItemSelected={this._onPieItemSelected}
-                  colors={Theme.colors}
-                  width={width}
-                  height={height}
-                  data={[
-                  {
-                    "number": Math.round(this.state.pIngreso),
-                    "name": 'Ingresos'
-                  }, {
-                    "number": Math.round(this.state.pGasto),
-                    "name": 'Gastos'
-                  }
-                ]}/>
-              </View>
-            </View>
-          </Card>
-
-          <Nodata/>
-
-          <View style={styles.align}>
-            <Card style={styles.borde}>
-              <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
-                <Image source={imgIngresos} style={styles.img}/>
-              </Button>
-              <Text style={styles.text}>INGRESOS</Text>
-            </Card>
-
-            <Card style={styles.borde}>
-              <Button style={styles.boton} transparent onPress={() => Actions.Gastos()}>
-                <Image source={imgGastos} style={styles.img}/>
-              </Button>
-              <Text style={styles.text}>GASTOS</Text>
-            </Card>
-
-            <Card style={styles.borde}>
-              <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
-                <Image source={imgAhorros} style={styles.img}/>
-              </Button>
-              <Text style={styles.text}>AHORROS</Text>
-            </Card>
-          </View>
-
-        </Content>
+        {Gasto}
       </Container>
     );
   }
