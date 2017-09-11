@@ -64,7 +64,6 @@ export default class IngresosIntro extends Component {
     Actions.GastosIntro()
     this.setState({visibleModal: null});
     this.setState({objeto: {}})
-
   }
 
   render() {

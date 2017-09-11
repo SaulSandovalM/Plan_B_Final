@@ -35,7 +35,6 @@ export default class Example extends Component {
     this.setState({icono: newIcon})
   }
 
-
   cateFun = (categorita) => {
     objeto = this.state.objeto
     objeto['categoria'] = categorita
@@ -66,7 +65,6 @@ export default class Example extends Component {
 
   cancelar = () => {
     this.setState({visibleModal: null});
-
     this.setState({objeto: {}})
   }
 
@@ -151,11 +149,9 @@ export default class Example extends Component {
     </View>
   );
 
-
   render() {
     return (
       <View>
-
 
         <Fab
           active={this.state.active}
@@ -164,9 +160,10 @@ export default class Example extends Component {
           onPress={this.activar}>
           <Icon name="add"/>
         </Fab>
+
          <Modal isVisible={this.state.visibleModal === 1}>
            {this._renderModalContent()}
-           </Modal>
+          </Modal>
 
        </View>
      );

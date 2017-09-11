@@ -11,7 +11,6 @@ export default class ListIconExample extends Component {
     }
   }
 
-
   setIcon = () => {
     this.setState({icono: this.props.item.iname, categoria: this.props.item.categoria}),
     setTimeout(() => {
