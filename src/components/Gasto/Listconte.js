@@ -6,8 +6,8 @@ class Listconte extends Component {
   constructor() {
     super();
   console.ignoredYellowBox = true;
-
   }
+  
   render() {
     return (
       <Content>
