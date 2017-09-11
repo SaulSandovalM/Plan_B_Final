@@ -6,6 +6,7 @@ import imgLogo from '../../assets/imgs/Ingresos.png';
 import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+import {Actions} from 'react-native-router-flux';
 
 export default class Ingresos extends Component {
   constructor() {
@@ -40,10 +41,8 @@ export default class Ingresos extends Component {
       console.log(nuevo)
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
-
+    Actions.Inicio()
   }
-
-
 
   componentWillMount() {
     var that = this;
@@ -59,6 +58,7 @@ export default class Ingresos extends Component {
       that.listenForItems(itemsRef);
     });
   }
+
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
 
@@ -126,7 +126,9 @@ export default class Ingresos extends Component {
               </Body>
             </ListItem>
 
-            <Text style={styles.text}>Ingreso Extra</Text>
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.text}>Ingreso Extra</Text>
+            </View>
             <ListItem icon>
               <Left>
                 <Icon name="calculator" style={styles.icon}/>
@@ -147,7 +149,12 @@ export default class Ingresos extends Component {
           </List>
 
         </Content>
-        <Fab direction="up" position="bottomRight" onPress={this.addItem} style={styles.fab}>
+
+        <Fab
+          direction="up"
+          position="bottomRight"
+          onPress={this.addItem}
+          style={styles.fab}>
           <Icon name="md-checkmark"/>
         </Fab>
       </Container>
@@ -195,7 +202,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(102,165,138)"
   },
   text: {
-    marginLeft: 60,
     margin: 20,
     fontSize: 20
   }

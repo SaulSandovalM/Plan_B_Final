@@ -1,10 +1,9 @@
 import React from 'react';
 import {AppRegistry, StyleSheet, View, Image} from 'react-native';
-import {Thumbnail, Container, Content, Icon} from 'native-base';
+import {Thumbnail} from 'native-base';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 export default class App extends React.Component {
-
   render() {
     return (
       <View style={styles.container}>
