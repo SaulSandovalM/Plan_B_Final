@@ -5,11 +5,9 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 5
   },
-
   container: {
     flex: 1
   },
-
   icono: {
     color: '#4DA49B'
   },
@@ -35,7 +33,7 @@ export default StyleSheet.create({
     color: '#757575'
   },
   texto: {
-    color: '#4DA49B'
+    color: "rgb(35,86,160)"
   },
   view: {
     flexDirection: 'row',

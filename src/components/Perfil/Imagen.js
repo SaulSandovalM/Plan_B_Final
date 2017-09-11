@@ -2,7 +2,6 @@ import React from 'react';
 import {AppRegistry, StyleSheet, View, Image} from 'react-native';
 import {Thumbnail, Container, Content, Icon} from 'native-base';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import ImagePicker from 'react-native-image-picker';
 
 export default class App extends React.Component {
   state = {
@@ -30,22 +29,6 @@ export default class App extends React.Component {
         skipBackup: true
       }
     };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        let source = {
-          uri: response.uri
-        };
-        this.setState({avatarSource: source});
-      }
-    });
   }
 
   render() {

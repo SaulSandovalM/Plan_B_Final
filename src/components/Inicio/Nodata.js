@@ -9,7 +9,7 @@ export default class Nodata extends Component {
       <Card>
         <View style={styles.container}>
           <Text style={styles.chart_title}>Aun no has agregado ningun dato de finanzas agraga uno</Text>
-          <IngresosIntro style={{alignItems: 'center'}}/>
+          <IngresosIntro/>
         </View>
       </Card>
     );
@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   container: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input, Form} from 'native-base';
 import {TouchableOpacity, View, Alert} from 'react-native';
 import Modal from 'react-native-modal';
@@ -14,7 +13,6 @@ export default class Example extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: null,
-
       validacion: [],
       objeto: {},
       fecha: '',
@@ -23,14 +21,12 @@ export default class Example extends Component {
   }
 
   conFun = (iconito) => {
-
     objeto = this.state.objeto
     objeto['iname'] = iconito
     //const newIcon=iconito;
     this.setState({
       //icono:newIcon,
       objeto,
-
     })
   }
 
@@ -91,7 +87,6 @@ export default class Example extends Component {
       console.log(Object.keys(objeto).length)
     }
   }
-
 
   activar = () => {
     this.setState({visibleModal: 1})

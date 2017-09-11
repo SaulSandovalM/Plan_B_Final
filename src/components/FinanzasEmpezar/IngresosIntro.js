@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image, TouchableOpacity, View, TextInput} from 'react-native';
-import {Container, Content, Button, Title, Right, Input, List, ListItem, Icon, Body, Left} from 'native-base';
+import {Container, Content, Button, Right, Input, List, ListItem, Icon, Body, Left} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Modal from 'react-native-modal';
@@ -17,7 +17,7 @@ export default class IngresosIntro extends Component {
   }
 
   _renderModalContent = () => (
-    <View style={{backgroundColor: 'white', borderRadius: 10}}>
+    <View style={styles.view}>
       <List>
         <ListItem icon>
           <Left>
@@ -37,9 +37,11 @@ export default class IngresosIntro extends Component {
           </Body>
         </ListItem>
       </List>
+      <View style={{alignItems: 'center'}}>
       <TouchableOpacity onPress={this.addItem}>
-        <Text style={styles.boton}>SIGUIENTE</Text>
+        <Text style={styles.boton1}>SIGUIENTE</Text>
       </TouchableOpacity>
+    </View>
   </View>
   );
 
@@ -67,7 +69,7 @@ export default class IngresosIntro extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{alignItems: 'center'}}>
         <TouchableOpacity onPress={this.activar}>
           <Text style={styles.boton}>EMPEZAR</Text>
         </TouchableOpacity>
@@ -84,6 +86,12 @@ const styles = StyleSheet.create({
   boton: {
     fontWeight: 'bold',
     color: "rgb(35,86,160)",
+    margin: 10,
+    fontSize: 22
+  },
+  boton1: {
+    fontWeight: 'bold',
+    color: "rgb(35,86,160)",
     margin: 10
   },
   view: {
@@ -91,15 +99,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     margin: 10
   },
-  title: {
-    fontSize: 20,
-    textAlign: 'left',
-    fontWeight: 'bold',
-    color: 'black',
-    margin: 10
-  },
-  text: {
-    margin: 10
+  view: {
+    backgroundColor: 'white',
+    borderRadius: 10
   }
 });
 
