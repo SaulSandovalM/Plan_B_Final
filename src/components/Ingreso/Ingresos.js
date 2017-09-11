@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
-
 import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button, Fab, Title} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/Ingresos.png';

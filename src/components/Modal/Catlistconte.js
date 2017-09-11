@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {List, ListItem, Text, Icon, Button} from 'native-base';
 import Contenidocatlis from './Contenidocatlis';
-import styles from '../estilos/modcat.style';
 
 class ListComponent extends Component {
   render() {
@@ -25,5 +24,13 @@ class ListComponent extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  rootContainercat: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    justifyContent: 'center'
+  }
+});
 
 export default ListComponent;

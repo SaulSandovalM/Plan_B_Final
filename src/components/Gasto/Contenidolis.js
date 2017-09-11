@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import {Animated, Alert} from 'react-native';
 import {List, ListItem, Text, Icon, Left, Body, Right} from 'native-base';

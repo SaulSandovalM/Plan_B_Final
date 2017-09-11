@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Text} from 'native-base';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import Catlistconte from './Catlistconte';
-import styles from '../estilos/modcat.style';
 
 export default class Gasto extends Component {
   constructor() {
@@ -50,6 +49,7 @@ export default class Gasto extends Component {
     const newCat = categorita;
     this.setState({categoria: newCat});
   }
+
   modFun = (moda) => {
     const newVis = moda
     this.setState({visibleModal: newVis});
@@ -78,3 +78,10 @@ export default class Gasto extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  containercat: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
+  }
+});
