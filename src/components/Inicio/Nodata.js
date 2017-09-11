@@ -8,7 +8,7 @@ export default class Nodata extends Component {
     return (
       <Card>
         <View style={styles.container}>
-          <Text style={styles.chart_title}>Aun no has agregado ningun dato de finanzas agraga uno</Text>
+          <Text style={styles.chart_title}>Aun no has agregado ningun dato de finanzas agrega uno</Text>
           <IngresosIntro/>
         </View>
       </Card>

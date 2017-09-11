@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input, Form} from 'native-base';
-import {TouchableOpacity, View, Alert} from 'react-native';
+import {TouchableOpacity, View, Alert, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
-import styles from '../estilos/Modgast.style';
 import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import Modalcat from '../Modal/Modalcat';
@@ -170,3 +169,30 @@ export default class GastosIntro extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    backgroundColor: 'white',
+    borderRadius: 5
+  },
+  container: {
+    flex: 1
+  },
+  texto: {
+    fontSize: 20,
+    top: 32,
+    color: '#4DA49B'
+  },
+  icon: {
+    color: '#ff5722'
+  },
+  input: {
+    marginLeft: 10,
+    color: '#757575'
+  },
+  view: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    top: 10
+  }
+});
