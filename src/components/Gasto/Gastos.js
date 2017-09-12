@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Container, Content, List, Text} from 'native-base';
+import {Container, Content, List, Text,Button} from 'native-base';
 import Listconte from './Listconte';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import Modalgasto from '../Modal/Modalgasto';
+import Modaleditar from '../Modal/ModalEditgasto';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import DatePicker from 'react-native-datepicker';
 import Nogasto from './Nogasto';
@@ -14,7 +15,11 @@ export default class Gasto extends Component {
     console.ignoredYellowBox = true;
     this.state = {
       lista: [],
-      date: new Date()
+      date: new Date(),
+      visibleModal:null,
+      cancel:null,
+      okey:null,
+      item:null,
     }
   }
 
@@ -66,7 +71,38 @@ export default class Gasto extends Component {
       this.setState({lista: lista});
     });
   }
+  editKey=(key)=>{
+    this.setState({item:key})
+    console.log(key)
+  }
+  editFun=(vismod,objet)=>{
+    newEstado = vismod;
+    this.setState({visibleModal: newEstado})
 
+  }
+  update=(datos)=>{
+    let item = this.state.item
+    item=datos
+    this.setState({item: item})
+    console.log(this.state.item)
+
+
+    firebaseAuth.onAuthStateChanged(function(user) {
+      let updates = {};
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      firebase.database().ref('usuarios/' + uid + '/gastos/' + datos.id).update(datos);
+      //Esta linea coloca valor nulo en el element que se seleccione
+    });
+    this.setState({visibleModal:null})
+  }
+
+
+  cancelarMod=()=>{
+    this.setState({visibleModal:null})
+  }
   borrar = (item) => {
     console.log(item)
     let updates = {};
@@ -84,47 +120,52 @@ export default class Gasto extends Component {
 
     var Gasto = this.state.lista.length < 1
       ? <Nogasto/>
-      : <Listconte lista={this.state.lista} borrar={this.borrar}/>;
+      : <Listconte lista={this.state.lista} borrar={this.borrar} editFun={this.editFun} editKey={this.editKey}/>;
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
         <View style={styles.view}>
-          <DatePicker
-            style={styles.picker}
-            date={this.state.date}
-            mode="date" showIcon={false}
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="2017-01-01"
-            maxDate="2030-01-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            },
-            dateInput: {
-              alignItems: 'flex-start',
-              marginLeft: 15,
-              borderColor: 'green',
-              borderRadius: 50,
-              alignItems: 'center'
-            },
-            dateText: {
-              color: '#000'
-            }
-          }} onDateChange={(date) => {
-            this.setState({date: date})
-          }}/>
+        <DatePicker
+        style={{width: 200}}
+        date={this.state.date}
+        mode="date"
+        showIcon={false}
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        minDate={this.state.date}
+        maxDate="2030-01-01"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        customStyles={{
+        dateIcon: {
+          position: 'absolute',
+          left: 0,
+          top: 4,
+          marginLeft: 0
+        },
+        dateInput: {
+          alignItems: 'flex-start',
+          marginLeft: 15,
+          borderColor: 'white'
+        },
+        dateText: {
+          color: '#424242'
+        }
+      }} onDateChange={() => {
+        this.setState({date: date})
+      }}/>
         </View>
 
         <Content>
           {Gasto}
         </Content>
         <Modalgasto style={styles.lista} agregar={this.addItem}/>
+        <Modaleditar visibilidad={this.state.visibleModal}
+                      item={this.state.item}
+                      style={styles.lista}
+                      editar={this.editar}
+                      cancelarMod={this.cancelarMod}
+                      update={this.update}/>
 
       </Container>
     );

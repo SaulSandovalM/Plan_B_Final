@@ -20,7 +20,7 @@ export default class Example extends Component {
     this.initialState = {
       previousInputValue: 0,
       inputValue: 0,
-      total: 0,
+      total:"Introduzca el valor",
       selectedSymbol: null
     };
     this.state = this.initialState;
@@ -58,7 +58,7 @@ export default class Example extends Component {
         <Button transparent dark onPress={() => this.setState({visibleModal: 1})}>
           {this.state.total == 0
             ? <Text>Introduzca el valor</Text>
-            : <Text>{"$" + this.state.total.toString()}</Text>}
+            : <Text>{"$" + this.state.total}</Text>}
         </Button>
 
         <Modal isVisible={this.state.visibleModal === 1}>

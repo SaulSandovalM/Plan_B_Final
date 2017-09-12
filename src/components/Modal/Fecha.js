@@ -40,7 +40,8 @@ class Fecha extends Component {
       }
     }} onDateChange={() => {
       this.setState({date: date})
-    }}/>);
+    }}/>
+  );
   }
 }
 

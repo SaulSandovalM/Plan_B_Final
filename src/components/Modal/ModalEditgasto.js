@@ -1,4 +1,4 @@
-/*import React, {Component} from 'react';
+import React, {Component} from 'react';
 
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Input} from 'native-base';
 
@@ -10,16 +10,21 @@ import Fecha from './Fecha';
 import Modalcat from './Modalcat';
 
 export default class ModalEditgasto extends Component {
-  state = {
-    visibleModal: null,
 
-    objeto: {},
-    fecha: '',
-    icono: 'add',
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      objeto:{},
+      fecha: '',
+      icono: 'add',
+    };
+  }
 
-  conFun = (iconito) => {
-    objeto = this.state.objeto
+
+
+
+conFun = (iconito) => {
+    objeto = this.props.item
     objeto['iname'] = iconito
     //const newIcon=iconito;
     this.setState({
@@ -33,7 +38,8 @@ export default class ModalEditgasto extends Component {
     this.setState({icono: newIcon})
   }
   cateFun = (categorita) => {
-    objeto = this.state.objeto
+
+    objeto = this.props.item
     objeto['categoria'] = categorita
     //const newCat= categorita;
     this.setState({
@@ -42,14 +48,16 @@ export default class ModalEditgasto extends Component {
     });
   }
   desFun = (descripcion) => {
-    objeto = this.state.objeto
+    objeto = this.props.item
     objeto['descri'] = descripcion
     this.setState({objeto});
   }
 
   valorfun = (valorcito) => {
-    objeto = this.state.objeto
+
+    objeto = this.props.item
     objeto['cantidad'] = valorcito
+
     this.setState({objeto});
   }
 
@@ -58,15 +66,12 @@ export default class ModalEditgasto extends Component {
     this.setState({fecha: newFech});
   }
 
-  cancelar = () => {
-    this.setState({visibleModal: null});
-  }
+
 
   aceptar = () => {
-    this.props.agregar(this.state.objeto),
-    this.setState({visibleModal: null});
-    console.log(objeto)
-  }
+    this.props.update(this.state.objeto)
+
+     }
 
   _renderModalContent = () => (
     <View style={styles.rootContainer}>
@@ -81,7 +86,7 @@ export default class ModalEditgasto extends Component {
             <Icon name="calculator" style={styles.icon}/>
           </Left>
           <Body>
-            <Valores valorfun={this.valorfun}/>
+            <Valores cantidad={this.props.item} valorfun={this.valorfun}/>
           </Body>
         </ListItem>
 
@@ -118,7 +123,7 @@ export default class ModalEditgasto extends Component {
           <Text style={styles.texto}>Aceptar</Text>
         </Button>
 
-        <Button transparent onPress={this.cancelar}>
+        <Button transparent onPress={this.props.cancelarMod}>
           <Text style={styles.texto}>Cancelar</Text>
         </Button>
       </View>
@@ -129,7 +134,7 @@ export default class ModalEditgasto extends Component {
     return (
       <View >
 
-        <Modal isVisible={this.state.visibleModal === 2}>
+        <Modal isVisible={this.props.visibilidad === 2}>
           {this._renderModalContent()}
         </Modal>
 
@@ -137,4 +142,3 @@ export default class ModalEditgasto extends Component {
     );
   }
 }
-*/
