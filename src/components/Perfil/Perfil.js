@@ -33,14 +33,19 @@ class Perfil extends Component {
   }
 
   componentWillMount() {
-    firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
-      if (user) {
-        image = user.photoURL
-        email = user.email;
-        name = user.displayName;
-      }
-    });
+    const {currentUser} = firebaseAuth;
+    name = currentUser.displayName;
+    email= currentUser.email;
+    if(currentUser.photoURL == null){
+      image = 'https://www.1plusx.com/app/mu-plugins/all-in-one-seo-pack-pro/images/default-user-image.png'
+    }else{
+      image = currentUser.photoURL;
+    }
+    if(currentUser.displayName == null){
+      name = currentUser.email
+    }else{
+      name = currentUser.displayName
+    }
 
     return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/polizas.json').then((response) => response.json())
     .then((responseJson) => {

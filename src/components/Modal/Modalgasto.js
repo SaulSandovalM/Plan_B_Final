@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-
 import {Container, Text, Button, CardItem, List, Left, ListItem, Body, Icon, Fab, Input, Form} from 'native-base';
-import {TouchableOpacity, View, Alert} from 'react-native';
+import {TouchableOpacity, View, Alert, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
-import styles from '../estilos/Modgast.style';
 import Valores from './Modal';
 import Fecha from './Fecha';
 import Modalcat from './Modalcat';
@@ -14,7 +12,6 @@ export default class Example extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: null,
-
       validacion: [],
       objeto: {},
       fecha: '',
@@ -23,14 +20,12 @@ export default class Example extends Component {
   }
 
   conFun = (iconito) => {
-
     objeto = this.state.objeto
     objeto['iname'] = iconito
     //const newIcon=iconito;
     this.setState({
       //icono:newIcon,
       objeto,
-
     })
   }
 
@@ -38,7 +33,6 @@ export default class Example extends Component {
     newIcon = i;
     this.setState({icono: newIcon})
   }
-
 
   cateFun = (categorita) => {
     objeto = this.state.objeto
@@ -70,7 +64,6 @@ export default class Example extends Component {
 
   cancelar = () => {
     this.setState({visibleModal: null});
-
     this.setState({objeto: {}})
   }
 
@@ -91,7 +84,6 @@ export default class Example extends Component {
       console.log(Object.keys(objeto).length)
     }
   }
-
 
   activar = () => {
     this.setState({visibleModal: 1})
@@ -156,11 +148,9 @@ export default class Example extends Component {
     </View>
   );
 
-
   render() {
     return (
       <View>
-
 
         <Fab
           active={this.state.active}
@@ -169,11 +159,35 @@ export default class Example extends Component {
           onPress={this.activar}>
           <Icon name="add"/>
         </Fab>
+
          <Modal isVisible={this.state.visibleModal === 1}>
            {this._renderModalContent()}
-           </Modal>
+          </Modal>
 
        </View>
      );
    }
  }
+
+const styles = StyleSheet.create({
+   rootContainer: {
+     backgroundColor: 'white',
+     borderRadius: 5
+   },
+   texto: {
+  color: '#4DA49B'
+
+   },
+   icon: {
+     color: '#ff5722'
+   },
+   input: {
+     marginLeft: 10,
+     color: '#757575'
+   },
+   view: {
+     flexDirection: 'row',
+     justifyContent: 'center',
+     top: 10
+   }
+ });

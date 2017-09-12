@@ -9,7 +9,6 @@ import imgIngresos from '../../assets/imgs/Ingresos.png';
 import imgGastos from '../../assets/imgs/Gastos.png';
 import imgAhorros from '../../assets/imgs/Ahorros.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
-import Boton from '../FinanzasEmpezar/Boton';
 import Nodata from './Nodata';
 
 type State = {
@@ -40,7 +39,6 @@ export default class tabOne extends Component {
     });
   }
 
-
   //componentWillMount lo utilizamos para que busque en la rama especifica del usuario
   //se eliminaron variables del State y hay cambio en la card de los datos es un
   //this.state.totI y totG
@@ -48,7 +46,6 @@ export default class tabOne extends Component {
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
-
 
       if (typeof user !== "undefined" && user !== null) {
         var uid = user.uid;
@@ -64,7 +61,6 @@ export default class tabOne extends Component {
   //Esto ya hace una suma de todo
 
   listenForIngre(IngreRef) {
-
     IngreRef.on('child_added', (s) => {
       const ingr = s.val();
       let totI = this.state.totI;
@@ -80,7 +76,7 @@ export default class tabOne extends Component {
     });
   }
 
-us
+
   listenForItems(itemsRef) {
     itemsRef.on('child_added', (item) => {
       const gast = item.val();
@@ -104,41 +100,45 @@ us
             this.setState({pIngreso});
             console.log(pIngreso);
           });
-
         }
-        });
       });
+    });
 
     //eliminar
-    itemsRef.on('child_removed',(b)=>{
+    itemsRef.on('child_removed', (b) => {
       const borrado = b.val();
       console.log(borrado)
-      itemsRef.once('value',(l)=>{
+      itemsRef.once('value', (l) => {
         const gast = l.val();
-        if(l.hasChildren()){
-          var total= 0;
-          l.forEach(function(item){
+        if (l.hasChildren()) {
+          var total = 0;
+          l.forEach(function(item) {
             total += item.child('cantidad').val();
           });
           console.log(total)
-          this.setState({totG:total},()=>{
-              console.log("haber que pasa")
-              if (this.state.pIngreso !== 0) {
-                let pGasto = this.state.pGasto;
-                pGasto = ((this.state.totG * 100) / this.state.totI);
-                console.log(pGasto);
-                this.setState({pGasto}, ()=>{
-                  let pIngreso = this.state.pIngreso;
-                  pIngreso = 100 - this.state.pGasto;
-                  this.setState({pIngreso});
-                  console.log(pIngreso);
-                });
-              }
+          this.setState({
+            totG: total
+          }, () => {
+            console.log("haber que pasa")
+            if (this.state.pIngreso !== 0) {
+              let pGasto = this.state.pGasto;
+              pGasto = ((this.state.totG * 100) / this.state.totI);
+              console.log(pGasto);
+              this.setState({
+                pGasto
+              }, () => {
+                let pIngreso = this.state.pIngreso;
+                pIngreso = 100 - this.state.pGasto;
+                this.setState({pIngreso});
+                console.log(pIngreso);
+              });
+            }
           });
         }
+
     });
   });//aqui termina eliminar
-
+  
   //Updates
   itemsRef.on('child_changed',(b)=>{
     const borrado = b.val();
@@ -169,96 +169,94 @@ us
   });
 });//aqui termina update
 
+
 }
 
-//hasta aqui
 
+
+
+  //hasta aqui
 
   render() {
     const height = 200;
     const width = 340;
 
+    var Gasto = this.state.pIngreso < 1
+      ? <Nodata/>
+      : <Content>
+        <Card style={styles.card}>
+          <CardItem header>
+            <Text style={styles.chart_title}>FINANZAS</Text>
+          </CardItem>
+          <CardItem>
+            <Icon style={styles.icon} active name="md-cash"/>
+            <Text style={styles.icon}>Ingresos</Text>
+            <Right>
+              <Text style={styles.finanzas}>$ {this.state.totI}.00</Text>
+            </Right>
+          </CardItem>
+          <CardItem>
+            <Icon style={styles.icon2} active name="ios-list-box"/>
+            <Text style={styles.icon2}>Gastos</Text>
+            <Right>
+              <Text style={styles.finanzas2}>$ {this.state.totG}.00</Text>
+
+            </Right>
+          </CardItem>
+          <CardItem>
+            <Icon style={styles.icon3} active name="star"/>
+            <Text style={styles.icon3}>Ahorros</Text>
+            <Right>
+              <Text style={styles.finanzas3}>$ 0.00</Text>
+            </Right>
+          </CardItem>
+        </Card>
+
+        <Card>
+          <View style={styles.container}>
+            <Text style={styles.chart_title}>ESTADISTICAS</Text>
+            <View style={styles.view}>
+              <Pie pieWidth={150} pieHeight={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} width={width} height={height} data={[
+                {
+                  "number": Math.round(this.state.pIngreso),
+                  "name": 'Ingresos'
+                }, {
+                  "number": Math.round(this.state.pGasto),
+                  "name": 'Gastos'
+                }
+              ]}/>
+            </View>
+          </View>
+        </Card>
+
+        <View style={styles.align}>
+          <Card style={styles.borde}>
+            <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
+              <Image source={imgIngresos} style={styles.img}/>
+            </Button>
+            <Text style={styles.text}>INGRESOS</Text>
+          </Card>
+
+          <Card style={styles.borde}>
+            <Button style={styles.boton} transparent onPress={() => Actions.Gastos()}>
+              <Image source={imgGastos} style={styles.img}/>
+            </Button>
+            <Text style={styles.text}>GASTOS</Text>
+          </Card>
+
+          <Card style={styles.borde}>
+            <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
+              <Image source={imgAhorros} style={styles.img}/>
+            </Button>
+            <Text style={styles.text}>AHORROS</Text>
+          </Card>
+        </View>
+
+      </Content>
+
     return (
       <Container style={styles.back}>
-        <Content>
-          <Card style={styles.card}>
-            <CardItem header>
-              <Text style={styles.chart_title}>FINANZAS</Text>
-            </CardItem>
-            <CardItem>
-              <Icon style={styles.icon} active name="md-cash"/>
-              <Text style={styles.icon}>Ingresos</Text>
-              <Right>
-                <Text style={styles.finanzas}>$ {this.state.totI}.00</Text>
-              </Right>
-            </CardItem>
-            <CardItem>
-              <Icon style={styles.icon2} active name="ios-list-box"/>
-              <Text style={styles.icon2}>Gastos</Text>
-              <Right>
-                <Text style={styles.finanzas2}>$ {this.state.totG}.00</Text>
-
-              </Right>
-            </CardItem>
-            <CardItem>
-              <Icon style={styles.icon3} active name="star"/>
-              <Text style={styles.icon3}>Ahorros</Text>
-              <Right>
-                <Text style={styles.finanzas3}>$ 0.00</Text>
-              </Right>
-            </CardItem>
-          </Card>
-
-          <Card>
-            <View style={styles.container}>
-              <Text style={styles.chart_title}>ESTADISTICAS</Text>
-              <View style={styles.view}>
-                <Pie
-                  pieWidth={150}
-                  pieHeight={150}
-                  onItemSelected={this._onPieItemSelected}
-                  colors={Theme.colors}
-                  width={width}
-                  height={height}
-                  data={[
-                  {
-                    "number": Math.round(this.state.pIngreso),
-                    "name": 'Ingresos'
-                  }, {
-                    "number": Math.round(this.state.pGasto),
-                    "name": 'Gastos'
-                  }
-                ]}/>
-              </View>
-            </View>
-          </Card>
-
-          <Nodata/>
-
-          <View style={styles.align}>
-            <Card style={styles.borde}>
-              <Button transparent onPress={() => Actions.Ingresos()} style={styles.boton}>
-                <Image source={imgIngresos} style={styles.img}/>
-              </Button>
-              <Text style={styles.text}>INGRESOS</Text>
-            </Card>
-
-            <Card style={styles.borde}>
-              <Button style={styles.boton} transparent onPress={() => Actions.Gastos()}>
-                <Image source={imgGastos} style={styles.img}/>
-              </Button>
-              <Text style={styles.text}>GASTOS</Text>
-            </Card>
-
-            <Card style={styles.borde}>
-              <Button transparent onPress={() => Actions.Ahorros()} style={styles.boton}>
-                <Image source={imgAhorros} style={styles.img}/>
-              </Button>
-              <Text style={styles.text}>AHORROS</Text>
-            </Card>
-          </View>
-
-        </Content>
+        {Gasto}
       </Container>
     );
   }

@@ -4,7 +4,7 @@ import {Container, Content, List, Text,Button} from 'native-base';
 import Listconte from './Listconte';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import Modalgasto from '../Modal/Modalgasto';
-import Modaleditar from '../Modal/ModalEditgasto';
+import Modaleditar from '../ModalEdit/ModalEditgasto';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import DatePicker from 'react-native-datepicker';
 import Nogasto from './Nogasto';
@@ -18,8 +18,8 @@ export default class Gasto extends Component {
       date: new Date(),
       visibleModal:null,
       cancel:null,
-      okey:null,
-      item:null,
+      item:{},
+
     }
   }
 
@@ -40,6 +40,7 @@ export default class Gasto extends Component {
   }
 
   componentWillMount() {
+
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
@@ -75,11 +76,21 @@ export default class Gasto extends Component {
     this.setState({item:key})
     console.log(key)
   }
-  editFun=(vismod,objet)=>{
+  editFun=(vismod)=>{
     newEstado = vismod;
     this.setState({visibleModal: newEstado})
 
   }
+valores=()=>{
+  /*let objeto=this.state.item
+  Object.keys(objeto).map(function (key) {
+    var item = objeto[cantidad]
+  console.log(item)
+  */
+  console.log(this.state.item.cantidad)
+
+
+}
   update=(datos)=>{
     let item = this.state.item
     item=datos
@@ -120,7 +131,10 @@ export default class Gasto extends Component {
 
     var Gasto = this.state.lista.length < 1
       ? <Nogasto/>
-      : <Listconte lista={this.state.lista} borrar={this.borrar} editFun={this.editFun} editKey={this.editKey}/>;
+      : <Listconte lista={this.state.lista}
+            borrar={this.borrar}
+            editFun={this.editFun}
+            editKey={this.editKey}/>;
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
@@ -162,6 +176,7 @@ export default class Gasto extends Component {
         <Modalgasto style={styles.lista} agregar={this.addItem}/>
         <Modaleditar visibilidad={this.state.visibleModal}
                       item={this.state.item}
+                      iname={this.state.item.iname}
                       style={styles.lista}
                       editar={this.editar}
                       cancelarMod={this.cancelarMod}

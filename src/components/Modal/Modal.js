@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import {Left, Icon, Right, Button} from 'native-base';
 import Modal from 'react-native-modal';
-import Style from '../estilos/Styles';
 import InputButton from './Button';
 
 const inputButtons = [
@@ -20,32 +19,31 @@ export default class Example extends Component {
     this.initialState = {
       previousInputValue: 0,
       inputValue: 0,
-      total:"Introduzca el valor",
+      total:0,
       selectedSymbol: null
     };
     this.state = this.initialState;
   }
+
   state = {
     visibleModal: null
   };
 
   _renderModalContent = () => (
-    <View style={Style.modalContent}>
-      <View style={Style.rootContainer}>
-        <View style={Style.displayContainer}>
+    <View style={styles.modalContent}>
+      <View style={styles.rootContainer}>
+        <View style={styles.displayContainer}>
           <Left>
-            <Text style={Style.displayText}>$</Text>
+            <Text style={styles.displayText}>$</Text>
           </Left>
-          <Text style={Style.displayText} onChange>{this.state.inputValue}</Text>
+          <Text style={styles.displayText} onChange>{this.state.inputValue}</Text>
           <Right>
             <TouchableOpacity onPress={() => this.setState({inputValue: 0})}>
-              <Icon style={{
-                color: 'black'
-              }} name='backspace'/>
+              <Icon style={styles.icon} name='backspace'/>
             </TouchableOpacity>
           </Right>
         </View>
-        <View style={Style.inputContainer}>
+        <View style={styles.inputContainer}>
           {this._renderInputButtons()}
         </View>
       </View>
@@ -54,7 +52,7 @@ export default class Example extends Component {
 
   render() {
     return (
-      <View style={Style.container}>
+      <View style={styles.container}>
         <Button transparent dark onPress={() => this.setState({visibleModal: 1})}>
           {this.state.total == 0
             ? <Text>Introduzca el valor</Text>
@@ -71,9 +69,10 @@ export default class Example extends Component {
   _renderInputButtons() {
     let views = inputButtons.map((row, idx) => {
       let inputRow = row.map((buttonVal, columnIdx) => {
-        return <InputButton value={buttonVal} highlight={this.state.selectedSymbol === buttonVal} onPress={this._onInputButtonPressed.bind(this, buttonVal)} key={'butt-' + columnIdx}/>;
+        return <InputButton value={buttonVal} highlight={this.state.selectedSymbol === buttonVal}
+          onPress={this._onInputButtonPressed.bind(this, buttonVal)} key={'butt-' + columnIdx}/>;
       });
-      return <View style={Style.inputRow} key={'row-' + idx}>{inputRow}</View>;
+      return <View style={styles.inputRow} key={'row-' + idx}>{inputRow}</View>;
     });
     return views;
   }
@@ -134,10 +133,56 @@ export default class Example extends Component {
         });
 
         setTimeout(()=>{
-            this.props.valorfun(this.state.total)
-
+          this.props.valorfun(this.state.total)
         }, 150);
         break;
     }
   }
 }
+
+const styles = StyleSheet.create({
+  rootContainer: {
+    height: 300,
+    width: 300,
+    backgroundColor: 'white'
+  },
+  displayContainer: {
+    flex: 2,
+    backgroundColor: 'white',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#E0E0E0'
+  },
+  displayText: {
+    color: '#BDBDBD',
+    fontSize: 38,
+    fontWeight: 'bold',
+    padding: 5
+  },
+  inputContainer: {
+    flex: 8,
+    backgroundColor: 'white',
+    borderRadius: 4
+  },
+  inputRow: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)'
+  },
+  icon: {
+    color: 'black'
+  }
+});

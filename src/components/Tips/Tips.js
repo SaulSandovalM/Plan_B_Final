@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Linking} from 'react-native';
 import {Container, Content, Text, Left, Body, List, ListItem, Thumbnail, Right} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import imgLogo from '../../assets/imgs/planb.png';
@@ -9,7 +9,7 @@ export default class Tips extends Component {
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='TIPS'/>
-        <Content>
+        <Content onPress={() => Linking.openURL(url)}>
           <List>
             <ListItem avatar>
               <Body>
