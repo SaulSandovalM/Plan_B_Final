@@ -62,9 +62,10 @@ export default class tabOne extends Component {
       totI += ingr.cantidad;
       this.setState({
         totI
-      }, () => {
-      });
-      this.setState({pIngreso: 100});
+      }, () => {});
+      let pIngreso = this.state.pIngreso
+      pIngreso = 100 - this.state.pGasto;
+      this.setState({pIngreso});
     });
   }
 
@@ -118,6 +119,40 @@ export default class tabOne extends Component {
         }
       });
     }); //aqui termina eliminar
+
+    //Updates
+    itemsRef.on('child_changed', (b) => {
+      const borrado = b.val();
+      console.log(borrado)
+      itemsRef.once('value', (l) => {
+        const gast = l.val();
+        if (l.hasChildren()) {
+          var total = 0;
+          l.forEach(function(item) {
+            total += item.child('cantidad').val();
+          });
+          console.log(total)
+          this.setState({
+            totG: total
+          }, () => {
+            console.log("haber que pasa")
+            if (this.state.pIngreso !== 0) {
+              let pGasto = this.state.pGasto;
+              pGasto = ((this.state.totG * 100) / this.state.totI);
+              console.log(pGasto);
+              this.setState({
+                pGasto
+              }, () => {
+                let pIngreso = this.state.pIngreso;
+                pIngreso = 100 - this.state.pGasto;
+                this.setState({pIngreso});
+                console.log(pIngreso);
+              });
+            }
+          });
+        }
+      });
+    }); //aqui termina update
   }
 
   //hasta aqui

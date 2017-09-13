@@ -1,31 +1,31 @@
 import React, {Component} from 'react'
 import DatePicker from 'react-native-datepicker'
 import {StyleSheet} from 'react-native';
-import moment from 'moment';
 
 class Fecha extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      date: new Date()
+      date: null
     }
   }
+  dateChang=()=>{
+    this.setState({date: date},() => {
+      this.props.fechafun(this.state.date)
+    })
+  }
 
-dateChang=()=>{
-  this.setState({date: date},() => {
-    this.props.fechafun(this.state.date)
-  })
-}
   render() {
+
     return (
       <DatePicker
       style={{width: 200}}
       date={this.state.date}
       mode="date"
       showIcon={false}
-      placeholder="select date"
+      placeholder={this.props.dateE}
       format="YYYY-MM-DD"
-      minDate={this.state.date}
+      minDate="1992-01-01"
       maxDate="2030-01-01"
       confirmBtnText="Confirm"
       cancelBtnText="Cancel"
