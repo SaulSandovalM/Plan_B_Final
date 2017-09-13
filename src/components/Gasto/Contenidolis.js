@@ -86,9 +86,9 @@ export default class Contenidolis extends Component {
             <Text>{this.props.item.categoria}</Text>
             <Text note>{this.props.item.descri}</Text>
           </Body>
-          <Right>
-            <Text>${this.props.item.cantidad}</Text>
+          <Right style={{flexDirection:'column'}}>
             <Text note>{this.props.item.fecha}</Text>
+              <Text>${this.props.item.cantidad}</Text>
 
           </Right>
         </ListItem>
