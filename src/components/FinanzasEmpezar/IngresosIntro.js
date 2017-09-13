@@ -54,11 +54,9 @@ export default class IngresosIntro extends Component {
     this.state.ingreso.push(nuevo);
     this.setState({ingreso: this.state.ingreso})
     firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
       if (user) {
         var uid = user.uid;
       }
-      console.log(nuevo)
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
     Actions.GastosIntro()

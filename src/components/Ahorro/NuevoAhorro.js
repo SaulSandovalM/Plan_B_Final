@@ -11,12 +11,66 @@ export default class NuevoAhorro extends Component {
     super(props);
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
-      selected1: "key1"
+      selected1: "key1",
+      lista: [],
     };
   }
 
   onValueChange(value : string) {
     this.setState({selected1: value});
+  }
+
+  addItem = (datos) => {
+    this.state.lista.push(datos)
+    this.setState({lista: this.state.lista})
+
+    firebaseAuth.onAuthStateChanged(function(user) {
+      if (user) {
+        var uid = user.uid;
+      }
+      firebase.database().ref('usuarios/' + uid + '/ahorros').push(datos);
+    });
+
+  }
+
+  componentWillMount() {
+    var that = this;
+    firebaseAuth.onAuthStateChanged(function(user) {
+      if (user) {
+        var uid = user.uid;
+        var key = user.key;
+      }
+      const itemsRef = firebase.database().ref('usuarios/' + uid + '/ahorros');
+      that.listenForItems(itemsRef);
+    });
+  }
+
+  listenForItems(itemsRef) {
+    itemsRef.on('value', (snap) => {
+
+      // get children as an array
+      var lista = [];
+      snap.forEach((child) => {
+        lista.push({
+          iname: child.val().iname,
+          categoria: child.val().categoria,
+          descri: child.val().descri,
+          cantidad: child.val().cantidad,
+          id: child.key})
+      });
+      this.setState({lista: lista});
+    });
+  }
+
+  borrar = (item) => {
+    let updates = {};
+    firebaseAuth.onAuthStateChanged(function(user) {
+      if (user) {
+        var uid = user.uid;
+      }
+      firebase.database().ref('usuarios/' + uid + '/ahorros/' + item.id).set(null);
+      //Esta linea coloca valor nulo en el elemento que se seleccione
+    });
   }
 
   render() {

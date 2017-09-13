@@ -58,9 +58,7 @@ class Perfil extends Component {
       }, function() {
         // do something with new state
       });
-    }).catch((error) => {
-      console.error(error);
-    });
+    })
   }
 
   render() {

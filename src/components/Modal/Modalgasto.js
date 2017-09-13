@@ -69,7 +69,7 @@ export default class Example extends Component {
 
   aceptar = () => {
     var objeto = this.state.objeto
-    console.log(Object.keys(objeto).length)//esta parte te dice cuantos elmentos hay en el objeto "No Arreglo"
+    console.log(Object.keys(objeto).length)//esta parte te dice cuantos elementos hay en el objeto "No Arreglo"
    if(Object.keys(objeto).length >= 4){
       this.setState({visibleModal: null});
       this.props.agregar(this.state.objeto),

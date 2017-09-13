@@ -70,11 +70,10 @@ export default class GastosIntro extends Component {
 
   aceptar = () => {
     var objeto = this.state.objeto
-    console.log(Object.keys(objeto).length) //esta parte te dice cuantos elmentos hay en el objeto "No Arreglo"
+    //esta parte te dice cuantos elmentos hay en el objeto "No Arreglo"
     if (Object.keys(objeto).length >= 4) {
       this.setState({visibleModal: null});
       this.props.agregar(this.state.objeto),
-      console.log(Object.keys(objeto).length)
       this.setState({objeto: {}})
     } else {
       const message = 'No has llenado todos los campos';
@@ -84,7 +83,6 @@ export default class GastosIntro extends Component {
           onPress: null
         }
       ]);
-      console.log(Object.keys(objeto).length)
       Actions.Inicio()
     }
   }

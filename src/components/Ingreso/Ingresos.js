@@ -34,11 +34,9 @@ export default class Ingresos extends Component {
     this.state.ingreso.push(nuevo);
     this.setState({ingreso: this.state.ingreso})
     firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
       if (user) {
         var uid = user.uid;
       }
-      console.log(nuevo)
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
     Actions.Inicio()
@@ -47,13 +45,10 @@ export default class Ingresos extends Component {
   componentWillMount() {
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
       if (user) {
         var uid = user.uid;
         var key = user.key;
       }
-      console.log(uid)
-      console.log(key)
       const itemsRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
       that.listenForItems(itemsRef);
     });
@@ -69,7 +64,6 @@ export default class Ingresos extends Component {
           descri: child.val().descri,
           cantidad: child.val().cantidad,
           id: child.key})
-        console.log(child.key);
       });
       this.setState({ingreso: ingreso});
     });
@@ -81,7 +75,6 @@ export default class Ingresos extends Component {
       var ingreso = [];
       snap.forEach((child) => {
         ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
-        console.log(child.key);
       });
       this.setState({ingreso: ingreso});
     });
@@ -94,7 +87,6 @@ export default class Ingresos extends Component {
       var ingreso = [];
       snap.forEach((child) => {
         ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
-        console.log(child.key);
       });
       this.setState({ingreso: ingreso});
     });

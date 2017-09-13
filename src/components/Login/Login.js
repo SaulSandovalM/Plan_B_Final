@@ -42,7 +42,6 @@ class Login extends Component {
           return firebase.auth().signInWithCredential(credential);
         }).then((currentUser) => {
           if (currentUser === 'cancelled') {
-            console.log('Login cancelled');
           } else {
             // now signed in
             Actions.Log();
@@ -53,8 +52,6 @@ class Login extends Component {
                       type: 'success'
                     })
           }
-        }).catch((error) => {
-          console.log(`Login fail with error: ${error}`);
         })
   }
 

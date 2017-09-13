@@ -57,12 +57,7 @@ class Terminos extends Component {
     if (this.state.selected == true && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true) {
       Actions.Login()
     } else {
-      Toast.show({
-                text: 'Acepta todos los términos y condiciones',
-                position: 'bottom',
-                duration: 2000,
-                type: 'danger'
-              })
+      Toast.show({text: 'Acepta todos los términos y condiciones', position: 'bottom', duration: 2000, type: 'danger'})
     }
   }
 
@@ -83,7 +78,6 @@ class Terminos extends Component {
                 <List style={styles.list}>
                   <Text>Pulse los vínculos a continuación y léalos atentamente. Al marcar las casillas, usted reconoce
                     que ha leído y que acepta los siguientes términos:</Text>
-
                   <ListItem style={styles.ListItem}>
                     <CheckBox checked={this.state.selected} onPress={this.toggle.bind(this)}/>
                     <View style={styles.view}>
