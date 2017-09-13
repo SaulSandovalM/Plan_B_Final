@@ -6,6 +6,7 @@ import {Button, Icon, Item, Input, Toast, Spinner, Label} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/log.jpg';
 import img2 from '../../assets/imgs/plan2.png';
+import * as Animatable from 'react-native-animatable';
 
 const {FacebookAuthProvider} = firebase.auth
 
@@ -136,8 +137,8 @@ class Login extends Component {
 
           <View style={styles.view2}>
           <View style={styles.view3}>
-            <TouchableOpacity onPress={() => Actions.Registro()}>
-              <Text style={styles.text} >¿Aún no tienes cuenta?, REGÍSTRATE</Text></TouchableOpacity>
+              <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.text}
+                onPress={() => Actions.Registro()}>¿Aún no tienes cuenta?, REGÍSTRATE</Animatable.Text>
             <TouchableOpacity onPress={() => Actions.Recover()}>
               <Text style={styles.text}>¿Olvidaste tu contraseña?</Text></TouchableOpacity>
           </View>

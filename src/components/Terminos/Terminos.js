@@ -104,7 +104,7 @@ class Terminos extends Component {
                   <ListItem style={styles.ListItem}>
                     <CheckBox checked={this.state.selected} onPress={this.toggle.bind(this)}/>
                     <View style={styles.view}>
-                      <Text>Acepto todo</Text>
+                      <Text>Acepto todo.</Text>
                     </View>
                   </ListItem>
                 </List>
@@ -112,42 +112,42 @@ class Terminos extends Component {
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check1} onPress={this.chec1.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>Derechos de Propiedad.</Text>
+                    <Text>Derechos de Propiedad. Entre usted y el Centro de innovación ...</Text>
                   </View>
                 </ListItem>
 
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check2} onPress={this.chec2.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>Licencia Limitada.</Text>
+                    <Text>Licencia Limitada. Usted puede acceder ver el ...</Text>
                   </View>
                 </ListItem>
 
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check3} onPress={this.chec3.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>Uso Prohibido.</Text>
+                    <Text>Uso Prohibido. Cualquier distribución, publicación o explo ...</Text>
                   </View>
                 </ListItem>
 
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check4} onPress={this.chec4.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>Marcas Comerciales.</Text>
+                    <Text>Marcas Comerciales. Las marcas comerciales, logos, marcas de ...</Text>
                   </View>
                 </ListItem>
 
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check5} onPress={this.chec5.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>Información del Usuario.</Text>
+                    <Text>Información del Usuario. En el curso del uso que usted ...</Text>
                   </View>
                 </ListItem>
 
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check6} onPress={this.chec6.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>Sitios Web de Terceros.</Text>
+                    <Text>Sitios Web de Terceros. Usted puede enlazar (link) del ...</Text>
                   </View>
                 </ListItem>
 
