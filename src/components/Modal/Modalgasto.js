@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import Valores from './Modal';
 import Fecha from './Fecha';
 import Modalcat from './Modalcat';
+import moment from 'moment';
 
 export default class Example extends Component {
   constructor() {
@@ -13,10 +14,18 @@ export default class Example extends Component {
     this.state = {
       visibleModal: null,
       validacion: [],
-      objeto: {},
-      fecha: '',
+      objeto:{},
+      fecha:new Date(),
       icono: 'add'
     };
+  }
+  fechaF=()=>{
+    var date=moment(this.state.fecha).format('DD-MM-YYYY')
+    objeto=this.state.objeto
+    objeto['fecha']=date
+    this.setState({
+      objeto
+    })
   }
 
   conFun = (iconito) => {
@@ -52,14 +61,19 @@ export default class Example extends Component {
   }
 
   valorfun = (valorcito) => {
+    var date=moment(this.state.fecha).format('YYYY-MM-DD')
     objeto = this.state.objeto
+    objeto['fecha']=date
     objeto['cantidad'] = valorcito
     this.setState({objeto});
   }
 
   fechafun = (fechita) => {
-    const newFech = fechita;
-    this.setState({fecha: newFech});
+    objeto=this.state.objeto
+    objeto['fecha']=fechita
+    this.setState({
+      objeto
+    })
   }
 
   cancelar = () => {
@@ -68,6 +82,8 @@ export default class Example extends Component {
   }
 
   aceptar = () => {
+    console.log(this.state.objeto)
+    console.log(this.state.objeto)
     var objeto = this.state.objeto
     console.log(Object.keys(objeto).length)//esta parte te dice cuantos elmentos hay en el objeto "No Arreglo"
    if(Object.keys(objeto).length >= 4){

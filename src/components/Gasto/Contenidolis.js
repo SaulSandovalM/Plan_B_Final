@@ -88,6 +88,8 @@ export default class Contenidolis extends Component {
           </Body>
           <Right>
             <Text>${this.props.item.cantidad}</Text>
+            <Text note>{this.props.item.fecha}</Text>
+
           </Right>
         </ListItem>
       </List>

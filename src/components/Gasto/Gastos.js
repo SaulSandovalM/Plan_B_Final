@@ -66,6 +66,7 @@ export default class Gasto extends Component {
           categoria: child.val().categoria,
           descri: child.val().descri,
           cantidad: child.val().cantidad,
+          fecha:child.val().fecha,
           id: child.key})
         console.log(child.key);
       });

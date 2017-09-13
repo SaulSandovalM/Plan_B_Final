@@ -61,19 +61,12 @@ conFun = (iconito) => {
   }
 
   fechafun = (fechita) => {
-    const newFech = fechita;
-    this.setState({fecha: newFech});
-  }
-
-  /*valorObje=()=>{
-    Object.keys(this.props.item).map(function (key) {
-      var item = this.state.items[key]
-      // ...
+    objeto=this.state.objeto
+    objeto['fecha']=fechita
+    this.setState({
+      objeto
     })
-  }*/
-
-
-
+  }
 
   aceptar = () => {
     this.props.update(this.state.objeto)
@@ -102,7 +95,7 @@ conFun = (iconito) => {
             <Icon name="calendar"/>
           </Left>
           <Body>
-            <Fecha fechafun={this.fechafun}/>
+            <Fecha fechafun={this.fechafun} dateE={this.props.item.fecha}/>
           </Body>
         </ListItem>
 
