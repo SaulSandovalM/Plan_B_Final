@@ -22,7 +22,7 @@ const NoticiaDetalle = ({ noticia }) => {
           <Image source={{
             uri: 'http://planb.com.mx/wp-content/themes/buildingTheme/images/21244656_861780077314641_593729245_n.png'
           }} style={styles.img}/>
-        <HtmlText html={excerpt} style={{marginBottom: 0}}/>
+        <HtmlText html={excerpt} style={{marginTop: 10}}/>
         <Text onPress={() => Linking.openURL(url)}>
           Visita nuestro blog
         </Text>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   img: {
-    height: 125,
+    height: 138,
     width: '100%'
   },
   card: {
