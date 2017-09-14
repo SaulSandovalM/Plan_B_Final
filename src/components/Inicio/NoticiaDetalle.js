@@ -20,7 +20,7 @@ const NoticiaDetalle = ({ noticia }) => {
       <CardItem>
         <Body>
           <Image source={{
-            uri: 'https://dm6jf9380nk1h.cloudfront.net/thumbor/NsBlFRM7rbPiDiiLP8dpboTJ-WQ=/1200x0/filters:no_upscale()/https://dm6jf9380nk1h.cloudfront.net/article/ec6533aa-e4ff-4b6a-9c47-7a5f3caeccaf.jpg'
+            uri: 'http://planb.com.mx/wp-content/themes/buildingTheme/images/21244656_861780077314641_593729245_n.png'
           }} style={styles.img}/>
         <HtmlText html={excerpt} style={{marginBottom: 0}}/>
         <Text onPress={() => Linking.openURL(url)}>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   img: {
-    height: 200,
+    height: 125,
     width: '100%'
   },
   card: {
