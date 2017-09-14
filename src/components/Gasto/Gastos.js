@@ -128,7 +128,7 @@ export default class Gasto extends Component {
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
-        <View style={styles.view}>
+        {/*<View style={styles.view}>
           <DatePicker style={styles.date}
             date={this.state.date}
             mode="date"
@@ -157,7 +157,7 @@ export default class Gasto extends Component {
           }} onDateChange={() => {
             this.setState({date: date})
           }}/>
-        </View>
+        </View>*/}
 
         <Content>
           {Gasto}
