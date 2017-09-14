@@ -6,6 +6,7 @@ import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Imagen from './Imagen';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import img from '../../assets/imgs/us.jpeg';
+import ProductoDetalle from './ProductoDetalle';
 const options = ['Cancel', 'Femenino', 'Masculino'];
 const title = '¿Cual es tu sexo?';
 const CANCEL_INDEX = 0;
@@ -16,9 +17,9 @@ class Perfil extends Component {
     super(props)
     this.state = {
       selected: '',
-      isLoading: true,
       profiles: [],
-      email: ''
+      email: '',
+      productos: []
     }
     this.handlePress = this.handlePress.bind(this)
     this.showActionSheet = this.showActionSheet.bind(this)
@@ -49,27 +50,18 @@ class Perfil extends Component {
 
     return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/polizas.json').then((response) => response.json())
     .then((responseJson) => {
-      let ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
+      this.setState({productos: responseJson})
+      console.log(responseJson)
       });
-      this.setState({
-        isLoading: false,
-        dataSource: ds.cloneWithRows(responseJson)
-      }, function() {
-        // do something with new state
-      });
-    }).catch((error) => {
-      console.error(error);
-    });
+  }
+
+  renderProductos(){
+    return this.state.productos.map(producto =>
+      <ProductoDetalle key={producto.id} producto={producto} />
+    );
   }
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <View style={styles.view2}></View>
-      );
-    }
-
     return (
       <Container>
         <CabeceraGen headerText='PERFIL'/>
@@ -115,20 +107,8 @@ class Perfil extends Component {
               <Text>Tus Productos</Text>
             </ListItem>
           </List>
-          <View style={styles.view2}>
-            <ListView dataSource={this.state.dataSource} renderRow={(rowData) =>
-              <Text>{rowData.fecha_poliza}</Text>}/>
-          </View>
 
-          <View style={styles.view2}>
-            <ListView dataSource={this.state.dataSource} renderRow={(rowData) =>
-              <Text>{rowData.tpersona}</Text>}/>
-          </View>
-
-          <View style={styles.view2}>
-            <ListView dataSource={this.state.dataSource} renderRow={(rowData) =>
-              <Text>{rowData.tpersona}</Text>}/>
-          </View>
+          {this.renderProductos()}
 
           <ActionSheet ref={o => this.ActionSheet = o} title={title} options={options}
             cancelButtonIndex={CANCEL_INDEX} destructiveButtonIndex={DESTRUCTIVE_INDEX} onPress={this.handlePress}/>

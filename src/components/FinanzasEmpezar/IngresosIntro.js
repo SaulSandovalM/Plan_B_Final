@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, Image, TouchableOpacity, View, TextInput} from 'react-native';
+import {StyleSheet, Text, Image, TouchableOpacity, View, TextInput,Alert} from 'react-native';
 import {Container, Content, Button, Right, Input, List, ListItem, Icon, Body, Left} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Modal from 'react-native-modal';
 import Valores from '../Modal/Modal';
+import moment from 'moment';
 
 export default class IngresosIntro extends Component {
   constructor() {
@@ -12,8 +13,23 @@ export default class IngresosIntro extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: null,
-      ingreso: [],
+      fecha:new Date(),
+      lista: [],
+      ingreso:{}
     };
+  }
+
+  valorfun = (valorcito) => {
+    var date=moment(this.state.fecha).format('YYYY-MM-DD')
+    ingreso = this.state.ingreso
+    ingreso['cantidad'] = valorcito
+    ingreso['fecha']=date
+    this.setState({ingreso});
+  }
+  desFun = (descripcion) => {
+    ingreso= this.state.ingreso
+    ingreso['descri'] = descripcion
+    this.setState({ingreso});
   }
 
   _renderModalContent = () => (
@@ -50,20 +66,29 @@ export default class IngresosIntro extends Component {
   }
 
   addItem = () => {
-    let nuevo = this.state.objeto
-    this.state.ingreso.push(nuevo);
-    this.setState({ingreso: this.state.ingreso})
-    firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
-      if (user) {
-        var uid = user.uid;
-      }
-      console.log(nuevo)
-      firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
-    });
-    Actions.GastosIntro()
-    this.setState({visibleModal: null});
-    this.setState({objeto: {}})
+ let nuevo = this.state.ingreso
+     if(Object.keys(nuevo).length >= 3){
+
+       this.state.lista.push(nuevo);
+       this.setState({lista: this.state.lista})
+       firebaseAuth.onAuthStateChanged(function(user) {
+         if (user) {
+           var uid = user.uid;
+         }
+         firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
+       });
+       Actions.GastosIntro()
+       this.setState({visibleModal: null});
+       this.setState({ingreso: {}})
+     }else{
+       const message = 'No has llenado todos los campos';
+       Alert.alert('Advertencia', message, [{
+         text: 'ok',
+         onPress: null
+       }]);
+       console.log(Object.keys(nuevo).length)
+     }
+
   }
 
   render() {

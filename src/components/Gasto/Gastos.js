@@ -82,16 +82,7 @@ export default class Gasto extends Component {
     this.setState({visibleModal: newEstado})
 
   }
-valores=()=>{
-  /*let objeto=this.state.item
-  Object.keys(objeto).map(function (key) {
-    var item = objeto[cantidad]
-  console.log(item)
-  */
-  console.log(this.state.item.cantidad)
 
-
-}
   update=(datos)=>{
     let item = this.state.item
     item=datos

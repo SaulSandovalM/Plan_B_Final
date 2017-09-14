@@ -35,7 +35,6 @@ class Recover extends Component {
                   type: 'success'
                 })
       }, function(error) {
-        console.log(error)
         Toast.show({
                   text: 'Correo inválido, verifique campos',
                   position: 'bottom',

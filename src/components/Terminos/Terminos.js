@@ -13,7 +13,10 @@ class Terminos extends Component {
       selected: false,
       check1: false,
       check2: false,
-      check3: false
+      check3: false,
+      check4: false,
+      check5: false,
+      check6: false,
     };
   }
 
@@ -35,16 +38,36 @@ class Terminos extends Component {
     });
   }
 
-  toggle() {
-    if (this.state.selected == false || this.state.check1 == false || this.state.check2 == false || this.state.check3 == false) {
+  chec4() {
+    this.setState({
+      check4: !this.state.check4
+    });
+  }
 
-      this.setState({selected: true, check1: true, check2: true, check3: true});
+  chec5() {
+    this.setState({
+      check5: !this.state.check5
+    });
+  }
+
+  chec6() {
+    this.setState({
+      check6: !this.state.check6
+    });
+  }
+
+  toggle() {
+    if (this.state.selected == false || this.state.check1 == false || this.state.check2 == false || this.state.check3 == false || this.state.check4 == false || this.state.check5 == false || this.state.check6 == false) {
+      this.setState({selected: true, check1: true, check2: true, check3: true, check4: true, check5: true, check6: true});
     } else {
       this.setState({
         selected: !this.state.selected,
         check1: !this.state.check1,
         check2: !this.state.check2,
-        check3: !this.state.check3
+        check3: !this.state.check3,
+        check4: !this.state.check4,
+        check5: !this.state.check5,
+        check6: !this.state.check6
       });
     }
   }
@@ -54,15 +77,10 @@ class Terminos extends Component {
   }
 
   entry() {
-    if (this.state.selected == true && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true) {
+    if (this.state.selected == true && this.state.check1 == true && this.state.check2 == true && this.state.check3 == true && this.state.check4 == true && this.state.check5 == true && this.state.check6 == true) {
       Actions.Login()
     } else {
-      Toast.show({
-                text: 'Acepta todos los términos y condiciones',
-                position: 'bottom',
-                duration: 2000,
-                type: 'danger'
-              })
+      Toast.show({text: 'Acepta todos los términos y condiciones', position: 'bottom', duration: 2000, type: 'danger'})
     }
   }
 
@@ -83,11 +101,10 @@ class Terminos extends Component {
                 <List style={styles.list}>
                   <Text>Pulse los vínculos a continuación y léalos atentamente. Al marcar las casillas, usted reconoce
                     que ha leído y que acepta los siguientes términos:</Text>
-
                   <ListItem style={styles.ListItem}>
                     <CheckBox checked={this.state.selected} onPress={this.toggle.bind(this)}/>
                     <View style={styles.view}>
-                      <Text>Acepto todo</Text>
+                      <Text>Acepto todo.</Text>
                     </View>
                   </ListItem>
                 </List>
@@ -95,21 +112,42 @@ class Terminos extends Component {
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check1} onPress={this.chec1.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>He leído y estoy de acuerdo con los Términos especiales y condiciones</Text>
+                    <Text>Derechos de Propiedad. Entre usted y el Centro de innovación ...</Text>
                   </View>
                 </ListItem>
 
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check2} onPress={this.chec2.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>He leído y estoy de acuerdo con las políticas de privacidad.</Text>
+                    <Text>Licencia Limitada. Usted puede acceder ver el ...</Text>
                   </View>
                 </ListItem>
 
                 <ListItem style={styles.listItem}>
                   <CheckBox checked={this.state.check3} onPress={this.chec3.bind(this)}/>
                   <View style={styles.view2}>
-                    <Text>Activar servicios interactivos</Text>
+                    <Text>Uso Prohibido. Cualquier distribución, publicación o explo ...</Text>
+                  </View>
+                </ListItem>
+
+                <ListItem style={styles.listItem}>
+                  <CheckBox checked={this.state.check4} onPress={this.chec4.bind(this)}/>
+                  <View style={styles.view2}>
+                    <Text>Marcas Comerciales. Las marcas comerciales, logos, marcas de ...</Text>
+                  </View>
+                </ListItem>
+
+                <ListItem style={styles.listItem}>
+                  <CheckBox checked={this.state.check5} onPress={this.chec5.bind(this)}/>
+                  <View style={styles.view2}>
+                    <Text>Información del Usuario. En el curso del uso que usted ...</Text>
+                  </View>
+                </ListItem>
+
+                <ListItem style={styles.listItem}>
+                  <CheckBox checked={this.state.check6} onPress={this.chec6.bind(this)}/>
+                  <View style={styles.view2}>
+                    <Text>Sitios Web de Terceros. Usted puede enlazar (link) del ...</Text>
                   </View>
                 </ListItem>
 
@@ -149,7 +187,7 @@ const styles = StyleSheet.create({
     left: 15
   },
   view2: {
-    left: 10
+    left: 10,
   },
   boton: {
     backgroundColor: '#4DA49B',

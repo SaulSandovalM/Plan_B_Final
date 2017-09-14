@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
 import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button, Fab, Title} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
-import imgLogo from '../../assets/imgs/Ingresos.png';
+import imgLogo from '../../assets/imgs/ingresos-01.png';
 import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import {Actions} from 'react-native-router-flux';
+import Listconte from '../listaIngreso/Listconte'
 
 export default class Ingresos extends Component {
   constructor() {
@@ -74,6 +75,20 @@ export default class Ingresos extends Component {
     });
   }
 
+  borrar = (item) => {
+    console.log(item)
+    let updates = {};
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      firebase.database().ref('usuarios/' + uid + '/ingreso/' + item.id).set(null);
+      //Esta linea coloca valor nulo en el element que se seleccione
+    });
+  }
+
+
 
   render() {
     return (
@@ -122,6 +137,10 @@ export default class Ingresos extends Component {
             </ListItem>
 
           </List>
+          <Listconte ingreso={this.state.ingreso}
+                borrar={this.borrar}
+                editFun={this.editFun}
+                editKey={this.editKey}/>
 
         </Content>
 

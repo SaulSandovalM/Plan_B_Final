@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, Text, Image} from 'react-native';
 import {Container, Content, Body, Icon, Fab, Input, CardItem, List, ListItem, Left} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
-import imgLogo from '../../assets/imgs/Ahorros.png';
+import imgLogo from '../../assets/imgs/ahorros-01.png';
 import {Actions} from 'react-native-router-flux';
 import Valores from '../Modal/Modal';
 
@@ -11,7 +11,7 @@ export default class NuevoAhorro extends Component {
     super(props);
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
-      selected1: "key1"
+      selected1: "key1",
     };
   }
 

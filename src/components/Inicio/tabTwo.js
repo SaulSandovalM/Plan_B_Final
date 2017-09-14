@@ -8,10 +8,7 @@ class tabTwo extends Component {
   componentWillMount() {
     fetch('http://planb.com.mx/?json=get_recent_posts').then((response) => response.json())
       .then(responseJson => {
-        console.log(responseJson.posts);
         this.setState({ noticias: responseJson.posts });
-      }, error => {
-        console.log(error);
       });
   }
 

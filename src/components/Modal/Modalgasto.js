@@ -19,6 +19,7 @@ export default class Example extends Component {
       icono: 'add'
     };
   }
+
   fechaF=()=>{
     var date=moment(this.state.fecha).format('DD-MM-YYYY')
     objeto=this.state.objeto
@@ -46,7 +47,6 @@ export default class Example extends Component {
   cateFun = (categorita) => {
     objeto = this.state.objeto
     objeto['categoria'] = categorita
-
     //const newCat= categorita;
     this.setState({
       //categoria:newCat,
@@ -82,10 +82,9 @@ export default class Example extends Component {
   }
 
   aceptar = () => {
-    console.log(this.state.objeto)
-    console.log(this.state.objeto)
+
     var objeto = this.state.objeto
-    console.log(Object.keys(objeto).length)//esta parte te dice cuantos elmentos hay en el objeto "No Arreglo"
+    console.log(Object.keys(objeto).length)//esta parte te dice cuantos elementos hay en el objeto "No Arreglo"
    if(Object.keys(objeto).length >= 4){
       this.setState({visibleModal: null});
       this.props.agregar(this.state.objeto),

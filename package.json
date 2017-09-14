@@ -23,6 +23,7 @@
     "react-addons-update": "^15.6.0",
     "react-native": "0.46.3",
     "react-native-actionsheet": "^2.2.0",
+    "react-native-animatable": "^1.2.3",
     "react-native-circular-progress": "0.0.8",
     "react-native-datepicker": "^1.6.0",
     "react-native-fbsdk": "^0.6.1",
