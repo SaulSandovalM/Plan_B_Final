@@ -82,8 +82,7 @@ export default class Example extends Component {
   }
 
   aceptar = () => {
-    console.log(this.state.objeto)
-    console.log(this.state.objeto)
+
     var objeto = this.state.objeto
     console.log(Object.keys(objeto).length)//esta parte te dice cuantos elementos hay en el objeto "No Arreglo"
    if(Object.keys(objeto).length >= 4){

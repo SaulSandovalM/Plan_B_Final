@@ -7,6 +7,7 @@ import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import {Actions} from 'react-native-router-flux';
+import Listconte from '../listaIngreso/Listconte'
 
 export default class Ingresos extends Component {
   constructor() {
@@ -34,9 +35,11 @@ export default class Ingresos extends Component {
     this.state.ingreso.push(nuevo);
     this.setState({ingreso: this.state.ingreso})
     firebaseAuth.onAuthStateChanged(function(user) {
+
       if (user) {
         var uid = user.uid;
       }
+      console.log(nuevo)
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
     Actions.Inicio()
@@ -45,52 +48,47 @@ export default class Ingresos extends Component {
   componentWillMount() {
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
       if (user) {
         var uid = user.uid;
         var key = user.key;
       }
+      console.log(uid)
+      console.log(key)
       const itemsRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
       that.listenForItems(itemsRef);
     });
   }
 
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var ingreso = [];
-      snap.forEach((child) => {
-        ingreso.push({
-          descri: child.val().descri,
-          cantidad: child.val().cantidad,
-          id: child.key})
-      });
-      this.setState({ingreso: ingreso});
-    });
-  }
 
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
       // get children as an array
       var ingreso = [];
       snap.forEach((child) => {
-        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
+        ingreso.push({descri: child.val().descri,
+                      cantidad: child.val().cantidad,
+                      id: child.key})
+        console.log(child.key);
       });
       this.setState({ingreso: ingreso});
     });
   }
 
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var ingreso = [];
-      snap.forEach((child) => {
-        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
-      });
-      this.setState({ingreso: ingreso});
+  borrar = (item) => {
+    console.log(item)
+    let updates = {};
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      firebase.database().ref('usuarios/' + uid + '/ingreso/' + item.id).set(null);
+      //Esta linea coloca valor nulo en el element que se seleccione
     });
   }
+
+
 
   render() {
     return (
@@ -139,6 +137,10 @@ export default class Ingresos extends Component {
             </ListItem>
 
           </List>
+          <Listconte ingreso={this.state.ingreso}
+                borrar={this.borrar}
+                editFun={this.editFun}
+                editKey={this.editKey}/>
 
         </Content>
 

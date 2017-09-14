@@ -23,6 +23,7 @@ export default class tabOne extends Component {
     console.ignoredYellowBox = true;
     this.state = {
       activeIndex: 0,
+
       pIngreso: 0,
       pGasto: 0,
       totI: 0,
@@ -44,13 +45,17 @@ export default class tabOne extends Component {
   componentWillMount() {
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+
       if (typeof user !== "undefined" && user !== null) {
         var uid = user.uid;
+        console.log(uid)
         const IngreRef = firebase.database().ref('usuarios/' + uid + '/ingreso');
         that.listenForIngre(IngreRef);
         const itemsRef = firebase.database().ref('usuarios/' + uid + '/gastos');
         that.listenForItems(itemsRef);
       }
+
     });
   }
   //Esto ya hace una suma de todo
@@ -62,14 +67,18 @@ export default class tabOne extends Component {
       totI += ingr.cantidad;
       this.setState({
         totI
-      }, () => {});
+      }, () => {
+        console.log(this.state.totI)
+      });
       let pIngreso = this.state.pIngreso
-      pIngreso = 100 - this.state.pGasto;
+      pIngreso= 100- this.state.pGasto;
       this.setState({pIngreso});
     });
   }
 
+
   listenForItems(itemsRef) {
+    //Suma cuando agregas un gasto
     itemsRef.on('child_added', (item) => {
       const gast = item.val();
       let totG = this.state.totG;
@@ -80,48 +89,24 @@ export default class tabOne extends Component {
         if (this.state.pIngreso !== 0) {
           let pGasto = this.state.pGasto;
           pGasto = ((this.state.totG * 100) / this.state.totI);
+          console.log(pGasto);
+
           this.setState({
             pGasto
           }, () => {
             let pIngreso = this.state.pIngreso;
+            console.log(this.state.pIngreso);
+            console.log(this.state.pGasto);
             pIngreso = 100 - this.state.pGasto;
             this.setState({pIngreso});
+            console.log(pIngreso);
           });
         }
       });
     });
 
-    //eliminar
+    //eliminar suma cuando  gasto
     itemsRef.on('child_removed', (b) => {
-      const borrado = b.val();
-      itemsRef.once('value', (l) => {
-        const gast = l.val();
-        if (l.hasChildren()) {
-          var total = 0;
-          l.forEach(function(item) {
-            total += item.child('cantidad').val();
-          });
-          this.setState({
-            totG: total
-          }, () => {
-            if (this.state.pIngreso !== 0) {
-              let pGasto = this.state.pGasto;
-              pGasto = ((this.state.totG * 100) / this.state.totI);
-              this.setState({
-                pGasto
-              }, () => {
-                let pIngreso = this.state.pIngreso;
-                pIngreso = 100 - this.state.pGasto;
-                this.setState({pIngreso});
-              });
-            }
-          });
-        }
-      });
-    }); //aqui termina eliminar
-
-    //Updates
-    itemsRef.on('child_changed', (b) => {
       const borrado = b.val();
       console.log(borrado)
       itemsRef.once('value', (l) => {
@@ -151,11 +136,43 @@ export default class tabOne extends Component {
             }
           });
         }
-      });
-    }); //aqui termina update
-  }
 
-  //hasta aqui
+    });
+  });//aqui termina eliminar
+
+  //Updates sumara cuando el gasto se modifica
+  itemsRef.on('child_changed',(b)=>{
+    const borrado = b.val();
+    console.log(borrado)
+    itemsRef.once('value',(l)=>{
+      const gast = l.val();
+      if(l.hasChildren()){
+        var total= 0;
+        l.forEach(function(item){
+          total += item.child('cantidad').val();
+        });
+        console.log(total)
+        this.setState({totG:total},()=>{
+            console.log("haber que pasa")
+            if (this.state.pIngreso !== 0) {
+              let pGasto = this.state.pGasto;
+              pGasto = ((this.state.totG * 100) / this.state.totI);
+              console.log(pGasto);
+              this.setState({pGasto}, ()=>{
+                let pIngreso = this.state.pIngreso;
+                pIngreso = 100 - this.state.pGasto;
+                this.setState({pIngreso});
+                console.log(pIngreso);
+              });
+            }
+        });
+      }
+  });
+});//aqui termina update
+
+
+}//hasta aqui
+
   render() {
     const height = 200;
     const width = 340;
@@ -195,14 +212,7 @@ export default class tabOne extends Component {
           <View style={styles.container}>
             <Text style={styles.chart_title}>ESTADISTICAS</Text>
             <View style={styles.view}>
-              <Pie
-                pieWidth={150}
-                pieHeight={150}
-                onItemSelected={this._onPieItemSelected}
-                colors={Theme.colors}
-                width={width}
-                height={height}
-                data={[
+              <Pie pieWidth={150} pieHeight={150} onItemSelected={this._onPieItemSelected} colors={Theme.colors} width={width} height={height} data={[
                 {
                   "number": Math.round(this.state.pIngreso),
                   "name": 'Ingresos'

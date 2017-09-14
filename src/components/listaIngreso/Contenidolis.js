@@ -80,11 +80,10 @@ export default class Contenidolis extends Component {
       <List>
         <ListItem icon onLongPress={this.pressIn} onPress={this.pressOn}>
           <Left>
-            <Icon name={this.props.item.iname}/>
+            <Icon name="md-checkmark"/>
           </Left>
           <Body>
-            <Text>{this.props.item.categoria}</Text>
-            <Text note>{this.props.item.descri}</Text>
+            <Text>{this.props.item.descri}</Text>
           </Body>
           <Right style={{flexDirection:'column'}}>
               <Text note>{this.props.item.fecha}</Text>

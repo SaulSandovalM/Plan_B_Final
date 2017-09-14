@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Container, Content, List, Text, Button} from 'native-base';
+import {Container, Content, List, Text,Button} from 'native-base';
 import Listconte from './Listconte';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import Modalgasto from '../Modal/Modalgasto';
@@ -16,9 +16,10 @@ export default class Gasto extends Component {
     this.state = {
       lista: [],
       date: new Date(),
-      visibleModal: null,
-      cancel: null,
-      item: {}
+      visibleModal:null,
+      cancel:null,
+      item:{},
+
     }
   }
 
@@ -26,6 +27,7 @@ export default class Gasto extends Component {
     this.state.lista.push(datos)
     this.setState({lista: this.state.lista})
     console.log(this.state.lista)
+
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
       if (user) {
@@ -34,9 +36,11 @@ export default class Gasto extends Component {
       console.log(uid)
       firebase.database().ref('usuarios/' + uid + '/gastos').push(datos);
     });
+
   }
 
   componentWillMount() {
+
     var that = this;
     firebaseAuth.onAuthStateChanged(function(user) {
       console.log('user', user)
@@ -53,6 +57,7 @@ export default class Gasto extends Component {
 
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
+
       // get children as an array
       var lista = [];
       snap.forEach((child) => {
@@ -61,37 +66,30 @@ export default class Gasto extends Component {
           categoria: child.val().categoria,
           descri: child.val().descri,
           cantidad: child.val().cantidad,
-          fecha: child.val().fecha,
-          id: child.key
-        })
+          fecha:child.val().fecha,
+          id: child.key})
         console.log(child.key);
       });
       this.setState({lista: lista});
     });
   }
-  editKey = (key) => {
-    this.setState({item: key})
+  editKey=(key)=>{
+    this.setState({item:key})
     console.log(key)
   }
-  editFun = (vismod) => {
+  editFun=(vismod)=>{
     newEstado = vismod;
     this.setState({visibleModal: newEstado})
 
   }
-  valores = () => {
-    /*let objeto=this.state.item
-  Object.keys(objeto).map(function (key) {
-    var item = objeto[cantidad]
-  console.log(item)
-  */
-    console.log(this.state.item.cantidad)
-  }
 
-  update = (datos) => {
+  update=(datos)=>{
     let item = this.state.item
-    item = datos
+    item=datos
     this.setState({item: item})
     console.log(this.state.item)
+
+
     firebaseAuth.onAuthStateChanged(function(user) {
       let updates = {};
       console.log('user', user)
@@ -101,13 +99,13 @@ export default class Gasto extends Component {
       firebase.database().ref('usuarios/' + uid + '/gastos/' + datos.id).update(datos);
       //Esta linea coloca valor nulo en el element que se seleccione
     });
-    this.setState({visibleModal: null})
+    this.setState({visibleModal:null})
   }
 
-  cancelarMod = () => {
-    this.setState({visibleModal: null})
-  }
 
+  cancelarMod=()=>{
+    this.setState({visibleModal:null})
+  }
   borrar = (item) => {
     console.log(item)
     let updates = {};
@@ -122,9 +120,13 @@ export default class Gasto extends Component {
   }
 
   render() {
+
     var Gasto = this.state.lista.length < 1
       ? <Nogasto/>
-      : <Listconte lista={this.state.lista} borrar={this.borrar} editFun={this.editFun} editKey={this.editKey}/>;
+      : <Listconte lista={this.state.lista}
+            borrar={this.borrar}
+            editFun={this.editFun}
+            editKey={this.editKey}/>;
     return (
       <Container style={styles.back}>
         <CabeceraGen headerText='GASTOS'/>
@@ -163,14 +165,13 @@ export default class Gasto extends Component {
           {Gasto}
         </Content>
         <Modalgasto style={styles.lista} agregar={this.addItem}/>
-        <Modaleditar
-          visibilidad={this.state.visibleModal}
-          item={this.state.item}
-          iname={this.state.item.iname}
-          style={styles.lista}
-          editar={this.editar}
-          cancelarMod={this.cancelarMod}
-          update={this.update}/>
+        <Modaleditar visibilidad={this.state.visibleModal}
+                      item={this.state.item}
+                      iname={this.state.item.iname}
+                      style={styles.lista}
+                      editar={this.editar}
+                      cancelarMod={this.cancelarMod}
+                      update={this.update}/>
 
       </Container>
     );
@@ -199,8 +200,5 @@ const styles = StyleSheet.create({
   picker: {
     width: 150,
     alignItems: 'center'
-  },
-  date: {
-    width: 200
   }
 });

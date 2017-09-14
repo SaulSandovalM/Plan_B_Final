@@ -6,6 +6,8 @@ import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import Modalcat from '../Modal/Modalcat';
 import {Actions} from 'react-native-router-flux';
+import moment from 'moment';
+import firebase, {firebaseAuth} from '../Firebase/Firebase';
 
 export default class GastosIntro extends Component {
   constructor() {
@@ -13,9 +15,9 @@ export default class GastosIntro extends Component {
     console.ignoredYellowBox = ['Setting a timer'];
     this.state = {
       visibleModal: 1,
-      validacion: [],
+      lista: [],
       objeto: {},
-      fecha: '',
+      fecha:new Date(),
       icono: 'add'
     };
   }
@@ -53,7 +55,9 @@ export default class GastosIntro extends Component {
   }
 
   valorfun = (valorcito) => {
+    var date=moment(this.state.fecha).format('YYYY-MM-DD')
     objeto = this.state.objeto
+    objeto['fecha']=date
     objeto['cantidad'] = valorcito
     this.setState({objeto});
   }
@@ -73,8 +77,19 @@ export default class GastosIntro extends Component {
     //esta parte te dice cuantos elmentos hay en el objeto "No Arreglo"
     if (Object.keys(objeto).length >= 4) {
       this.setState({visibleModal: null});
-      this.props.agregar(this.state.objeto),
+      this.state.lista.push(objeto)
+      this.setState({lista: this.state.lista})
+
+      firebaseAuth.onAuthStateChanged(function(user) {
+        console.log('user', user)
+        if (user) {
+          var uid = user.uid;
+        }
+        console.log(uid)
+        firebase.database().ref('usuarios/' + uid + '/gastos').push(objeto);
+      });
       this.setState({objeto: {}})
+        Actions.Inicio()
     } else {
       const message = 'No has llenado todos los campos';
       Alert.alert('Advertencia', message, [
@@ -83,8 +98,10 @@ export default class GastosIntro extends Component {
           onPress: null
         }
       ]);
-      Actions.Inicio()
+
     }
+
+
   }
 
   activar = () => {
@@ -169,28 +186,24 @@ export default class GastosIntro extends Component {
 }
 
 const styles = StyleSheet.create({
-  rootContainer: {
-    backgroundColor: 'white',
-    borderRadius: 5
-  },
-  container: {
-    flex: 1
-  },
-  texto: {
-    fontSize: 20,
-    top: 32,
-    color: '#4DA49B'
-  },
-  icon: {
-    color: '#ff5722'
-  },
-  input: {
-    marginLeft: 10,
-    color: '#757575'
-  },
-  view: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    top: 10
-  }
-});
+   rootContainer: {
+     backgroundColor: 'white',
+     borderRadius: 5
+   },
+   texto: {
+  color: '#4DA49B'
+
+   },
+   icon: {
+     color: '#ff5722'
+   },
+   input: {
+     marginLeft: 10,
+     color: '#757575'
+   },
+   view: {
+     flexDirection: 'row',
+     justifyContent: 'center',
+     top: 10
+   }
+ });
