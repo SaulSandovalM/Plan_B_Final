@@ -34,7 +34,7 @@ export default class Ingresos extends Component {
     this.state.ingreso.push(nuevo);
     this.setState({ingreso: this.state.ingreso})
     firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
+
       if (user) {
         var uid = user.uid;
       }
@@ -59,46 +59,21 @@ export default class Ingresos extends Component {
     });
   }
 
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var ingreso = [];
-      snap.forEach((child) => {
-        ingreso.push({
-          descri: child.val().descri,
-          cantidad: child.val().cantidad,
-          id: child.key})
-        console.log(child.key);
-      });
-      this.setState({ingreso: ingreso});
-    });
-  }
 
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
       // get children as an array
       var ingreso = [];
       snap.forEach((child) => {
-        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
+        ingreso.push({descri: child.val().descri,
+                      cantidad: child.val().cantidad,
+                      id: child.key})
         console.log(child.key);
       });
       this.setState({ingreso: ingreso});
     });
   }
 
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var ingreso = [];
-      snap.forEach((child) => {
-        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
-        console.log(child.key);
-      });
-      this.setState({ingreso: ingreso});
-    });
-  }
 
   render() {
     return (

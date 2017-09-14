@@ -78,6 +78,7 @@ export default class tabOne extends Component {
 
 
   listenForItems(itemsRef) {
+    //Suma cuando agregas un gasto
     itemsRef.on('child_added', (item) => {
       const gast = item.val();
       let totG = this.state.totG;
@@ -104,7 +105,7 @@ export default class tabOne extends Component {
       });
     });
 
-    //eliminar
+    //eliminar suma cuando  gasto
     itemsRef.on('child_removed', (b) => {
       const borrado = b.val();
       console.log(borrado)
@@ -138,8 +139,8 @@ export default class tabOne extends Component {
 
     });
   });//aqui termina eliminar
-  
-  //Updates
+
+  //Updates sumara cuando el gasto se modifica
   itemsRef.on('child_changed',(b)=>{
     const borrado = b.val();
     console.log(borrado)
@@ -170,12 +171,7 @@ export default class tabOne extends Component {
 });//aqui termina update
 
 
-}
-
-
-
-
-  //hasta aqui
+}//hasta aqui
 
   render() {
     const height = 200;

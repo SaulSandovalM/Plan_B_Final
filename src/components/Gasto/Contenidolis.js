@@ -87,9 +87,8 @@ export default class Contenidolis extends Component {
             <Text note>{this.props.item.descri}</Text>
           </Body>
           <Right style={{flexDirection:'column'}}>
-            <Text note>{this.props.item.fecha}</Text>
+              <Text note>{this.props.item.fecha}</Text>
               <Text>${this.props.item.cantidad}</Text>
-
           </Right>
         </ListItem>
       </List>
