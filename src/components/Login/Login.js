@@ -6,7 +6,6 @@ import {Button, Icon, Item, Input, Toast, Spinner, Label} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import img from '../../assets/imgs/log.jpg';
 import img2 from '../../assets/imgs/plan2.png';
-import * as Animatable from 'react-native-animatable';
 
 const {FacebookAuthProvider} = firebase.auth
 
@@ -27,26 +26,37 @@ class Login extends Component {
     this.facebook = this.facebook.bind(this);
   }
 
-  facebook() {
+  facebook(){
     this.setState({loadingF: true});
-    LoginManager.logInWithReadPermissions(['public_profile', 'email']).then((result) => {
-      if (result.isCancelled) {
-        return Promise.resolve('cancelled');
-      }
-      return AccessToken.getCurrentAccessToken();
-    }).then(data => {
-      // create a new firebase credential with the token
-      const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+    LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
+          (result) => {
+          if (result.isCancelled) {
+            return Promise.resolve('cancelled');
+          }
+          return AccessToken.getCurrentAccessToken();
+        }).then(data => {
+          // create a new firebase credential with the token
+          const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
 
-      // login with credential
-      return firebase.auth().signInWithCredential(credential);
-    }).then((currentUser) => {
-      if (currentUser === 'cancelled') {} else {
-        // now signed in
-        Actions.Log();
-        Toast.show({text: 'Bienvenido', position: 'bottom', duration: 3000, type: 'success'})
-      }
-    })
+          // login with credential
+          return firebase.auth().signInWithCredential(credential);
+        }).then((currentUser) => {
+          if (currentUser === 'cancelled') {
+            console.log('Login cancelled');
+          } else {
+            // now signed in
+            Actions.Log();
+            Toast.show({
+                      text: 'Bienvenido',
+                      position: 'bottom',
+                      duration: 3000,
+                      type: 'success'
+                    })
+
+          }
+        }).catch((error) => {
+          console.log(`Login fail with error: ${error}`);
+        })
   }
 
   onButtonPress() {
@@ -57,78 +67,83 @@ class Login extends Component {
 
   onLoginFailed() {
     this.setState({error: 'Autenticación Fallida', loading: false});
-    Toast.show({text: 'Usuario/contraseña inválidos', position: 'bottom', buttonText: 'OK', type: 'danger'})
+    Toast.show({
+              text: 'Usuario/contraseña inválidos',
+              position: 'bottom',
+              buttonText: 'OK',
+              type: 'danger'
+            })
 
   }
   onLoginSuccess() {
     this.setState({email: '', contraseña: '', error: '', loading: false});
     Actions.Log();
-    Toast.show({text: 'Bienvenido', position: 'bottom', duration: 5000, type: 'success'})
+    Toast.show({
+              text: 'Bienvenido',
+              position: 'bottom',
+              duration: 5000,
+              type: 'success'
+            })
   }
 
-  spinnerInicio() {
-    if (this.state.loading) {
+  spinnerInicio(){
+    if(this.state.loading){
       return (
         <Button rounded block style={styles.buttonSpinner}>
-          <Spinner color='white'/>
+          <Spinner color='white' />
         </Button>
       );
     }
-
-    return (
+    return(
       <Button rounded block style={styles.buttonIngreso} onPress={this.onButtonPress.bind(this)}>
         <Text style={styles.boton}>INGRESAR</Text>
       </Button>
     );
   }
 
-  spinnerInicioF() {
-    if (this.state.loadingF) {
+  spinnerInicioF(){
+    if(this.state.loadingF){
       return (
         <Button rounded block style={styles.buttonSpinnerF}>
-          <Spinner color='white'/>
+          <Spinner color='white' />
         </Button>
       );
     }
-
-    return (
+    return(
       <Button rounded block iconLeft light style={styles.buttonIngresoF} onPress={this.facebook.bind(this)}>
-        <Icon name='logo-facebook' style={{
-          color: 'white'
-        }}/>
+        <Icon name='logo-facebook' style={{color:'white'}}/>
         <Text style={styles.boton}>Iniciar con Facebook</Text>
       </Button>
     );
   }
 
+
   render() {
     return (
       <Image source={img} style={styles.img}>
-        <Image source={img2} style={styles.imagen}/> {this.spinnerInicioF()}
+        <Image source={img2} style={styles.imagen}/>
 
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address'
-            placeholderTextColor='#ccc' returnKeyType='next' value={this.state.text}
-            onChangeText={email => this.setState({email})}/>
-        </Item>
+          {this.spinnerInicioF()}
 
-        <Item rounded style={styles.inputRounded}>
-          <Input style={styles.input} placeholder='Contraseña' placeholderTextColor='#ccc' secureTextEntry={true}
-            value={this.state.contraseña} onChangeText={contraseña => this.setState({contraseña})}/>
-        </Item>
+          <Item rounded style={styles.inputRounded}>
+            <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
+              returnKeyType='next' value={this.state.text} onChangeText={email => this.setState({email})}/>
+          </Item>
 
-        {this.spinnerInicio()}
+          <Item rounded style={styles.inputRounded}>
+            <Input style={styles.input} placeholder='Contraseña' placeholderTextColor='#ccc' secureTextEntry={true}
+              value={this.state.contraseña} onChangeText={contraseña => this.setState({contraseña})}/>
+          </Item>
 
-        <View style={styles.view2}>
+          {this.spinnerInicio()}
+
+          <View style={styles.view2}>
           <View style={styles.view3}>
-            <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite" style={styles.text}
-              onPress={() => Actions.Registro()}>¿Aún no tienes cuenta?, REGÍSTRATE</Animatable.Text>
-            <TouchableOpacity onPress={() => Actions.Recover()}>
-              <Text style={styles.text}>¿Olvidaste tu contraseña?</Text>
-            </TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Registro()}><Text style={styles.text} >¿Aún no tienes cuenta?, REGÍSTRATE</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Recover()}><Text style={styles.text}>¿Olvidaste tu contraseña?</Text></TouchableOpacity>
           </View>
         </View>
-      </Image>
+        </Image>
     );
   }
 }
@@ -218,7 +233,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   icon: {
-    color: 'white'
+    color:'white'
   }
 });
 
