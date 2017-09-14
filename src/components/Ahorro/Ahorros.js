@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import {Container, Content, Card, CardItem, Button, Icon, Body, Fab, Left, View, DeckSwiper} from 'native-base';
-import imgLogo from '../../assets/imgs/Ahorros.png';
+import imgLogo from '../../assets/imgs/ahorros-01.png';
 import CabeceraGen from '../Cabecera/CabeceraGen';
 import {Actions} from 'react-native-router-flux';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   img: {
-    height: 75,
+    height: 65,
     width: '100%',
     flex: 1
   },

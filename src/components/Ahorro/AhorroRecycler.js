@@ -10,7 +10,6 @@ const AhorroRecycler = ({ noticia }) => {
   const { title, date, content, url } = noticia;
   const { thumbnailStyle, thumbnailContainerStyle, headerContentStyle, headerTextStyle, imageStyle } = styles;
   return (
-
     <Card>
       <CardItem cardBody>
         <Image source={imgLogo} style={styles.img}/>

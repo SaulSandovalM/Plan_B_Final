@@ -5,9 +5,9 @@ import {Actions} from 'react-native-router-flux';
 import AreaSpline from '../js/charts/AreaSpline';
 import Pie from '../js/charts/Pie';
 import Theme from '../js/theme';
-import imgIngresos from '../../assets/imgs/Ingresos.png';
-import imgGastos from '../../assets/imgs/Gastos.png';
-import imgAhorros from '../../assets/imgs/Ahorros.png';
+import imgIngresos from '../../assets/imgs/ingresos-01.png';
+import imgGastos from '../../assets/imgs/dinero-01.png';
+import imgAhorros from '../../assets/imgs/ahorros-01.png';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Nodata from './Nodata';
 
