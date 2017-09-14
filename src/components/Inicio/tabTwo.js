@@ -1,21 +1,28 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, View, ListView, ScrollView} from 'react-native';
+import {Image, StyleSheet, View, ListView, ScrollView, Text} from 'react-native';
+import {Spinner} from 'native-base';
 import NoticiaDetalle from './NoticiaDetalle';
 
 class tabTwo extends Component {
-  state = { noticias: [] };
+  state = { noticias: [], loading: false };
 
   componentWillMount() {
     fetch('http://planb.com.mx/?json=get_recent_posts').then((response) => response.json())
       .then(responseJson => {
-        this.setState({ noticias: responseJson.posts });
+        this.setState({ noticias: responseJson.posts, loading: true });
       });
+      console.log(this.state.loading);
   }
 
   renderNoticias() {
-    return this.state.noticias.map(noticia =>
-      <NoticiaDetalle key={noticia.title} noticia={noticia} />
-    );
+    console.log(this.state.loading);
+    if(this.state.loading == false){
+      return <View><Spinner color='#4DA49B' /><Text style={{alignSelf:'center'}}>Cargando...</Text></View>
+    }else{
+      return this.state.noticias.map(noticia =>
+        <NoticiaDetalle key={noticia.title} noticia={noticia} />
+      );
+    }
   }
 
   render() {
@@ -26,18 +33,5 @@ class tabTwo extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  back: {
-    backgroundColor: "white"
-  },
-  img: {
-    height: 200,
-    width: '100%'
-  },
-  card: {
-    flex: 0
-  }
-});
 
 export default tabTwo;

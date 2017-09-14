@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Image, ListView, ActivityIndicator} from 'react-native';
-import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon, Card} from 'native-base';
+import {Form, Label, List, ListItem, Container, Content, Text, Item, Input, Icon, Card, Spinner} from 'native-base';
 import ActionSheet from 'react-native-actionsheet';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
 import Imagen from './Imagen';
@@ -19,7 +19,8 @@ class Perfil extends Component {
       selected: '',
       profiles: [],
       email: '',
-      productos: []
+      productos: [],
+      loading: false
     }
     this.handlePress = this.handlePress.bind(this)
     this.showActionSheet = this.showActionSheet.bind(this)
@@ -50,15 +51,19 @@ class Perfil extends Component {
 
     return fetch('https://ronchon-choucroute-16574.herokuapp.com/api/polizas.json').then((response) => response.json())
     .then((responseJson) => {
-      this.setState({productos: responseJson})
+      this.setState({productos: responseJson, loading: true})
       console.log(responseJson)
       });
   }
 
   renderProductos(){
-    return this.state.productos.map(producto =>
-      <ProductoDetalle key={producto.id} producto={producto} />
-    );
+    if(this.state.loading == false){
+      return <View><Spinner color='#4DA49B' /><Text style={{alignSelf:'center'}}>Cargando...</Text></View>
+    }else{
+      return this.state.productos.map(producto =>
+        <ProductoDetalle key={producto.id} producto={producto} />
+      );
+    }
   }
 
   render() {
