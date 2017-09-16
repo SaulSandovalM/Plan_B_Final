@@ -26,13 +26,13 @@ const Routes = () => {
       <Scene key="root">
         <Scene key="Bienvenido" header={null} component={Bienvenido}/>
         <Scene key="Ter" header={null} component={Terminos}/>
-        <Scene key="Login" header={null} component={Login}/>
+        <Scene key="Login" header={null} component={Login} />
         <Scene key="Recover" header={null} component={Recover}/>
         <Scene key="Log" header={null} component={Log} initial/>
         <Scene key="Registro" header={null} component={Registro}/>
         <Scene key="IngresosIntro" header={null} component={IngresosIntro}/>
         <Scene key="GastosIntro" header={null} component={GastosIntro}/>
-        <Scene key="Inicio" header={null} component={Inicio}/>
+        <Scene key="Inicio" header={null} component={Inicio} />
         <Scene key="Ingresos" header={null} component={Ingresos}/>
         <Scene key="Gastos" header={null} component={Gastos}/>
         <Scene key="Ahorros" header={null} component={Ahorros}/>

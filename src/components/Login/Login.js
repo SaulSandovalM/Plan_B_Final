@@ -52,6 +52,7 @@ class Login extends Component {
                       duration: 3000,
                       type: 'success'
                     })
+
           }
         }).catch((error) => {
           console.log(`Login fail with error: ${error}`);
@@ -125,9 +126,8 @@ class Login extends Component {
           {this.spinnerInicioF()}
 
           <Item rounded style={styles.inputRounded}>
-            <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address'
-              placeholderTextColor='#ccc' returnKeyType='next' value={this.state.text}
-              onChangeText={email => this.setState({email})}/>
+            <Input style={styles.input} placeholder='Correo electrónico' keyboardType='email-address' placeholderTextColor='#ccc'
+              returnKeyType='next' value={this.state.text} onChangeText={email => this.setState({email})}/>
           </Item>
 
           <Item rounded style={styles.inputRounded}>
@@ -139,10 +139,8 @@ class Login extends Component {
 
           <View style={styles.view2}>
           <View style={styles.view3}>
-            <TouchableOpacity onPress={() => Actions.Registro()}>
-              <Text style={styles.text} >¿Aún no tienes cuenta?, REGÍSTRATE</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => Actions.Recover()}>
-              <Text style={styles.text}>¿Olvidaste tu contraseña?</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Registro()}><Text style={styles.text} >¿Aún no tienes cuenta?, REGÍSTRATE</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => Actions.Recover()}><Text style={styles.text}>¿Olvidaste tu contraseña?</Text></TouchableOpacity>
           </View>
         </View>
         </Image>

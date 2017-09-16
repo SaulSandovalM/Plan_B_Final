@@ -1,17 +1,31 @@
 import React, {Component} from 'react';
-import {TouchableHighlight, Text} from 'react-native';
-import Style from '../estilos/Styles';
+import {TouchableHighlight, Text, StyleSheet} from 'react-native';
 
 export default class InputButton extends Component {
   render() {
     return (
       <TouchableHighlight style={[
-        Style.inputButton, this.props.highlight
-          ? Style.inputButtonHighlighted
+        styles.inputButton, this.props.highlight
+          ? styles.inputButtonHighlighted
           : null
       ]} underlayColor="#F5F5F5" onPress={this.props.onPress}>
-        <Text style={Style.inputButtonText}>{this.props.value}</Text>
+        <Text style={styles.inputButtonText}>{this.props.value}</Text>
       </TouchableHighlight>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  inputButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  inputButtonHighlighted: {
+    backgroundColor: '#B9F6CA'
+  },
+  inputButtonText: {
+    fontSize: 20,
+    color: '#616161'
+  }
+})

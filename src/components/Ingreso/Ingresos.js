@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, Text, View, Image} from 'react-native';
 import {Container, Content, Input, Left, Body, Icon, List, ListItem, Button, Fab, Title} from 'native-base';
 import CabeceraGen from '../Cabecera/CabeceraGen';
-import imgLogo from '../../assets/imgs/Ingresos.png';
+import imgLogo from '../../assets/imgs/ingresos-01.png';
 import Valores from '../Modal/Modal';
 import Fecha from '../Modal/Fecha';
 import firebase, {firebaseAuth} from '../Firebase/Firebase';
+import {Actions} from 'react-native-router-flux';
+import Listconte from '../listaIngreso/Listconte'
 
 export default class Ingresos extends Component {
   constructor() {
@@ -22,7 +24,6 @@ export default class Ingresos extends Component {
     objeto['cantidad'] = valorcito
     this.setState({objeto});
   }
-
   desFun = (descripcion) => {
     objeto = this.state.objeto
     objeto['descri'] = descripcion
@@ -34,13 +35,14 @@ export default class Ingresos extends Component {
     this.state.ingreso.push(nuevo);
     this.setState({ingreso: this.state.ingreso})
     firebaseAuth.onAuthStateChanged(function(user) {
-      console.log('user', user)
+
       if (user) {
         var uid = user.uid;
       }
       console.log(nuevo)
       firebase.database().ref('usuarios/' + uid + '/ingreso').push(nuevo);
     });
+    Actions.Inicio()
   }
 
   componentWillMount() {
@@ -58,30 +60,35 @@ export default class Ingresos extends Component {
     });
   }
 
+
   listenForItems(itemsRef) {
     itemsRef.on('value', (snap) => {
       // get children as an array
       var ingreso = [];
       snap.forEach((child) => {
-        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
+        ingreso.push({descri: child.val().descri,
+                      cantidad: child.val().cantidad,
+                      id: child.key})
         console.log(child.key);
       });
       this.setState({ingreso: ingreso});
     });
   }
 
-  listenForItems(itemsRef) {
-    itemsRef.on('value', (snap) => {
-
-      // get children as an array
-      var ingreso = [];
-      snap.forEach((child) => {
-        ingreso.push({descri: child.val().descri, cantidad: child.val().cantidad, id: child.key})
-        console.log(child.key);
-      });
-      this.setState({ingreso: ingreso});
+  borrar = (item) => {
+    console.log(item)
+    let updates = {};
+    firebaseAuth.onAuthStateChanged(function(user) {
+      console.log('user', user)
+      if (user) {
+        var uid = user.uid;
+      }
+      firebase.database().ref('usuarios/' + uid + '/ingreso/' + item.id).set(null);
+      //Esta linea coloca valor nulo en el element que se seleccione
     });
   }
+
+
 
   render() {
     return (
@@ -109,7 +116,9 @@ export default class Ingresos extends Component {
               </Body>
             </ListItem>
 
-            <Text style={styles.text}>Ingreso Extra</Text>
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.text}>Ingreso Extra</Text>
+            </View>
             <ListItem icon>
               <Left>
                 <Icon name="calculator" style={styles.icon}/>
@@ -128,9 +137,18 @@ export default class Ingresos extends Component {
             </ListItem>
 
           </List>
+          <Listconte ingreso={this.state.ingreso}
+                borrar={this.borrar}
+                editFun={this.editFun}
+                editKey={this.editKey}/>
 
         </Content>
-        <Fab direction="up" position="bottomRight" onPress={this.addItem} style={styles.fab}>
+
+        <Fab
+          direction="up"
+          position="bottomRight"
+          onPress={this.addItem}
+          style={styles.fab}>
           <Icon name="md-checkmark"/>
         </Fab>
       </Container>
@@ -178,7 +196,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(102,165,138)"
   },
   text: {
-    marginLeft: 60,
     margin: 20,
     fontSize: 20
   }

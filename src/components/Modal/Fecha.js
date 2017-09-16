@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import DatePicker from 'react-native-datepicker'
 import {StyleSheet} from 'react-native';
+import moment from 'moment';
 
 class Fecha extends Component {
   constructor(props) {
@@ -10,6 +11,11 @@ class Fecha extends Component {
     }
   }
 
+dateChang=()=>{
+  this.setState({date: date},() => {
+    this.props.fechafun(this.state.date)
+  })
+}
   render() {
     return (
       <DatePicker
@@ -38,9 +44,8 @@ class Fecha extends Component {
       dateText: {
         color: '#424242'
       }
-    }} onDateChange={() => {
-      this.setState({date: date})
-    }}/>);
+    }} onDateChange={this.dateChang}/>
+  );
   }
 }
 

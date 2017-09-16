@@ -4,6 +4,7 @@ import {Header, Right, Button, Icon} from 'native-base';
 import {Actions} from 'react-native-router-flux';
 import imgLogo from '../../assets/imgs/planb.png';
 import {firebaseAuth} from '../Firebase/Firebase';
+import * as Animatable from 'react-native-animatable';
 
 export default class Cabecera extends Component {
   constructor(props) {
@@ -22,9 +23,10 @@ export default class Cabecera extends Component {
         <Image source={imgLogo} style={styles.image}/>
 
         <Right>
-          <TouchableOpacity style={styles.touchMargin} onPress={() => Actions.Tips()}>
+          <Animatable.Text animation="pulse" easing="ease-out" iterationCount="infinite"
+            onPress={() => Actions.Tips()}>
             <Icon name='md-bulb' style={styles.icon1}/>
-          </TouchableOpacity>
+          </Animatable.Text>
           <TouchableOpacity style={styles.margin} onPress={() => Actions.Perfil()}>
             <Icon name='person' style={styles.icon2}/>
           </TouchableOpacity>
